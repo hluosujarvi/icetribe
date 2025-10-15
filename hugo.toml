@@ -31,3 +31,27 @@ theme = 'ananke'
 
 [params]
   read_more_copy = "Lue lisää"
+
+# Ananke teeman sosiaalinen media
+[params.ananke.social]
+
+[params.ananke.social.follow]
+networks = ["facebook", "instagram", "soundcloud"]
+
+# Sosiaalisten medioiden profiilit
+[params.ananke.social.facebook]
+profilelink = "https://www.facebook.com/Icetribe"
+
+[params.ananke.social.instagram] 
+username = "icetribe_official"
+
+[params.ananke.social.soundcloud]
+profilelink = "https://soundcloud.com/icetribe"
+
+# SoundCloud määritelmä (puuttuu Anankesta)
+[params.ananke.social.networks.soundcloud]
+slug = "soundcloud"
+label = "SoundCloud"
+color = "#ff5500"
+profile = "https://soundcloud.com/%s"
+icon = "soundcloud"

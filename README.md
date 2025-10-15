@@ -10,7 +10,16 @@ Icetriben virallinen kotisivu, joka on rakennettu Hugo-generaattorilla ja Ananke
 - **Uutiset** - Keikkaraportit ja ajankohtaista
 - **Yhteystiedot** - Keikkavaraukset ja yhteystiedot
 
-## 🚀 Pika-aloitus
+## � Sosiaalinen media
+
+Icetribe löytyy myös sosiaalisesta mediasta:
+- **Facebook**: https://www.facebook.com/Icetribe
+- **Instagram**: https://www.instagram.com/icetribe_official/
+- **SoundCloud**: https://soundcloud.com/icetribe
+
+Sosiaalisten medioiden ikonit näkyvät sivuston footerissa.
+
+## �🚀 Pika-aloitus
 
 ### Kehitysympäristö
 ```bash
@@ -123,6 +132,25 @@ theme = 'ananke'
 
 [params]
   read_more_copy = "Lue lisää"  # Suomenkielinen "Read more"
+```
+
+### Sosiaalisten medioiden konfigurointi
+```toml
+# Ananke teeman sosiaalinen media
+[params.ananke.social]
+
+[params.ananke.social.follow]
+networks = ["facebook", "instagram", "soundcloud"]
+
+# Sosiaalisten medioiden profiilit
+[params.ananke.social.facebook]
+profilelink = "https://www.facebook.com/YourPage"
+
+[params.ananke.social.instagram] 
+username = "your_username"
+
+[params.ananke.social.soundcloud]
+profilelink = "https://soundcloud.com/yourprofile"
 ```
 
 ## 🗂️ Tiedostorakenne
