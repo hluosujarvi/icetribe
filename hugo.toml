@@ -1,0 +1,30 @@
+baseURL = 'https://icetribe.fi/'
+languageCode = 'fi-fi'
+title = 'Icetribe - Pop & Rock -bilebändi'
+theme = 'ananke'
+
+[menu]
+  [[menu.main]]
+    name = "Etusivu"
+    url = "/"
+    weight = 1
+
+  [[menu.main]]
+    name = "Tietoa yhtyeestä"
+    url = "/about/"
+    weight = 2
+
+  [[menu.main]]
+    name = "Repertuaari"
+    url = "/repertuaari/"
+    weight = 3
+
+  [[menu.main]]
+    name = "Uutiset"
+    url = "/posts/"
+    weight = 4
+
+  [[menu.main]]
+    name = "Yhteystiedot"
+    url = "/yhteystiedot/"
+    weight = 5
