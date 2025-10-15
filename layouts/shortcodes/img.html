@@ -1,0 +1,37 @@
+{{/* 
+  Smart Image Shortcode - automaattinen WebP-optimointi
+  Usage: {{< img src="kuva.jpg" alt="Kuvan kuvaus" >}}
+  
+  Kuvat voi laittaa:
+  1. assets/images/ kansioon (SUOSITUS - automaattinen WebP)  
+  2. Saman kansion kanssa kuin markdown-tiedosto
+  3. static/images/ kansioon (ei optimointia)
+*/}}
+
+{{ $src := .Get "src" }}
+{{ $alt := .Get "alt" | default "Kuva" }}
+{{ $class := .Get "class" | default "img db w-100" }}
+{{ $image := "" }}
+
+{{/* 1. Etsi assets/images/ kansiosta (automaattinen optimointi) */}}
+{{ $assetsPath := printf "images/%s" $src }}
+{{ with resources.Get $assetsPath }}
+  {{ $webp := .Resize "1200x webp q85" }}
+  <img src="{{ $webp.RelPermalink }}" alt="{{ $alt }}" loading="lazy" class="{{ $class }}" />
+
+{{/* 2. Etsi page resources (content-kansion mukana) */}}
+{{ else }}
+  {{ with .Page.Resources.GetMatch $src }}
+    {{ if eq .MediaType.SubType "jpeg" "jpg" "png" "gif" }}
+      {{ $webp := .Resize "1200x webp q85" }}
+      <img src="{{ $webp.RelPermalink }}" alt="{{ $alt }}" loading="lazy" class="{{ $class }}" />
+    {{ else }}
+      <img src="{{ .RelPermalink }}" alt="{{ $alt }}" loading="lazy" class="{{ $class }}" />
+    {{ end }}
+
+  {{/* 3. Fallback static/images/ (ei optimointia) */}}
+  {{ else }}
+    {{ $staticPath := printf "/images/%s" $src }}
+    <img src="{{ $staticPath }}" alt="{{ $alt }}" loading="lazy" class="{{ $class }}" />
+  {{ end }}
+{{ end }}
