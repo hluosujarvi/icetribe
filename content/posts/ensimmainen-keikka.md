@@ -3,6 +3,7 @@ title = 'Ensimmäinen keikka uudella kokoonpanolla - Kessan Baari täynnä!'
 date = '2025-10-04'
 draft = false
 tags = ['keikka', 'uutiset', 'kessan-baari']
+featured_image = '/images/Kessa.jpg'
 +++
 
 # Kessan Baari oli ääriään myöten täynnä!

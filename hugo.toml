@@ -28,3 +28,6 @@ theme = 'ananke'
     name = "Yhteystiedot"
     url = "/yhteystiedot/"
     weight = 5
+
+[params]
+  read_more_copy = "Lue lisää"

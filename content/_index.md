@@ -1,5 +1,5 @@
 +++
-title = 'Tervetuloa Icetribeen'
+title = 'Icetribe Pops. Rocks.'
 date = '2025-10-15'
 draft = false
 +++
