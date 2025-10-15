@@ -1,0 +1,8 @@
+baseURL = "https://icetribe.fi"
+languageCode = "fi-fi"
+title = "Icetribe"
+theme = "ananke"
+
+[params]
+  description = "Icetribe - Hittejä eri vuosikymmeniltä"
+
