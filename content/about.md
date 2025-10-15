@@ -49,6 +49,5 @@ Tuomme klassikot tuoreella otteella:
 
 Varaa Icetribe keikkaasi ja takaa onnistuneet bileet!
 
-📧 **Sähköposti:** keikkavaraukset@icetribe.fi  
-📱 **Puhelin:** 040-123-4567  
+📧 **Sähköposti:** info@icetribe.fi  
 🌐 **Kotisivu:** www.icetribe.fi
