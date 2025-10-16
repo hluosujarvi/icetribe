@@ -29,6 +29,16 @@ theme = 'ananke'
     url = "/yhteystiedot/"
     weight = 5
 
+# Hugo kuvan prosessointi asetukset
+[imaging]
+  resampleFilter = "lanczos"
+  quality = 85
+  anchor = "smart"
+  
+[imaging.webp]
+  quality = 85
+  lossless = false
+
 [params]
   read_more_copy = "Lue lisää"
 

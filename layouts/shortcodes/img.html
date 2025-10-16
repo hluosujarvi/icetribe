@@ -1,0 +1,40 @@
+{{/*
+  WebP-optimized image shortcode for GitHub Pages
+  
+  Usage: {{< img src="image.jpg" alt="Description" >}}
+  
+  Automatically converts images to WebP format with 85% quality
+  and maximum width of 800px for optimal loading speed.
+*/}}
+
+{{ $src := .Get "src" }}
+{{ $alt := .Get "alt" }}
+{{ $class := .Get "class" | default "" }}
+
+{{ if $src }}
+  {{ $image := "" }}
+  
+  {{/* Try to find image as page resource first */}}
+  {{ with .Page.Resources.GetMatch $src }}
+    {{ $image = . }}
+  {{ else }}
+    {{/* Try to find in assets */}}
+    {{ with resources.Get (printf "images/%s" $src) }}
+      {{ $image = . }}
+    {{ end }}
+  {{ end }}
+  
+  {{ if $image }}
+    {{/* Process image with WebP optimization */}}
+    {{ $webp := $image.Resize "800x webp q85" }}
+    {{ $fallback := $image.Resize "800x q85" }}
+    
+    <picture class="{{ $class }}">
+      <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
+      <img src="{{ $fallback.RelPermalink }}" alt="{{ $alt }}" loading="lazy">
+    </picture>
+  {{ else }}
+    {{/* Fallback to static image */}}
+    <img src="/images/{{ $src }}" alt="{{ $alt }}" class="{{ $class }}" loading="lazy">
+  {{ end }}
+{{ end }}

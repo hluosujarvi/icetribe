@@ -1,0 +1,45 @@
+{{/*
+	GetFeaturedImage with WebP optimization for GitHub Pages
+
+	This partial gets the url for featured image and optimizes it to WebP format.
+	Falls back to original format if WebP processing fails.
+
+	@return RelPermalink to optimized featured image, or an empty string if not found.
+*/}}
+
+{{/* Declare variables */}}
+{{ $linkToCover := "" }}
+{{ $matches := "feature,cover" }}
+
+{{/* Use the value from front matter if present */}}
+{{ with .Params.featured_image }}
+  {{/* Try to find as Page Resource first (for WebP optimization) */}}
+  {{ with $.Resources.GetMatch . }}
+    {{/* Process as WebP if Hugo extended is available */}}
+    {{ $webp := .Resize "1200x webp q85" }}
+    {{ if $webp }}
+      {{ $linkToCover = $webp.RelPermalink }}
+    {{ else }}
+      {{ $linkToCover = .RelPermalink }}
+    {{ end }}
+  {{ else }}
+    {{/* Fall back to static directory */}}
+    {{ $linkToCover = strings.Trim . "/" | urls.AbsURL }}
+  {{ end }}
+{{ else }}
+  {{/* Find the first image with 'cover' or 'feature' in the name */}}
+  {{ with .Resources.ByType "image" }}
+    {{ with .GetMatch (fmt.Printf "**{%s}*" $matches) }}
+      {{/* Process as WebP if possible */}}
+      {{ $webp := .Resize "1200x webp q85" }}
+      {{ if $webp }}
+        {{ $linkToCover = $webp.RelPermalink }}
+      {{ else }}
+        {{ $linkToCover = .RelPermalink }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Return the optimized image link */}}
+{{ return $linkToCover }}
