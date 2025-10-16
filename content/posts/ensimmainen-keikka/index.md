@@ -10,7 +10,7 @@ featured_image = 'Kessa.jpg'
 
 Ensimmäinen keikkamme tällä uudella kokoonpanolla soitettiin 4.10 Kessan Baarissa, joka oli ääriään myöten täynnä. Tunnelma oli käsin kosketeltava ja yleisö oli mukana alusta loppuun!
 
-{{< img src="Kessa.jpg" alt="Icetribe esiintyy Kessan Baarissa täydelle salille" >}}
+![Icetribe esiintyy Kessan Baarissa täydelle salille](Kessa.jpg)
 
 ## Settilista
 
