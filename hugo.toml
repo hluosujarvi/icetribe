@@ -1,4 +1,4 @@
-baseURL = 'https://icetribe.fi/'
+baseURL = ''
 languageCode = 'fi-fi'
 title = 'Icetribe - Pop & Rock -bilebändi'
 theme = 'ananke'
