@@ -1,25 +1,28 @@
-# Icetribe - Hugo Website
+# 🎸 Icetribe - Hugo Website
 
-Icetriben virallinen kotisivu, joka on rakennettu Hugo-generaattorilla ja Ananke-teemalla. Sisältää automaattisen WebP-kuvaoptimoinnin Cloudflare-hostingia varten.
+Icetriben virallinen kotisivu, joka on rakennettu Hugo-generaattorilla ja Ananke-teemalla. Sivusto sisältää automaattisen WebP-kuvaoptimoinnin ja on käytössä GitHub Pages -palvelussa.
 
-## 🎸 Sivuston sisältö
+## 🌐 Sivusto
+
+- **Live-sivusto**: https://hluosujarvi.github.io/icetribe/
+- **Repository**: https://github.com/hluosujarvi/icetribe
+
+## � Sivuston sisältö
 
 - **Etusivu** - Tervetuloa Icetribeen
-- **Tietoa yhtyeestä** - Bändin jäsenet ja historia
+- **Tietoa yhtyeestä** - Bändin jäsenet ja historia  
 - **Repertuaari** - Kappaleet 7 vuosikymmeneltä (1960-2020)
 - **Uutiset** - Keikkaraportit ja ajankohtaista
 - **Yhteystiedot** - Keikkavaraukset ja yhteystiedot
 
-## � Sosiaalinen media
+## 📱 Sosiaalinen media
 
 Icetribe löytyy myös sosiaalisesta mediasta:
 - **Facebook**: https://www.facebook.com/Icetribe
-- **Instagram**: https://www.instagram.com/icetribe_official/
+- **Instagram**: @icetribe_official
 - **SoundCloud**: https://soundcloud.com/icetribe
 
-Sosiaalisten medioiden ikonit näkyvät sivuston footerissa.
-
-## �🚀 Pika-aloitus
+## 🚀 Pika-aloitus
 
 ### Kehitysympäristö
 ```bash
@@ -27,22 +30,14 @@ Sosiaalisten medioiden ikonit näkyvät sivuston footerissa.
 git clone https://github.com/hluosujarvi/icetribe.git
 cd icetribe
 
-# Alusta submodulit (Ananke-teema)
-git submodule update --init --recursive
-
-# Käynnistä kehitysserveri
+# Käynnistä kehitysserveri (Hugo Extended vaaditaan!)
 hugo server
-```
 
-Sivusto on nyt käytettävissä osoitteessa: **http://localhost:1313/**
+# Sivusto näkyy osoitteessa: http://localhost:1313/
+```
 
 ### Tuotantoversio
-```bash
-# Rakenna staattinen sivusto
-hugo
-
-# Tiedostot löytyvät public/ kansiosta
-```
+Sivusto päivittyy automaattisesti GitHub Pages:iin kun teet muutoksia `main`-branchiin. GitHub Actions käyttää Hugo Extended 0.151.0 versiota.
 
 ## 📝 Sisällön muokkaus
 
@@ -52,188 +47,185 @@ hugo
 - **Repertuaari**: `content/repertuaari.md`
 - **Yhteystiedot**: `content/yhteystiedot.md`
 
-### Uutisten/blogien lisääminen
-1. Luo uusi kansio: `content/posts/postauksen-nimi/`
-2. Luo tiedosto: `content/posts/postauksen-nimi/index.md`
-3. Lisää front matter:
+### Hugo Front Matter -esimerkki
+```markdown
++++
+title = 'Sivun otsikko'
+date = '2025-10-16'
+draft = false
+featured_image = '/images/kuva.jpg'  # Valinnainen herokuva
++++
+
+# Sivun sisältö Markdownilla
+```
+
+## 📸 Kuvien lisääminen
+
+### 1. Sivutason kuvat (etusivut, taustakuvat)
+```
+static/images/
+├── Front.jpg          # Etusivun herokuva  
+├── band-photo.jpg     # Yhtyeen kuva
+├── logo.png           # Logo
+└── background.jpg     # Taustakuva
+```
+
+**Käyttö sivuilla:**
+```markdown
++++
+featured_image = '/images/band-photo.jpg'
++++
+```
+
+### 2. Postauksen kuvat (Page Bundle -rakenne)
+```
+content/posts/
+└── uusi-postaus/
+    ├── index.md       # Postauksen sisältö
+    ├── herokuva.jpg   # Postauksen herokuva
+    └── sisaltokuva.jpg # Sisältökuva
+```
+
+**Käyttö postauksessa:**
+```markdown
++++
+title = 'Uusi postaus'
+featured_image = 'herokuva.jpg'    # Ei /images/ polkua!
++++
+
+Postauksen sisältö...
+
+{{< img "sisaltokuva.jpg" "Kuvan kuvaus" >}}
+```
+
+### WebP-optimointi
+Kaikki kuvat muunnetaan automaattisesti WebP-muotoon laadulla 85%. Alkuperäiset kuvat säilyvät fallback-vaihtoehtona.
+
+## 📰 Uuden postauksen luominen
+
+### 1. Luo hakemisto ja tiedostot
+```bash
+# Luo postauksen hakemisto
+mkdir -p content/posts/postauksen-nimi
+
+# Luo index.md tiedosto
+touch content/posts/postauksen-nimi/index.md
+```
+
+### 2. Lisää sisältö
 ```markdown
 +++
 title = 'Postauksen otsikko'
-date = '2025-10-15'
+date = '2025-10-16'
 draft = false
-tags = ['keikka', 'uutiset']
-featured_image = 'kuva.jpg'  # valinnainen
+featured_image = 'herokuva.jpg'  # Jos haluat herokuvan
 +++
 
-# Postauksen sisältö
-Kirjoita sisältö markdown-muodossa...
+# Postauksen otsikko
+
+Postauksen sisältö Markdownilla...
+
+## Alataso-otsikko
+
+Lisää tekstiä ja kuvia:
+
+{{< img "kuva1.jpg" "Kuvan kuvaus" >}}
 ```
 
-## 📸 Kuvien käyttö ja optimointi
-
-Sivusto optimoi kuvat automaattisesti WebP-muotoon Cloudflare-hostingia varten.
-
-### 3 tapaa lisätä kuvia:
-
-#### 1. 🏆 **Assets-kansio (SUOSITUS)**
-```
-assets/images/kuva.jpg
-```
-**Käyttö sisällössä:**
-```markdown
-{{< img src="kuva.jpg" alt="Kuvan kuvaus" >}}
-```
-✅ Automaattinen WebP-optimointi (q85, max 1200px)
-
-#### 2. 📁 **Page Bundle**
-```
-content/posts/postaus/index.md
-content/posts/postaus/kuva.jpg
-```
-**Käyttö:**
-```markdown
-{{< img src="kuva.jpg" alt="Kuvan kuvaus" >}}
-```
-✅ Automaattinen WebP-optimointi
-
-#### 3. 📄 **Featured Image**
-Lisää front matteriin:
-```markdown
-featured_image = 'kuva.jpg'  # Page bundlessa
-# TAI
-featured_image = '/images/kuva.jpg'  # Static-kansiossa
-```
-✅ Automaattinen WebP-optimointi (Page Bundle)
-
-### Kuvaoptimoinnin hyödyt:
-- 🚀 **25-50% pienempi tiedostokoko** (WebP vs JPEG)
-- 📱 **Responsiivinen koko** (max 1200px)
-- ⚡ **Lazy loading** (latautuu vain tarvittaessa)
-- 🎯 **Cloudflare-optimoitu** laatu/koko -suhde
-
-## 🎨 Teeman kustomointi
-
-### Navigaatiovalikon muokkaus
-Muokkaa `hugo.toml` tiedostoa:
-```toml
-[menu]
-  [[menu.main]]
-    name = "Sivun nimi"
-    url = "/sivu/"
-    weight = 1
+### 3. Lisää kuvat
+```bash
+# Kopioi kuvat postauksen hakemistoon
+cp ~/Downloads/kuva.jpg content/posts/postauksen-nimi/
 ```
 
-### Sivuston asetukset
-```toml
-baseURL = 'https://icetribe.fi/'
-languageCode = 'fi-fi'
-title = 'Icetribe - Pop & Rock -bilebändi'
-theme = 'ananke'
-
-[params]
-  read_more_copy = "Lue lisää"  # Suomenkielinen "Read more"
+### 4. Tallenna ja julkaise
+```bash
+# Lisää muutokset Gitiin
+git add .
+git commit -m "Lisää uusi postaus: Postauksen nimi"
+git push origin main
 ```
 
-### Sosiaalisten medioiden konfigurointi
-```toml
-# Ananke teeman sosiaalinen media
-[params.ananke.social]
+Sivusto päivittyy automaattisesti GitHub Pages:iin noin 2-5 minuutissa.
 
-[params.ananke.social.follow]
-networks = ["facebook", "instagram", "soundcloud"]
+## 🛠️ Tekninen toteutus
 
-# Sosiaalisten medioiden profiilit
-[params.ananke.social.facebook]
-profilelink = "https://www.facebook.com/YourPage"
+### Hugo-versio ja teema
+- **Hugo Extended 0.151.0** (vaaditaan WebP-käsittelyyn)
+- **Ananke-teema** (suora kopio, ei submodule)
+- **WebP-optimointi** automaattisesti kaikille kuville
+- **Responsiiviset kuvat** {{< img >}} shortcodella
 
-[params.ananke.social.instagram] 
-username = "your_username"
-
-[params.ananke.social.soundcloud]
-profilelink = "https://soundcloud.com/yourprofile"
-```
-
-## 🗂️ Tiedostorakenne
-
+### Tiedostorakenne
 ```
 icetribe/
-├── content/
-│   ├── _index.md              # Etusivu
-│   ├── about.md               # Tietoa yhtyeestä
-│   ├── repertuaari.md         # Kappalelista
-│   ├── yhteystiedot.md        # Yhteystiedot
-│   └── posts/                 # Blogipositukset
-│       └── postaus/
-│           ├── index.md       # Page Bundle
-│           └── kuva.jpg       # Postauksen kuva
-├── assets/
-│   └── images/                # Optimoitavat kuvat (SUOSITUS)
-├── static/
-│   └── images/                # Staattiset kuvat (ei optimointia)
-├── layouts/
-│   ├── shortcodes/
-│   │   └── img.html          # Kuvaoptimointi shortcode
-│   └── partials/
-│       └── func/
-│           └── GetFeaturedImage.html  # WebP-optimointi
-├── themes/
-│   └── ananke/               # Git submodule
-├── hugo.toml                 # Pääkonfiguraatio
-└── README.md                # Tämä tiedosto
+├── hugo.toml              # Pääkonfiguraatio
+├── content/               # Sivujen sisältö
+│   ├── _index.md         # Etusivu
+│   ├── about.md          # Tietoa yhtyeestä
+│   └── posts/            # Blogiposts
+│       └── postaus/      # Page Bundle -rakenne
+├── static/images/        # Sivutason kuvat
+├── layouts/              # Mukautetut layoutit
+│   └── shortcodes/
+│       └── img.html      # WebP-optimoitu kuva-shortcode
+├── themes/ananke/        # Teema (suora kopio)
+└── .github/workflows/    # GitHub Actions CI/CD
 ```
 
-## 🔧 Teknologia
+### Deployment
+- **GitHub Actions** automaattinen deployment
+- **GitHub Pages** hosting Hugo Extended -tuella
+- **WebP-optimointi** käytössä tuotannossa
+- **Automaattinen HTTPS** ja CDN GitHub Pages:in kautta
 
-- **[Hugo](https://gohugo.io/)** - Staattinen sivustogeneraattori
-- **[Ananke](https://github.com/theNewDynamic/gohugo-theme-ananke)** - Hugo-teema
-- **[Tachyons CSS](https://tachyons.io/)** - Utility-first CSS framework
-- **WebP Image Processing** - Automaattinen kuvaoptimointi
-- **Cloudflare Pages** - Hosting (suositus)
+## � Konfiguraatio
 
-## 🚀 Julkaisu
+### hugo.toml - tärkeimmät asetukset
+```toml
+# WebP-optimointi
+[imaging]
+  quality = 85
+  
+[imaging.webp]
+  quality = 85
+  lossless = false
 
-### Cloudflare Pages
-1. Yhdistä GitHub repository Cloudflare Pagesiin
-2. Build command: `hugo`
-3. Output directory: `public`
-4. Environment variable: `HUGO_VERSION = 0.151.0`
-
-### GitHub Pages
-```yaml
-# .github/workflows/hugo.yml
-name: Deploy Hugo site to Pages
-on:
-  push:
-    branches: ["main"]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
-        with:
-          hugo-version: '0.151.0'
-          extended: true
-      - name: Build
-        run: hugo --minify
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+# Sosiaalinen media
+[params.ananke.social.follow]
+  networks = ["facebook", "instagram", "soundcloud"]
 ```
+
+### Shortcodet
+- `{{< img "kuva.jpg" "Kuvaus" >}}` - WebP-optimoitu responsiivinen kuva
+- Luo automaattisesti `<picture>`-elementit WebP + JPEG fallback
+
+## 🐛 Yleisiä ongelmia
+
+### Hugo Extended puuttuu
+```bash
+# macOS (Homebrew)
+brew install hugo
+
+# Tarkista versio
+hugo version  # Pitää näyttää "extended"
+```
+
+### Kuvat eivät näy
+- Tarkista polut: `/images/` sivutason kuville, ei polkua Page Bundle -kuville
+- Varmista että kuvat ovat oikeassa hakemistossa
+
+### Sivusto ei päivity
+- Tarkista GitHub Actions: https://github.com/hluosujarvi/icetribe/actions
+- Odota 2-5 minuuttia deployment:in valmistumista
 
 ## 📞 Tuki
 
 Jos tarvitset apua sivuston kanssa:
-1. Tarkista Hugo-dokumentaatio: https://gohugo.io/documentation/
-2. Ananke-teeman wiki: https://github.com/theNewDynamic/gohugo-theme-ananke/wiki
-3. Ota yhteyttä kehittäjään
+1. Tarkista tämä README.md
+2. Katso GitHub Issues: https://github.com/hluosujarvi/icetribe/issues
+3. Ota yhteyttä ylläpitäjään
 
-## 📄 Lisenssi
+---
 
-Tämä projekti käyttää MIT-lisenssiä. Ananke-teema on myös MIT-lisensoitu.
+**Icetribe** - Pop & Rock -bilebändi | 🎵 Seitsemän vuosikymmenen hitit nykyaikaan
