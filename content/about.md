@@ -6,7 +6,7 @@ title = 'Tietoa yhtyeestä'
 
 # Tietoa Icetribesta
 
-Icetribe on suomalainen pop & rock -bilebändi, joka tuo seitsemän vuosikymmenen parhaat hitit nykyaikaan. Olemme erikoistuneet luomaan ikimuistoisia bilehetkiä kaikille sukupolville.
+Icetribe on Tamperelainen pop & rock -bilebändi, joka tuo seitsemän vuosikymmenen parhaat hitit nykyaikaan.
 
 ## Yhtyeen jäsenet
 
@@ -20,7 +20,7 @@ Rytmiikan ammattilainen, joka pitää bileet käynnissä
 Groove-mestari, jonka bassokuviot saavat kaikki tanssimaan
 
 **Kalle Mäkelä** - Koskettimet  
-Monipuolinen muusikko, joka tuo syvyyttä ja sointia kappaleisiin
+Monipuolinen muusikko, joka tuo syvyyttä ja sointia kappaleisiin unohtamatta sooloja, joita ei koiteta kahta kertaa samoin!
 
 **Jarmo Koivusaari** - Kitara  
 Riff-mestarimme, joka hallitsee sekä power chordit että sielukkaat soolot

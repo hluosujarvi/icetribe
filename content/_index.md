@@ -1,5 +1,5 @@
 +++
-title = 'Icetribe Pops. Rocks.'
+title = 'Icetribe Pops. Icetribe Rocks!'
 date = '2025-10-15'
 draft = false
 featured_image = '/images/Front.jpg'

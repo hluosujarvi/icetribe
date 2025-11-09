@@ -10,12 +10,12 @@ theme = 'ananke'
     weight = 1
 
   [[menu.main]]
-    name = "Tietoa yhtyeestä"
+    name = "Tietoa"
     url = "/about/"
     weight = 2
 
   [[menu.main]]
-    name = "Repertuaari"
+    name = "Soitossa"
     url = "/repertuaari/"
     weight = 3
 
