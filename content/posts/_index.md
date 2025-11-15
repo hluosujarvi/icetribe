@@ -1,5 +1,5 @@
 +++
-title = 'Kuulumiset'
+title = 'Hei hei mitä kuuluu?'
 draft = false
 featured_image = '/images/cover_posts.jpg'
 +++
