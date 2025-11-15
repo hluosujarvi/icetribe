@@ -1,0 +1,70 @@
+/* Header image optimization and caching improvements */
+
+/* Preload critical header images via CSS */
+.header-preload::before {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  background-image: 
+    url('/images/cover_index.jpg'),
+    url('/images/cover_about.jpg'),
+    url('/images/cover_soitossa.jpg'),
+    url('/images/cover_posts.jpg'),
+    url('/images/cover_yhteystiedot.jpg');
+}
+
+/* Optimize header transitions */
+.cover {
+  transition: background-image 0.3s ease-in-out;
+  background-size: cover;
+  background-position: center;
+  will-change: background-image;
+}
+
+/* Preload hover states for navigation */
+.menu a:hover {
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+/* Image loading optimization */
+img[loading="eager"] {
+  content-visibility: visible;
+}
+
+/* WebP support detection and fallback */
+.webp .cover {
+  background-image: var(--header-webp, var(--header-jpg));
+}
+
+.no-webp .cover {
+  background-image: var(--header-jpg);
+}
+
+/* Responsive header image sizes for different viewports */
+@media (max-width: 768px) {
+  .cover {
+    background-size: cover;
+    background-position: center 20%; /* Better mobile positioning */
+  }
+}
+
+@media (min-width: 1200px) {
+  .cover {
+    background-attachment: fixed; /* Parallax effect on desktop */
+  }
+}
+
+/* Prefetch next likely navigation targets */
+.nav-prefetch {
+  display: none;
+}
+
+.nav-prefetch::after {
+  content: url('/images/cover_about.jpg') url('/images/cover_soitossa.jpg');
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+}

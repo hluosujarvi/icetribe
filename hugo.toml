@@ -46,9 +46,18 @@ theme = 'ananke'
   quality = 85
   lossless = false
 
+# Cache-optimoinnit
+[caches]
+  [caches.images]
+    dir = ":resourceDir/_gen"
+    maxAge = "24h"
+  [caches.assets]
+    dir = ":resourceDir/_gen"
+    maxAge = "24h"
+
 [params]
   read_more_copy = "Lue lisää"
-  custom_css = ["css/quote-block.css", "css/homepage-layout.css"]
+  custom_css = ["css/quote-block.css", "css/homepage-layout.css", "css/image-optimization.css"]
 
 # Ananke teeman sosiaalinen media
 [params.ananke]
