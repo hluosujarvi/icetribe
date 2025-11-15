@@ -1,7 +1,7 @@
 +++
 title = 'Mitä voi odottaa?'
 draft = false
-featured_image = '/images/cover_repertuaari.jpg'
+featured_image = '/images/cover_soitossa.jpg'
 +++
 # Esimerkiksi näitä voit kuulla
 

@@ -11,17 +11,17 @@ theme = 'ananke'
     weight = 1
 
   [[menu.main]]
-    name = "Tietoa"
+    name = "Bändi"
     url = "/about/"
     weight = 2
 
   [[menu.main]]
-    name = "Soitossa"
-    url = "/repertuaari/"
+    name = "Biisit"
+    url = "/soitossa/"
     weight = 3
 
   [[menu.main]]
-    name = "Uutiset"
+    name = "Kuulumiset"
     url = "/posts/"
     weight = 4
 

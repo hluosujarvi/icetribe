@@ -3,6 +3,7 @@ title = 'Icetribe Pops... Icetribe Rocks!'
 date = '2025-10-15'
 draft = false
 featured_image = '/images/cover_index.jpg'
+description = 'Icetribe - Livemusiikkia tapahtumiin Tampereelta! Pop & rock covereita 7 vuosikymmeneltä. Äänentoisto ja bilevalot mukana.'
 +++
 
 # Icetribe
@@ -16,4 +17,4 @@ Tuomme klassikot tuoreella otteella nykypäivään! Musiikkimme kattaa laajan ki
 
 ## Livemusa tuo tunnelmaa ja saa porukan viihtymään
 
-Oletko kyllästynyt iänikuisiin karaokeiltamiin ja persoonattomiin taustalla soiviin soittolistoihin? Icetribe on siinä tapauksessa sinulle oikea valinta - elävä bändi on jotakin aivan muuta. Tuomme bileisiisi musan ja hyvän fiiliksen lisäksi äänentoistolaitteiston ja tunnelmaa lisääviä valoja.
+Oletko kyllästynyt iänikuisiin karaokeiltamiin ja persoonattomiin taustalla soiviin soittolistoihin? Icetribe on siinä tapauksessa sinulle oikea valinta - elävä bändi on jotakin aivan muuta. Tuomme bileisiisi musan ja hyvän fiiliksen lisäksi äänentoistolaitteiston bilevaloineen.
