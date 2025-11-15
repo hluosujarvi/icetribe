@@ -5,14 +5,15 @@ draft = false
 featured_image = '/images/cover_index.jpg'
 +++
 
-# Icetribe - Pop & Rock -bilebändi
+# Icetribe
+## Pop & Rock -bilebändi
 
-Tervetuloa Icetriben kotisivuille! Olemme pop & rock -bilebändi, joka tuo seitsemän vuosikymmenen parhaat hitit nykyaikaan.
+Olemme pop & rock -bilebändi, joka tuo seitsemän vuosikymmenen parhaat hitit nykyaikaan meille sopiviksi sovitettuina versioina!
 
 ## Pop & Rock covereita seitsemältä vuosikymmeneltä
 
-Tuomme klassikot tuoreella otteella nykypäivään! Musiikkimme kattaa laajan kirjon 60-luvulta 2020-luvulle asti - kaikki suurimmat pop- ja rock-hitit uudessa kuosissa.
+Tuomme klassikot tuoreella otteella nykypäivään! Musiikkimme kattaa laajan kirjon 60-luvulta 2020-luvulle asti - kotimaisia ja ulkomaisia hittejä monesta eri genrestä uudessa kuosissa. Tamperelaisuutemme tuo myös mukanaan sopivan manserockpop-painotuksen settilistoihimme.
 
-## Bilebändi joka saa tanssimaan
+## Livemusa tuo tunnelmaa ja saa porukan viihtymään
 
-Icetribe on täydellinen valinta kun haluat taata onnistuneen bileet. Soitamme kappaleita, jotka saavat kaikki sukupolvet laulamaan mukana ja tanssimaan!
+Oletko kyllästynyt iänikuisiin karaokeiltamiin ja persoonattomiin taustalla soiviin soittolistoihin? Icetribe on siinä tapauksessa sinulle oikea valinta - elävä bändi on jotakin aivan muuta. Tuomme bileisiisi musan ja hyvän fiiliksen lisäksi äänentoistolaitteiston ja tunnelmaa lisääviä valoja.
