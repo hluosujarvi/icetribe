@@ -1,0 +1,55 @@
+{
+  "test_config": {
+    "hugo_version_min": "0.100.0",
+    "required_pages": [
+      "content/_index.md",
+      "content/about.md", 
+      "content/soitossa.md",
+      "content/yhteystiedot.md",
+      "content/posts/_index.md"
+    ],
+    "required_layouts": [
+      "layouts/index.html",
+      "layouts/posts/list.html",
+      "layouts/shortcodes/quote.html",
+      "layouts/shortcodes/img.html", 
+      "layouts/shortcodes/soundcloud.html"
+    ],
+    "required_assets": [
+      "assets/css/quote-block.css",
+      "assets/css/homepage-layout.css"
+    ],
+    "required_static": [
+      "static/CNAME"
+    ],
+    "config_checks": {
+      "baseURL": "https://icetribe.fi",
+      "languageCode": "fi",
+      "theme": "ananke",
+      "imaging_quality": 85
+    },
+    "content_quality": {
+      "min_posts": 2,
+      "required_frontmatter": ["title", "date", "draft"],
+      "finnish_keywords": ["Icetribe", "bändi", "musiikki", "keikka"]
+    },
+    "build_checks": {
+      "expected_files": [
+        "public/index.html",
+        "public/index.xml", 
+        "public/sitemap.xml"
+      ],
+      "html_validation": {
+        "has_doctype": true,
+        "has_charset": true,
+        "has_title": true,
+        "lang_attribute": "fi"
+      }
+    },
+    "performance": {
+      "max_build_time_seconds": 60,
+      "webp_optimization": true,
+      "css_minification": true
+    }
+  }
+}

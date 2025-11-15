@@ -1,0 +1,77 @@
+name: Hugo Site Tests
+
+on:
+  push:
+    branches: [ main, test ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: '0.151.0'
+        extended: true
+        
+    - name: Cache Hugo modules
+      uses: actions/cache@v3
+      with:
+        path: /tmp/hugo_cache
+        key: ${{ runner.os }}-hugomod-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-hugomod-
+          
+    - name: Run test suite
+      run: |
+        echo "Running Icetribe Hugo site test suite..."
+        ./test-suite.sh
+        
+    - name: Check Hugo build
+      run: |
+        echo "Verifying Hugo build succeeds..."
+        hugo --gc --minify
+        
+    - name: Upload build artifacts (on failure)
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: hugo-build-output
+        path: public/
+        retention-days: 7
+        
+  build-and-deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: '0.151.0'
+        extended: true
+        
+    - name: Build Hugo site
+      run: hugo --gc --minify
+      
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        cname: icetribe.fi
