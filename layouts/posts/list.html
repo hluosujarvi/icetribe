@@ -1,0 +1,104 @@
+{{ define "header" }}
+  {{ $featured_image := partials.Include "func/GetFeaturedImage.html" . }}
+  {{ if $featured_image }}
+    {{/* Trimming the slash and adding absURL make sure the image works no matter where our site lives */}}
+    {{ $featured_image_class := site.Params.featured_image_class | compare.Default "cover bg-top" }}
+    <header class="{{ $featured_image_class }}" style="background-image: url('{{ $featured_image }}');">
+      {{ $cover_dimming_class := site.Params.cover_dimming_class | compare.Default "bg-black-60" }}
+      <div class="{{ $cover_dimming_class }}">
+        {{ partials.Include "site-navigation.html" .}}
+        <div class="tc-l pv4 pv6-l ph3 ph4-ns">
+          <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
+            {{ .Title | compare.Default .Site.Title }}
+          </h1>
+          {{ with .Params.description }}
+            <h2 class="fw1 f5 f3-l white-80 measure-wide-l center mt3">
+              {{ . }}
+            </h2>
+          {{ end }}
+        </div>
+      </div>
+    </header>
+  {{ else }}
+    <header>
+      <div class="pb3-m pb6-l {{ .Site.Params.background_color_class | compare.Default "bg-black" }}">
+        {{ partials.Include "site-navigation.html" . }}
+        <div class="tc-l pv3 ph3 ph4-ns">
+          <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+            {{ .Title | compare.Default .Site.Title }}
+          </h1>
+          {{ with .Params.description }}
+            <h2 class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
+              {{ . }}
+            </h2>
+          {{ end }}
+        </div>
+      </div>
+    </header>
+  {{ end }}
+{{ end }}
+
+{{ define "main" }}
+  <div class="flex-l mt2 mw8 center">
+    <article class="center cf pv5 ph3 ph4-ns mw7">
+      <div class="nested-copy-line-height lh-copy {{ $.Param "text_color" | compare.Default "serif" }} f4 nested-links nested-img mid-gray">
+        {{- .Content -}}
+      </div>
+    </article>
+    <aside class="w-30-l mt6-l">
+      {{- partials.Include "menu-contextual.html" . -}}
+    </aside>
+  </div>
+  
+  {{/* Mukautettu posts-lista */}}
+  <section class="w-100 center ph3 ph4-ns">
+    <div class="mw7 center mt5">
+      {{ range .Paginator.Pages }}
+        <div class="w-100 mb4 relative bg-white shadow-4 br3 overflow-hidden flex">
+          {{/* Featured image jos löytyy - puolet kortista */}}
+          {{ $featured_image := partials.Include "func/GetFeaturedImage.html" . }}
+          {{ if $featured_image }}
+            <div class="w-50 h5 bg-center cover" style="background-image: url('{{ $featured_image }}');"></div>
+          {{ end }}
+          
+          {{/* Sisältö - puolet kortista */}}
+          <div class="w-50 pa4 flex flex-column justify-between">
+            {{/* Otsikko */}}
+            <div>
+              <h2 class="f4 f3-l fw6 lh-title mb3 mt0">
+                <a href="{{ .RelPermalink }}" class="link black hover-dark-gray">
+                  {{ .Title }}
+                </a>
+              </h2>
+            </div>
+            
+            {{/* Alaosa: päivämäärä, tagit ja nappi */}}
+            <div>
+              {{/* Päivämäärä ja tagit */}}
+              <div class="f6 gray mb3 flex items-center justify-between">
+                <time>{{ .Date.Format "2.1.2006" }}</time>
+                {{ if .Params.tags }}
+                  <div>
+                    {{ range first 3 .Params.tags }}
+                      <span class="bg-light-gray ph2 pv1 br2 mr1 f7">{{ . }}</span>
+                    {{ end }}
+                  </div>
+                {{ end }}
+              </div>
+              
+              {{/* Lue lisää -nappi */}}
+              <a href="{{ .RelPermalink }}" class="f6 link dim br2 ph3 pv2 mb2 dib white bg-dark-gray hover-bg-black">
+                {{ $.Site.Params.read_more_copy | default "Lue lisää" }}
+              </a>
+            </div>
+          </div>
+        </div>
+      {{ end }}
+    </div>
+    
+    {{/* Pagination */}}
+    <div class="tc mt5">
+      {{- template "_internal/pagination.html" . -}}
+    </div>
+  </section>
+{{ end }}
