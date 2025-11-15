@@ -6,7 +6,7 @@ featured_image = '/images/cover_about.jpg'
 
 # Keitä me olemme?
 
-Icetribe on Tamperelainen pop & rock -bilebändi, joka tuo seitsemän vuosikymmenen parhaat hitit nykyaikaan.
+Icetribe on Tamperelainen pop & rock -bilebändi, joka tuo seitsemän vuosikymmenen parhaita biisejä nykyaikaan.
 
 ## Kokoonpano
 
