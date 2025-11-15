@@ -51,31 +51,48 @@ Sivusto päivittyy automaattisesti GitHub Pages:iin kun teet muutoksia `main`-br
 ```markdown
 +++
 title = 'Sivun otsikko'
-date = '2025-10-16'
 draft = false
-featured_image = '/images/kuva.jpg'  # Valinnainen herokuva
+featured_image = '/images/cover_sivu.jpg'  # Cover-kuva (suositeltu)
+# Huom: date-kenttä poistettu staattisista sivuista
 +++
 
 # Sivun sisältö Markdownilla
 ```
 
+### Custom Layout -ominaisuudet
+- **Etusivu**: Korkeampi header (80vh) dramaattisempaa ilmettä varten
+- **Kaikki sivut**: Ei duplikaatti H1-otsikkoja (käytetään vain sisällön H1)
+- **Posts-sivu**: Parannettu layout kuvineen ja tageilla
+- **Yhtenäiset cover-kuvat**: Kaikilla sivuilla oma cover_[sivu].jpg
+
 ## 📸 Kuvien lisääminen
 
-### 1. Sivutason kuvat (etusivut, taustakuvat)
+### 1. Cover-kuva järjestelmä (sivutason featured images)
 ```
 static/images/
-├── Front.jpg          # Etusivun herokuva  
-├── band-photo.jpg     # Yhtyeen kuva
-├── logo.png           # Logo
-└── background.jpg     # Taustakuva
+├── Front.jpg             # Alkuperäinen kuva
+├── cover_index.jpg       # Etusivun cover-kuva
+├── cover_about.jpg       # About-sivun cover-kuva  
+├── cover_posts.jpg       # Posts-sivun cover-kuva
+├── cover_repertuaari.jpg # Repertuaari-sivun cover-kuva
+├── cover_yhteystiedot.jpg # Yhteystiedot-sivun cover-kuva
+└── ...                   # Muut kuvat
 ```
 
 **Käyttö sivuilla:**
 ```markdown
 +++
-featured_image = '/images/band-photo.jpg'
+title = 'Sivun nimi'
+featured_image = '/images/cover_sivu.jpg'  # Cover-kuva järjestelmä
 +++
 ```
+
+**Etusivun erikoisuudet:**
+- Korkea header (80vh = 80% näytön korkeudesta)
+- Jos haluat muuttaa korkeutta, muokkaa `layouts/index.html`:
+  ```gohtml
+  min-height: 80vh;  <!-- Muuta tämä arvo molemmista kohdista -->
+  ```
 
 ### 2. Postauksen kuvat (Page Bundle -rakenne)
 ```
@@ -155,18 +172,34 @@ Sivusto päivittyy automaattisesti GitHub Pages:iin noin 2-5 minuutissa.
 - **Ananke-teema** (suora kopio, ei submodule)
 - **WebP-optimointi** automaattisesti kaikille kuville
 - **Responsiiviset kuvat** {{< img >}} shortcodella
+- **Custom layoutit** kaikille sivuille (ei duplikaatti H1-otsikkoja)
+- **Featured image -järjestelmä** yhtenäisillä cover-kuvilla
 
 ### Tiedostorakenne
 ```
 icetribe/
 ├── hugo.toml              # Pääkonfiguraatio
 ├── content/               # Sivujen sisältö
-│   ├── _index.md         # Etusivu
+│   ├── _index.md         # Etusivu (korkea header 80vh)
 │   ├── about.md          # Tietoa yhtyeestä
+│   ├── repertuaari.md    # Soitossa-sivu
+│   ├── yhteystiedot.md   # Yhteystiedot
 │   └── posts/            # Blogiposts
+│       ├── _index.md     # Posts-sivun sisältö
 │       └── postaus/      # Page Bundle -rakenne
 ├── static/images/        # Sivutason kuvat
+│   ├── cover_index.jpg   # Etusivun cover-kuva
+│   ├── cover_about.jpg   # About-sivun cover-kuva
+│   ├── cover_posts.jpg   # Posts-sivun cover-kuva
+│   └── ...               # Muut cover-kuvat
 ├── layouts/              # Mukautetut layoutit
+│   ├── index.html        # Etusivu (korkea header)
+│   ├── about/single.html # About-sivun layout
+│   ├── posts/
+│   │   ├── list.html     # Posts-listaus (parannettu)
+│   │   └── single.html   # Yksittäinen postaus
+│   ├── repertuaari/single.html
+│   ├── yhteystiedot/single.html
 │   └── shortcodes/
 │       └── img.html      # WebP-optimoitu kuva-shortcode
 ├── themes/ananke/        # Teema (suora kopio)
