@@ -1,0 +1,15 @@
+{{/* SoundCloud embed shortcode */}}
+{{ $trackId := .Get 0 }}
+{{ $height := .Get "height" | default "166" }}
+{{ $color := .Get "color" | default "ff5500" }}
+
+<div class="soundcloud-embed" style="margin: 1.5em 0;">
+  <iframe 
+    width="100%" 
+    height="{{ $height }}" 
+    scrolling="no" 
+    frameborder="no" 
+    allow="autoplay"
+    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/{{ $trackId }}&color=%23{{ $color }}&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+  </iframe>
+</div>

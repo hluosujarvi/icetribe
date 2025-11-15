@@ -4,6 +4,12 @@ defaultContentLanguage = 'fi'
 title = 'Icetribe - Pop & Rock -bilebändi'
 theme = 'ananke'
 
+# Allow raw HTML in markdown
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
 [menu]
   [[menu.main]]
     name = "Etusivu"
