@@ -51,11 +51,21 @@
     {{ if hugo.IsProduction }}
       {{ template "_internal/google_analytics.html" . }}
     {{ end }}
+    <!-- Google Fonts: Saira for headings, Inter for body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <style>
+      /* Font hierarchy: Saira for headings, Inter for body */
+      body { font-family: 'Inter', sans-serif; }
+      h1, h2, h3, h4, h5, h6, .header-title { font-family: 'Saira', sans-serif; }
+      nav, .menu { font-family: 'Saira', sans-serif; }
+    </style>
 	{{ block "head" . }}{{ partials.Include "head-additions.html" . }}{{ end }}
   </head>
 
   {{- $environment := hugo.Environment | compare.Default "production" -}}
-  <body class="ma0 {{ $.Param "body_classes"  | compare.Default "avenir bg-near-white"}} {{ $environment }}">
+  <body class="ma0 {{ $.Param "body_classes"  | compare.Default "bg-near-white"}} {{ $environment }}">
 
     {{ block "header" . }}{{ partials.Include "site-header.html" .}}{{ end }}
     <main class="pb7" role="main">
