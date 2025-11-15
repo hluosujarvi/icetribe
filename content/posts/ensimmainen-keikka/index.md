@@ -1,31 +1,17 @@
 +++
-title = 'Ensimmäinen keikka uudella kokoonpanolla - Kessan Baari täynnä!'
+title = 'Eka keikka uudella kokoonpanolla - Kessan Baarissa riitti väkeä ja tunnelmaa!'
 date = '2025-10-04'
 draft = false
 tags = ['keikka', 'uutiset', 'kessan-baari']
 featured_image = 'Kessa.jpg'
 +++
 
-# Kessan Baari oli ääriään myöten täynnä!
+# Kessan Baarissa viihtyi sekä bändi että yleisö!
 
-Ensimmäinen keikkamme tällä uudella kokoonpanolla soitettiin 4.10 Kessan Baarissa, joka oli ääriään myöten täynnä. Tunnelma oli käsin kosketeltava ja yleisö oli mukana alusta loppuun!
+Soitimme ensimmäisen keikkamme uudella kokoonpanolla 4.10. Kessan Baarissa - oli hauskaa päästä esiintymään tähän Teiskon kulttimainetta nauttivaan bilebaariin. 
 
 {{< img src="Kessa.jpg" alt="Icetribe esiintyy Kessan Baarissa täydelle salille" >}}
 
-## Settilista
-
-Aloitimme tunnelmallisesti ja rakensimme energiaa koko illan ajan:
-
-1. **Väärinpäin lentävät linnut** - Jippu
-2. *(Kerro loput kappaleet, niin lisään ne!)*
-
-## Yhtyeemme loisti
-
-- **Tiina** valloitti laulullaan kaikki sukupolvet
-- **Jarmo** soitti ikonisia riffejä täydellisesti  
-- **Tomi** piti grooven ehdottoman tightinä
-- **Kalle** lisäsi sointien rikkautta ja syvyyttä
-- **Henry** vei koko show'ta eteenpäin voimakkailla rummuillaan
 
 ## "Tämä on sitä mitä kaipasimme!"
 
