@@ -1,0 +1,18 @@
+{{/* Quote block shortcode for testimonials and quotes */}}
+{{ $author := .Get "author" }}
+{{ $title := .Get "title" }}
+{{ $class := .Get "class" | default "quote-block" }}
+
+<blockquote class="{{ $class }}">
+  <div class="quote-content">
+    {{ .Inner | markdownify }}
+  </div>
+  {{ if $author }}
+    <cite class="quote-author">
+      {{ if $title }}
+        <span class="quote-title">{{ $title }}</span>,
+      {{ end }}
+      <span class="quote-name">{{ $author }}</span>
+    </cite>
+  {{ end }}
+</blockquote>
