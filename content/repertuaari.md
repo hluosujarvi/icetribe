@@ -1,6 +1,5 @@
 +++
 title = 'Repertuaari'
-date = '2025-10-15'
 draft = false
 featured_image = '/images/cover_repertuaari.jpg'
 +++

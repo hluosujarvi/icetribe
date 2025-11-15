@@ -37,16 +37,29 @@
 {{ end }}
 
 {{ define "main" }}
-  <div class="flex-l mt2 mw8 center">
-    <article class="center cf pv5 ph3 ph4-ns mw7">
-      <div class="nested-copy-line-height lh-copy {{ $.Param "text_color" | compare.Default "serif" }} f4 nested-links nested-img mid-gray">
-        {{- .Content -}}
-      </div>
-    </article>
+  {{ $page := .}}
+  {{ $section := .Site.GetPage "section" .Section }}
+  <article class="flex-l mw8 center ph3 flex-wrap justify-between">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+        {{/*
+        CurrentSection allows us to use the section title instead of inferring from the folder.
+        https://gohugo.io/variables/page/#section-variables-and-methods
+        */}}
+        {{ .CurrentSection.Title }}
+      </aside>
+      <h1 class="f1 athelas mt3 mb1">
+        {{- .Site.Title -}}
+      </h1>
+    </header>
+    <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | compare.Default "serif"}} f4 nested-links {{ $.Param "text_color" | compare.Default "mid-gray" }} {{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "pl4-l" "pr4-l" }} w-two-thirds-l">
+      {{- .Content -}}
+    </div>
+
     <aside class="w-30-l mt6-l">
       {{- partials.Include "menu-contextual.html" . -}}
     </aside>
-  </div>
+  </article>
   
   {{/* Mukautettu posts-lista */}}
   <section class="w-100 center ph3 ph4-ns">
