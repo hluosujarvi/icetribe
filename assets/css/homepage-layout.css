@@ -1,0 +1,65 @@
+/* Etusivun layout-tyylit */
+
+/* Varmista että viimisen elementin marginaali poistetaan */
+.last-child-mb0:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Poista viimeisen elementin border */
+.last-child-no-border:last-child {
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+}
+
+/* Parannettu shadow-efekti korteille */
+.shadow-2 {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.shadow-2:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Responsiivinen typografia */
+@media screen and (max-width: 60em) {
+  /* Mobile: pienennä fonttikokoja */
+  .homepage-content h1 {
+    font-size: 1.75rem;
+  }
+  
+  .homepage-content h2 {
+    font-size: 1.25rem;
+  }
+  
+  .homepage-sidebar h3 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Varmista että kuvat skaalautuvat oikein */
+.homepage-post-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Parannettu hover-efekti linkeille */
+.homepage-post-link {
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+.homepage-post-link:hover {
+  text-decoration: none;
+}
+
+/* Tag-tyyli */
+.homepage-tag {
+  font-size: 0.75rem;
+  background-color: #f4f4f4;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.125rem;
+  margin-right: 0.25rem;
+  color: #666;
+}

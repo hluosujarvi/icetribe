@@ -41,43 +41,70 @@
 {{ end }}
 
 {{ define "main" }}
-  <article class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links {{ $.Param "text_color" | compare.Default "mid-gray" }}">
-    {{ .Content }}
-  </article>
+  {{/* Responsiivinen layout: desktop kaksi palstaa, mobile yksi palsta */}}
+  <div class="flex-l mw8 center ph3 ph4-ns pv4 items-start">
+    
+    {{/* Pääsisältö vasemmalla - desktop 55%, mobile 100% */}}
+    <article class="w-100 w-55-l {{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "pl4-l" "pr4-l" }} mb4">
+      <div class="f4 lh-copy nested-links {{ $.Param "text_color" | compare.Default "mid-gray" }}">
+        {{ .Content }}
+      </div>
+    </article>
 
-  {{/* Define a section to pull recent posts from. For Hugo 0.20 this will default to the section with the most number of pages. */}}
-  {{ $mainSections := site.Params.mainSections | compare.Default (collections.Slice "post") }}
-  {{ $show_recent_posts := site.Params.ananke.show_recent_posts }}
-  {{ $section := collections.Where $.Site.RegularPages "Section" "in" $mainSections }}
-  {{ $section_count := len $section }}
-
-  {{ if and ($show_recent_posts) (compare.Ge $section_count 1) }}
-    <div class="pa3 pa4-ns w-100 w-70-ns center">
-      {{ $n_posts := $.Param "recent_posts_number" | compare.Default 3 }}
-
-      <section class="w-100 mw8">
-        {{/* Range through the first $n_posts items of the section */}}
-        {{ range (collections.First $n_posts $section) }}
-          <div class="w-100 mb4 relative">
-            {{ .Render "summary-with-image" }}
-          </div>
-        {{ end }}
-      </section>
-
-      {{ if compare.Ge $section_count (math.Add $n_posts 1) }}
-        <section class="w-100">
-          <h1 class="f3">{{ lang.Translate "more" }}</h1>
-          {{/* Now, range through the next four after the initial $n_posts items. Nest the requirements, "after" then "first" on the outside */}}
-          {{ range (collections.First 4 (collections.After $n_posts $section))  }}
-            <h2 class="f5 fw4 mb4 dib {{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "ml3" "mr3" }}">
-              <a href="{{ .RelPermalink }}" class="link black dim">
-                {{ .Title }}
-              </a>
-            </h2>
+    {{/* Sivupalkki oikealla - desktop 40%, mobile 100% */}}
+    <aside class="w-100 w-40-l {{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "pr3-l" "pl3-l" }}">
+      {{/* Hae kolme uusinta postausta */}}
+      {{ $posts := collections.Where .Site.RegularPages "Section" "posts" }}
+      {{ if $posts }}
+        {{/* Kehys korteille */}}
+        <div class="bg-white shadow-4 br3 pa3 ba b--light-gray">
+          <h3 class="f4 fw6 mb3 mt0 dark-gray">Tuoreimmat kuulumiset</h3>
+          
+          {{ range collections.First 3 $posts }}
+            <div class="w-100 mb4 relative bg-white shadow-4 br3 overflow-hidden">
+              {{/* Featured image jos löytyy - täysi leveys */}}
+              {{ $featured_image := partials.Include "func/GetFeaturedImage.html" . }}
+              {{ if $featured_image }}
+                <div class="h4 bg-center cover" style="background-image: url('{{ $featured_image }}');"></div>
+              {{ end }}
+              
+              {{/* Sisältö - täysi leveys */}}
+              <div class="pa3">
+                {{/* Otsikko */}}
+                <h2 class="f5 fw6 lh-title mb2 mt0">
+                  <a href="{{ .RelPermalink }}" class="link black hover-dark-gray">
+                    {{ .Title }}
+                  </a>
+                </h2>
+                
+                {{/* Päivämäärä ja tagit */}}
+                <div class="f6 gray mb2 flex items-center justify-between">
+                  <time>{{ .Date.Format "2.1.2006" }}</time>
+                  {{ if .Params.tags }}
+                    <div>
+                      {{ range first 2 .Params.tags }}
+                        <span class="bg-light-gray ph2 pv1 br2 mr1 f7">{{ . }}</span>
+                      {{ end }}
+                    </div>
+                  {{ end }}
+                </div>
+                
+                {{/* Lue lisää -nappi */}}
+                <a href="{{ .RelPermalink }}" class="f6 link dim br2 ph2 pv1 dib white bg-dark-gray hover-bg-black">
+                  {{ $.Site.Params.read_more_copy | default "Lue lisää" }}
+                </a>
+              </div>
+            </div>
           {{ end }}
-        </section>
+          
+          {{/* Linkki kaikkiin kuulumisiin */}}
+          <div class="tc mt3">
+            <a href="/posts/" class="f6 link dim br2 ph3 pv2 dib black bg-white hover-bg-light-gray ba b--light-gray">
+              Kaikki kuulumiset →
+            </a>
+          </div>
+        </div>
       {{ end }}
-
-    </div>
-  {{ end }}
+    </aside>
+  </div>
 {{ end }}

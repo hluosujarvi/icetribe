@@ -11,7 +11,7 @@ description = 'Icetribe - Livemusiikkia tapahtumiin Tampereelta! Pop & rock cove
 
 Olemme pop & rock -bilebändi, joka tuo seitsemän vuosikymmenen parhaat hitit nykyaikaan meille sopiviksi sovitettuina versioina!
 
-## Pop & Rock covereita seitsemältä vuosikymmeneltä
+## Covereita seitsemältä vuosikymmeneltä
 
 Tuomme klassikot tuoreella otteella nykypäivään! Musiikkimme kattaa laajan kirjon 60-luvulta 2020-luvulle asti - kotimaisia ja ulkomaisia hittejä monesta eri genrestä uudessa kuosissa. Tamperelaisuutemme tuo myös mukanaan sopivan manserockpop-painotuksen settilistoihimme.
 

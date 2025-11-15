@@ -48,7 +48,7 @@ theme = 'ananke'
 
 [params]
   read_more_copy = "Lue lisää"
-  custom_css = ["css/quote-block.css"]
+  custom_css = ["css/quote-block.css", "css/homepage-layout.css"]
 
 # Ananke teeman sosiaalinen media
 [params.ananke]
