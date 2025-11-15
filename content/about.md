@@ -2,6 +2,7 @@
 date = '2025-10-15T21:17:17+03:00'
 draft = false
 title = 'Tietoa yhtyeestä'
+featured_image = '/images/cover_about.jpg'
 +++
 
 # Tietoa Icetribesta

@@ -2,7 +2,7 @@
 title = 'Icetribe Pops. Icetribe Rocks!'
 date = '2025-10-15'
 draft = false
-featured_image = '/images/Front.jpg'
+featured_image = '/images/cover_index.jpg'
 +++
 
 # Icetribe - Pop & Rock -bilebändi

@@ -2,6 +2,7 @@
 title = 'Yhteystiedot & Keikkavaraukset'
 date = '2025-10-15'
 draft = false
+featured_image = '/images/cover_yhteystiedot.jpg'
 +++
 
 # Ota yhteyttä - varaa meidät!

@@ -2,8 +2,8 @@
 title = 'Repertuaari'
 date = '2025-10-15'
 draft = false
+featured_image = '/images/cover_repertuaari.jpg'
 +++
-
 # Repertuaari - Seitsemän vuosikymmenen hitit
 
 Icetribe tuo parhaat pop & rock -hitit seitsemältä vuosikymmeneltä tuoreella, modernilla otteella. Alla näet esimerkkejä kappaleistamme, mutta jotka Icetribe tuo 2020-luvun pop / rock  henkeen.
