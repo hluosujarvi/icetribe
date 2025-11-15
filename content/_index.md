@@ -3,7 +3,7 @@ title = 'Icetribe Pops... Icetribe Rocks!'
 date = '2025-10-15'
 draft = false
 featured_image = '/images/cover_index.jpg'
-description = 'Icetribe - Livemusiikkia tapahtumiin Tampereelta! Pop & rock covereita 7 vuosikymmeneltä. Äänentoisto ja bilevalot mukana.'
+description = 'Icetribe - Livemusiikkia tapahtumiin Tampereelta! Pop & rock covereita 7 vuosikymmeneltä. Musan lisäksi äänentoisto ja bilevalot.'
 +++
 
 # Icetribe

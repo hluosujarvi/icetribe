@@ -2,6 +2,7 @@
 draft = false
 title = 'Mikä Icetribe?'
 featured_image = '/images/cover_about.jpg'
+description = 'Tutustute tamperelaisen Icetribe-bändin jäseniin: Tiina (laulu), Henry (rummut), Tomi (basso), Kalle (koskettimet), Jarmo (kitara). Pop & rock covers 7 vuosikymmeneltä.'
 +++
 
 # Keitä me olemme?

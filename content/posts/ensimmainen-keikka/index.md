@@ -6,7 +6,7 @@ tags = ['keikka', 'uutiset', 'kessa']
 featured_image = 'Kessa.jpg'
 +++
 
-# K- Kessan baarissa riitti väkeä ja tunnelmaa!
+# Kessan baarissa riitti väkeä ja tunnelmaa!
 
 Kessan Baarissa viihtyi sekä bändi että yleisö. Soitimme ensimmäisen keikkamme uudella kokoonpanolla 4.10. Kessan Baarissa - oli hauskaa päästä esiintymään tähän Teiskon kulttimainetta nauttivaan bilebaariin. 
 
