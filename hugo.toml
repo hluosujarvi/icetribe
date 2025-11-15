@@ -1,4 +1,4 @@
-baseURL = ''
+baseURL = 'https://icetribe.fi'
 languageCode = 'fi'
 defaultContentLanguage = 'fi'
 title = 'Icetribe - Pop & Rock -bilebändi'
