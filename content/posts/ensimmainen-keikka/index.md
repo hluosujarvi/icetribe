@@ -1,14 +1,14 @@
 +++
-title = 'Eka keikka uudella kokoonpanolla - Kessan Baarissa riitti väkeä ja tunnelmaa!'
+title = 'Kaikkaa pukkaa!'
 date = '2025-10-04'
 draft = false
 tags = ['keikka', 'uutiset', 'kessa']
 featured_image = 'Kessa.jpg'
 +++
 
-# Kessan Baarissa viihtyi sekä bändi että yleisö!
+# K- Kessan baarissa riitti väkeä ja tunnelmaa!
 
-Soitimme ensimmäisen keikkamme uudella kokoonpanolla 4.10. Kessan Baarissa - oli hauskaa päästä esiintymään tähän Teiskon kulttimainetta nauttivaan bilebaariin. 
+Kessan Baarissa viihtyi sekä bändi että yleisö. Soitimme ensimmäisen keikkamme uudella kokoonpanolla 4.10. Kessan Baarissa - oli hauskaa päästä esiintymään tähän Teiskon kulttimainetta nauttivaan bilebaariin. 
 
 {{< img src="Kessa.jpg" alt="Icetribe esiintyy Kessan Baarissa täydelle salille" >}}
 
@@ -35,5 +35,7 @@ Mikä ihmeen biisi oli se Odota en... never heard 🤣 *Nuoremman polven edustaj
 
 
 ---
+
+**🎵 Lisää Kessan Baarin tapahtumia:** [Kessan ohjelmakalenteri](https://www.kessanbaari.fi/ohjelma/)
 
 *Kiitos yleisölle - nykyisille ja tuleville faneillemme 🎸🎤*
