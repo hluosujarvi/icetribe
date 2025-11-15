@@ -1,12 +1,12 @@
 +++
-title = 'Yhteystiedot & Keikkavaraukset'
+title = 'Miten saat meidät tilaisuuteesi?'
 draft = false
 featured_image = '/images/cover_yhteystiedot.jpg'
 +++
 
-# Ota yhteyttä - varaa meidät!
+# Ota yhteyttä - tilaa meidät!
 
-Haluatko taata onnistuneet bileet? Icetribe tuo seitsemän vuosikymmenen parhaat pop & rock -hitit nykyaikaan ja saa kaikki sukupolvet tanssimaan!
+Haluatko onnistuneet bileet? Ota yhteyttä niin autamme sinua onnistumaan!
 
 ## 📞 Keikkavaraukset
 
@@ -17,23 +17,11 @@ Haluatko taata onnistuneet bileet? Icetribe tuo seitsemän vuosikymmenen parhaat
 🌐 www.icetribe.fi
 
 ## 🎉 Tilaisuudet joihin sovimme
-
-### Yksityistilaisuudet
-- **Häät** - klassisista romanssikappaleista tanssihitteihin
-- **Syntymäpäivät** - ikäryhmän mukaan räätälöidyt setit  
-- **Merkkipäivät** - juhlavat ja tunnelmankestävät
-- **Kotibileet** - intiimi akustinen setti tai täysi rock-show
-
-### Yritystapahtumat
-- **Pikkujoulut** - joulun klassikot pop & rock -tyyliin
-- **Kesäjuhlat** - aurinkoisia ja energisiä hittejä
-- **Tuotelanseeraukset** - ammattimainen taustamusiikki tai show
-- **Henkilöstöjuhlat** - kaikki sukupolvet mukaan ottava ohjelma
-
-### Julkiset tapahtumat
-- **Festivaalit** - vauhdikkaita settilistoja suurelle yleisölle
-- **Ravintolaesteet** - tunnelmallista live-musiikkia
-- **Ulkoilmakonsertit** - kesäisiä pop & rock -klassikoita
+- **Ravintolat** - Räyheää live-musiikkia
+- **Firman bileet** - Kaikki ikäryhmät mukaan ottava setti
+- **Merkkipäivät** - Ehdottomasti! Kunnon biletystä!
+- **Kotibileet** - Toki jos tilaa löytyy ja naapuritkin on kutsuttu (puoliakustinen kokoonpano on myös mahdollinen)
+- **Häät** - Mikä jottei, mutta emme soita perinteistä lavatanssimusiikkia
 
 ## 💰 Hinnoittelu
 
@@ -46,15 +34,15 @@ Pyydä räätälöity tarjous tilaisuutesi mukaan. Hinnoitteluun vaikuttaa:
 
 ## 🎵 Mitä saat
 
-- **Ammattitaitoisen viisikön** pitkällä kokemuksella
-- **Kattavan repertuaarin** seitsemältä vuosikymmeneltä
-- **Räätälöidyn settilistan** tilaisuutesi mukaan
-- **Laadukkaan äänitekniikan** (sovittaessa)
-- **Luotettavan kumppanin** joka saapuu ajoissa ja valmiina
+- **Ammattitaitoisen bändin** vahvalla kokemuksella
+- **Kattavan biisivalikoiman** seitsemältä vuosikymmeneltä
+- **Toiveitasi huomioivan settilistan** tilaisuutesi mukaisesti
+- **Laadukkaan äänitekniikan** tarvittaessa
+- **Luotettavan esiintyjän** joka saapuu ajoissa ja selvin päin :) 
 
 ## ⏰ Varausaika
 
-Suosittelemme varaamaan keikan vähintään 4-6 viikkoa etukäteen, erityisesti kiireisimpinä aikoina (kesä, joulukuu, uusivuosi). Erityistoiveet settilistaan pyritään huomioimaan aikataulujen puitteissa.
+Suosittelemme varaamaan keikan vähintään 1-2 kuukautta etukäteen, erityisesti kiireisimpinä aikoina (kesä, joulukuu, uusivuosi). Erityistoiveet settilistaan pyritään huomioimaan aikataulujen puitteissa.
 
 ## 🎤 Tekniset vaatimukset
 
@@ -62,6 +50,7 @@ Suosittelemme varaamaan keikan vähintään 4-6 viikkoa etukäteen, erityisesti 
 - Riittävä tila yhtyeelle (n. 4x3 metriä)
 - Mahdollisuus soundcheckiin ennen esiintymistä
 - Sovittaessa tuomme oman äänitekniikan ja valot
+- Ulkokeikkoihin sateen varalta katos
 
 ---
 
