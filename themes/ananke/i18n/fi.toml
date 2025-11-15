@@ -32,7 +32,7 @@ other = "Sähköpostiosoite on pakollinen tieto."
 other = "Lähetä"
 
 [taxonomyPageList]
-other = "Alla ovat sivut, jotka liittyvät hakusanaasi: “{{ .Title }}”"
+other = "Sisällöt taksonomiasta \"{{ .Title }}\""
 
 [readingTime]
 one = "Minuutin lukuaika"

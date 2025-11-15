@@ -1,5 +1,6 @@
 baseURL = ''
-languageCode = 'fi-fi'
+languageCode = 'fi'
+defaultContentLanguage = 'fi'
 title = 'Icetribe - Pop & Rock -bilebändi'
 theme = 'ananke'
 
