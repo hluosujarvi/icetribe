@@ -165,7 +165,7 @@ git push origin main
 
 Sivusto päivittyy automaattisesti GitHub Pages:iin noin 2-5 minuutissa.
 
-## 🛠️ Tekninen toteutus
+### Tekninen toteutus
 
 ### Hugo-versio ja teema
 - **Hugo Extended 0.151.0** (vaaditaan WebP-käsittelyyn)
@@ -174,6 +174,7 @@ Sivusto päivittyy automaattisesti GitHub Pages:iin noin 2-5 minuutissa.
 - **Responsiiviset kuvat** {{< img >}} shortcodella
 - **Custom layoutit** kaikille sivuille (ei duplikaatti H1-otsikkoja)
 - **Featured image -järjestelmä** yhtenäisillä cover-kuvilla
+- **Google Fonts -integraatio** Saira (otsikot) + Inter (leipäteksti) -hierarkialla
 
 ### Tiedostorakenne
 ```
@@ -211,6 +212,14 @@ icetribe/
 - **GitHub Pages** hosting Hugo Extended -tuella
 - **WebP-optimointi** käytössä tuotannossa
 - **Automaattinen HTTPS** ja CDN GitHub Pages:in kautta
+
+### Typografia ja fontit
+- **Google Fonts -integraatio** `themes/ananke/layouts/_default/baseof.html`
+- **Font-hierarkia**:
+  - **Saira** (Google Fonts) - Kaikki otsikot (h1-h6)
+  - **Inter** (Google Fonts) - Leipäteksti, navigaatio ja muu sisältö
+- **Preconnect-optimointi** nopeampaa latautumista varten
+- **Fallback-fontit** järjestelmäfontteihin turvautumista varten
 
 ## � Konfiguraatio
 
