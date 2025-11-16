@@ -1,5 +1,5 @@
 +++
-title = 'Kaikkaa pukkaa!'
+title = 'Keikkaa pukkaa!'
 date = '2025-10-04'
 draft = false
 tags = ['keikka', 'uutiset', 'kessa']
