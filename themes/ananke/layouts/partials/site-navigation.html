@@ -1,26 +1,274 @@
-<nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l center items-center justify-between">
-    <a href="{{ .Site.Home.RelPermalink }}" class="f3 fw2 hover-white white-90 dib no-underline">
+<!-- Responsiivinen navigaatio hampurilaisvalikolla -->
+<nav class="icetribe-nav" role="navigation">
+  <div class="nav-container">
+    <!-- Logo/Site Title -->
+    <a href="{{ .Site.Home.RelPermalink }}" class="nav-logo">
       {{ with .Site.Params.site_logo }}
-        <img src="{{ urls.RelURL . }}" class="w100 mw5-ns" alt="{{ $.Site.Title }}" />
+        <img src="{{ urls.RelURL . }}" alt="{{ $.Site.Title }}" />
       {{ else }}
         {{ .Site.Title }}
       {{ end }}
     </a>
-    <div class="flex-l items-center">
-      {{ partials.Include "i18nlist.html" . }}
+
+    <!-- Hampurilaisvalikko-nappi (näkyy vain mobiilissa) -->
+    <button class="hamburger-btn" id="hamburger-toggle" aria-label="Toggle navigation menu">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+
+    <!-- Päävalikko -->
+    <div class="nav-menu" id="nav-menu">
       {{ if .Site.Menus.main }}
-        <ul class="{{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "pr0 ml3" "pl0 mr3" }}">
+        <ul class="nav-list">
           {{ range .Site.Menus.main }}
-          <li class="list f5 f4-ns fw4 dib {{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "pl3" "pr3" }}">
-            <a class="hover-white white-90 no-underline" href="{{ .URL }}" title="{{ lang.Translate "pageTitle" . }}">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ .URL }}" title="{{ .Name }}">
               {{ .Name }}
             </a>
           </li>
           {{ end }}
         </ul>
       {{ end }}
-      {{ partials.IncludeCached "social/follow.html" . }}
+      
+      <!-- Social media linkit -->
+      <div class="nav-social">
+        {{ partials.IncludeCached "social/follow.html" . }}
+      </div>
     </div>
   </div>
 </nav>
+
+<style>
+/* Icetribe navigaatio - responsiivinen hampurilaisvalikko */
+.icetribe-nav {
+  padding: 1rem 1.5rem;
+  position: relative;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-logo:hover {
+  color: var(--icetribe-purple, #8A42A8);
+}
+
+/* Hampurilaisvalikko-nappi */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+
+.hamburger-line {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 3px 0;
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+/* Hampurilaisvalikko animaatio */
+.hamburger-btn.active .hamburger-line:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger-btn.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.active .hamburger-line:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Päävalikko */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.nav-item {
+  margin: 0;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--icetribe-purple, #8A42A8);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-social {
+  display: flex;
+  align-items: center;
+}
+
+/* Mobiili-responsiivisuus */
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: right 0.3s ease;
+    z-index: 1000;
+    gap: 0;
+  }
+
+  .nav-menu.active {
+    right: 0;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .nav-link {
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+    display: block;
+    width: 200px;
+  }
+
+  .nav-social {
+    margin-top: 1rem;
+  }
+
+  /* Tumma overlay tausta */
+  .nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+  }
+
+  .nav-overlay.active {
+    display: block;
+  }
+}
+
+/* Tablet-koko */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .nav-list {
+    gap: 1rem;
+  }
+  
+  .nav-link {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+<script>
+// Hampurilaisvalikko JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+  const hamburgerBtn = document.getElementById('hamburger-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  const navLinks = document.querySelectorAll('.nav-link');
+  
+  // Luo overlay-elementti
+  const overlay = document.createElement('div');
+  overlay.className = 'nav-overlay';
+  overlay.id = 'nav-overlay';
+  document.body.appendChild(overlay);
+  
+  function toggleMenu() {
+    hamburgerBtn.classList.toggle('active');
+    navMenu.classList.toggle('active');
+    overlay.classList.toggle('active');
+    
+    // Estä body:n scrollaus kun valikko on auki
+    if (navMenu.classList.contains('active')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }
+  
+  function closeMenu() {
+    hamburgerBtn.classList.remove('active');
+    navMenu.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  
+  // Event listenerit
+  if (hamburgerBtn) {
+    hamburgerBtn.addEventListener('click', toggleMenu);
+  }
+  
+  // Sulje valikko kun klikataan overlay:tä
+  overlay.addEventListener('click', closeMenu);
+  
+  // Sulje valikko kun klikataan linkkiä
+  navLinks.forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+  
+  // Sulje valikko ESC-näppäimellä
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+      closeMenu();
+    }
+  });
+  
+  // Sulje valikko kun ikkunan koko muuttuu suuremmaksi
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+      closeMenu();
+    }
+  });
+});
+</script>

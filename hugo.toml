@@ -1,7 +1,7 @@
 baseURL = 'https://icetribe.fi'
 languageCode = 'fi'
 defaultContentLanguage = 'fi'
-title = 'Icetribe - Pop & Rock -bilebändi'
+title = 'Icetribe'
 theme = 'ananke'
 
 # Google Analytics 4
