@@ -10,7 +10,7 @@ Tämä sivu selittää, mitä evästeitä Icetribe-sivusto käyttää ja mihin t
 
 ## Mitä ovat evästeet?
 
-Evästeet ovat pieniä tekstitiedostoja, jotka tallentuvat selaimeesi vieraillessasi verkkosivuilla. Ne auttavat sivustoja muistamaan asetuksesi ja tarjoamaan paremman käyttökokemuksen.
+Evästeet ovat pieniä tekstitiedostoja, jotka tallentuvat selaimeesi vieraillessasi verkkosivuilla. Ne auttavat sivustoja muistamaan asetuksesi ja tarjoamaan paremman käyttökokemuksen. Käsittelemme evästeitä GDPR-asetuksen mukaisesti.
 
 ## Käyttämämme evästeet
 
