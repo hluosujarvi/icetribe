@@ -24,7 +24,7 @@
     {{ end }}
   {{ else }}
     {{/* Fall back to static directory */}}
-    {{ $linkToCover = strings.Trim . "/" | urls.AbsURL }}
+    {{ $linkToCover = . | urls.RelURL }}
   {{ end }}
 {{ else }}
   {{/* Find the first image with 'cover' or 'feature' in the name */}}

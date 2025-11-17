@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Analytics Test - Icetribe</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 40px auto; 
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .status { 
+            padding: 15px; 
+            border-radius: 5px; 
+            margin: 10px 0; 
+        }
+        .success { 
+            background: #d4edda; 
+            border: 1px solid #c3e6cb; 
+            color: #155724; 
+        }
+        .warning { 
+            background: #fff3cd; 
+            border: 1px solid #ffeaa7; 
+            color: #856404; 
+        }
+        .error { 
+            background: #f8d7da; 
+            border: 1px solid #f5c6cb; 
+            color: #721c24; 
+        }
+        button {
+            background: #8A42A8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #7a3a98;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🍪 Google Analytics Test - Icetribe</h1>
+    
+    <div id="ga-status" class="status warning">
+        <strong>Tarkistetaan Google Analytics...</strong>
+    </div>
+    
+    <div id="consent-status" class="status warning">
+        <strong>Tarkistetaan evästeasetuksia...</strong>
+    </div>
+    
+    <h2>Testaa evästeasetuksia:</h2>
+    <button onclick="acceptAnalytics()">Hyväksy Analytics</button>
+    <button onclick="rejectAnalytics()">Hylkää Analytics</button>
+    <button onclick="showConsent()">Näytä asetukset</button>
+    <button onclick="resetConsent()">Nollaa asetukset</button>
+    
+    <h2>Testaa Analytics-tapahtumia:</h2>
+    <button onclick="testEvent('button_click', 'analytics_test')">Lähetä testitapahtuma</button>
+    <button onclick="testPageView()">Lähetä sivunäyttö</button>
+    
+    <h2>Debuggaus:</h2>
+    <pre id="debug-info">Ladataan...</pre>
+    
+    <script>
+        // Tarkista Google Analytics
+        function checkGoogleAnalytics() {
+            const statusEl = document.getElementById('ga-status');
+            
+            if (typeof gtag !== 'undefined') {
+                statusEl.className = 'status success';
+                statusEl.innerHTML = '<strong>✅ Google Analytics ladattu</strong><br>gtag() -funktio löytyi ja GA on aktiivinen';
+            } else if (typeof window.ICETRIBE_GA_ID !== 'undefined') {
+                statusEl.className = 'status warning';
+                statusEl.innerHTML = '<strong>⚠️ Google Analytics ei ladattu</strong><br>GA ID löytyi (' + window.ICETRIBE_GA_ID + ') mutta gtag() ei ole ladattu.<br>GA ladataan vasta kun käyttäjä hyväksyy analytiikkaevästeet.';
+            } else {
+                statusEl.className = 'status error';
+                statusEl.innerHTML = '<strong>❌ Google Analytics ei konfiguroitu</strong><br>GA ID:tä ei löytynyt. Tarkista hugo.toml.';
+            }
+        }
+        
+        // Tarkista evästeasetukset
+        function checkConsentStatus() {
+            const statusEl = document.getElementById('consent-status');
+            const consent = localStorage.getItem('icetribe_cookie_consent');
+            
+            if (consent) {
+                const parsed = JSON.parse(consent);
+                const analyticsEnabled = parsed.choices && parsed.choices.analytics;
+                statusEl.className = analyticsEnabled ? 'status success' : 'status warning';
+                statusEl.innerHTML = `<strong>${analyticsEnabled ? '✅' : '⚠️'} Evästeasetukset löytyi</strong><br>
+                    Analytics: ${analyticsEnabled ? 'Sallittu' : 'Estetty'}<br>
+                    Asetettu: ${new Date(parsed.timestamp).toLocaleString('fi')}`;
+            } else {
+                statusEl.className = 'status warning';
+                statusEl.innerHTML = '<strong>⚠️ Evästeasetuksia ei löytynyt</strong><br>Käyttäjä ei ole tehnyt valintaa';
+            }
+        }
+        
+        // Hyväksy analytics
+        function acceptAnalytics() {
+            const consent = {
+                timestamp: Date.now(),
+                choices: { necessary: true, analytics: true, marketing: false }
+            };
+            localStorage.setItem('icetribe_cookie_consent', JSON.stringify(consent));
+            
+            if (typeof gtag !== 'undefined') {
+                gtag('consent', 'update', { 'analytics_storage': 'granted' });
+            }
+            
+            checkConsentStatus();
+            updateDebugInfo();
+        }
+        
+        // Hylkää analytics
+        function rejectAnalytics() {
+            const consent = {
+                timestamp: Date.now(),
+                choices: { necessary: true, analytics: false, marketing: false }
+            };
+            localStorage.setItem('icetribe_cookie_consent', JSON.stringify(consent));
+            
+            if (typeof gtag !== 'undefined') {
+                gtag('consent', 'update', { 'analytics_storage': 'denied' });
+            }
+            
+            checkConsentStatus();
+            updateDebugInfo();
+        }
+        
+        // Näytä asetukset
+        function showConsent() {
+            const consent = localStorage.getItem('icetribe_cookie_consent');
+            alert(consent ? JSON.stringify(JSON.parse(consent), null, 2) : 'Ei evästeasetuksia');
+        }
+        
+        // Nollaa asetukset
+        function resetConsent() {
+            localStorage.removeItem('icetribe_cookie_consent');
+            if (typeof gtag !== 'undefined') {
+                gtag('consent', 'update', { 'analytics_storage': 'denied' });
+            }
+            checkConsentStatus();
+            updateDebugInfo();
+        }
+        
+        // Testaa tapahtuma
+        function testEvent(action, category) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', action, {
+                    'event_category': category,
+                    'event_label': 'Test Event',
+                    'value': 1
+                });
+                alert('Tapahtuma lähetetty: ' + action);
+            } else {
+                alert('Google Analytics ei ole ladattu');
+            }
+        }
+        
+        // Testaa sivunäyttö
+        function testPageView() {
+            if (typeof gtag !== 'undefined') {
+                gtag('config', 'G-8KK4BYHJKJ', {
+                    page_title: 'Analytics Test Page',
+                    page_location: window.location.href
+                });
+                alert('Sivunäyttö lähetetty');
+            } else {
+                alert('Google Analytics ei ole ladattu');
+            }
+        }
+        
+        // Päivitä debug-info
+        function updateDebugInfo() {
+            const debugEl = document.getElementById('debug-info');
+            const consent = localStorage.getItem('icetribe_cookie_consent');
+            const info = {
+                'Google Analytics': typeof gtag !== 'undefined' ? 'Ladattu' : 'Ei ladattu',
+                'Evästeasetukset': consent ? JSON.parse(consent) : 'Ei asetettu',
+                'DataLayer': typeof dataLayer !== 'undefined' ? dataLayer : 'Ei löytynyt',
+                'URL': window.location.href,
+                'User Agent': navigator.userAgent
+            };
+            debugEl.textContent = JSON.stringify(info, null, 2);
+        }
+        
+        // Alustus
+        document.addEventListener('DOMContentLoaded', function() {
+            checkGoogleAnalytics();
+            checkConsentStatus();
+            updateDebugInfo();
+            
+            // Päivitä status 2 sekunnin kuluttua (GA latauksen jälkeen)
+            setTimeout(() => {
+                checkGoogleAnalytics();
+                updateDebugInfo();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

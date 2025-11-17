@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Test - Icetribe</title>
+    <style>
+        :root {
+            --icetribe-purple: #8A42A8;
+        }
+        
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 100px;
+        }
+        
+        /* Cookie Banner */
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--icetribe-purple);
+            color: white;
+            padding: 20px;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+        }
+        
+        #cookie-banner p {
+            margin: 0 0 15px 0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .cookie-buttons button {
+            background: white;
+            color: var(--icetribe-purple);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        
+        .cookie-buttons button:hover {
+            background: #f0f0f0;
+        }
+        
+        .btn-reject {
+            background: transparent !important;
+            color: white !important;
+            border: 1px solid white !important;
+        }
+        
+        .btn-reject:hover {
+            background: white !important;
+            color: var(--icetribe-purple) !important;
+        }
+        
+        /* Hidden by default */
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 640px) {
+            .cookie-buttons {
+                flex-direction: column;
+            }
+            
+            .cookie-buttons button {
+                width: 100%;
+                margin: 2px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Icetribe - Cookie Test</h1>
+        <p>Tämä on testisivu evästepalkille.</p>
+        <p>Evästepalkki pitäisi näkyä sivun alareunassa, jos evästeet eivät ole hyväksytty.</p>
+        
+        <button onclick="resetCookies()">Nollaa evästeet (testaus)</button>
+        <button onclick="checkCookies()">Tarkista evästetila</button>
+        
+        <div id="cookie-status"></div>
+    </div>
+
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" class="hidden">
+        <p>Käytämme evästeitä parantaaksemme käyttökokemustasi ja analysoidaksemme sivuston käyttöä.</p>
+        <div class="cookie-buttons">
+            <button onclick="acceptAll()">Hyväksy kaikki</button>
+            <button class="btn-reject" onclick="rejectOptional()">Hylkää vapaavalintaiset</button>
+            <button class="btn-reject" onclick="openSettings()">Asetukset</button>
+        </div>
+    </div>
+
+    <script>
+        // Yksinkertainen evästeiden hallinta
+        function getCookie(name) {
+            return localStorage.getItem('icetribe_' + name);
+        }
+        
+        function setCookie(name, value) {
+            localStorage.setItem('icetribe_' + name, value);
+        }
+        
+        function acceptAll() {
+            setCookie('necessary', 'true');
+            setCookie('analytics', 'true');
+            setCookie('marketing', 'true');
+            setCookie('consent_given', 'true');
+            hideBanner();
+            console.log('All cookies accepted');
+        }
+        
+        function rejectOptional() {
+            setCookie('necessary', 'true');
+            setCookie('analytics', 'false');
+            setCookie('marketing', 'false');
+            setCookie('consent_given', 'true');
+            hideBanner();
+            console.log('Only necessary cookies accepted');
+        }
+        
+        function openSettings() {
+            alert('Asetukset-modal tulisi tähän (ei vielä toteutettu)');
+        }
+        
+        function hideBanner() {
+            document.getElementById('cookie-banner').classList.add('hidden');
+        }
+        
+        function showBanner() {
+            document.getElementById('cookie-banner').classList.remove('hidden');
+        }
+        
+        function resetCookies() {
+            localStorage.removeItem('icetribe_necessary');
+            localStorage.removeItem('icetribe_analytics');
+            localStorage.removeItem('icetribe_marketing');
+            localStorage.removeItem('icetribe_consent_given');
+            showBanner();
+            updateStatus();
+            console.log('Cookies reset');
+        }
+        
+        function checkCookies() {
+            updateStatus();
+        }
+        
+        function updateStatus() {
+            const status = document.getElementById('cookie-status');
+            const necessary = getCookie('necessary');
+            const analytics = getCookie('analytics');
+            const marketing = getCookie('marketing');
+            const consent = getCookie('consent_given');
+            
+            status.innerHTML = `
+                <h3>Evästetila:</h3>
+                <ul>
+                    <li>Suostumus annettu: ${consent || 'ei'}</li>
+                    <li>Välttämättömät: ${necessary || 'ei asetettu'}</li>
+                    <li>Analytiikka: ${analytics || 'ei asetettu'}</li>
+                    <li>Markkinointi: ${marketing || 'ei asetettu'}</li>
+                </ul>
+            `;
+        }
+        
+        // Sivun latautuessa
+        window.addEventListener('load', function() {
+            const consentGiven = getCookie('consent_given');
+            if (!consentGiven) {
+                showBanner();
+            }
+            updateStatus();
+        });
+    </script>
+</body>
+</html>
