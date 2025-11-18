@@ -1,18 +1,15 @@
-{{/* Quote block shortcode for testimonials and quotes */}}
+{{/* Quote shortcode with optional author attribution */}}
+{{ $content := .Inner }}
 {{ $author := .Get "author" }}
-{{ $title := .Get "title" }}
-{{ $class := .Get "class" | default "quote-block" }}
+{{ $source := .Get "source" }}
 
-<blockquote class="{{ $class }}">
-  <div class="quote-content">
-    {{ .Inner | markdownify }}
-  </div>
-  {{ if $author }}
-    <cite class="quote-author">
-      {{ if $title }}
-        <span class="quote-title">{{ $title }}</span>,
-      {{ end }}
-      <span class="quote-name">{{ $author }}</span>
-    </cite>
+<blockquote class="quote-block" style="border-left: 4px solid #007acc; padding-left: 20px; margin: 20px 0; font-style: italic; background: #f9f9f9; padding: 15px 20px;">
+  {{ $content | markdownify }}
+  {{ if or $author $source }}
+  <cite style="display: block; margin-top: 10px; font-style: normal; font-size: 0.9em; color: #666;">
+    {{ if $author }}— {{ $author }}{{ end }}
+    {{ if and $author $source }}, {{ end }}
+    {{ if $source }}<em>{{ $source }}</em>{{ end }}
+  </cite>
   {{ end }}
 </blockquote>

@@ -1,0 +1,26 @@
+{{/* 
+  Optimized image shortcode for Hugo
+  Usage: {{< img src="image.jpg" alt="Description" >}}
+*/}}
+{{ $src := .Get "src" }}
+{{ $alt := .Get "alt" | default "" }}
+{{ $class := .Get "class" | default "" }}
+
+{{ if $src }}
+  {{ $image := resources.Get (printf "images/%s" $src) }}
+  {{ if not $image }}
+    {{ $image = resources.Get $src }}
+  {{ end }}
+  
+  {{ if $image }}
+    {{ $webp := $image.Resize "800x webp q85" }}
+    {{ $jpeg := $image.Resize "800x jpeg q85" }}
+    
+    <picture{{ if $class }} class="{{ $class }}"{{ end }}>
+      <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
+      <img src="{{ $jpeg.RelPermalink }}" alt="{{ $alt }}" loading="lazy">
+    </picture>
+  {{ else }}
+    <img src="{{ $src }}" alt="{{ $alt }}"{{ if $class }} class="{{ $class }}"{{ end }} loading="lazy">
+  {{ end }}
+{{ end }}

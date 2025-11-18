@@ -1,330 +1,6 @@
 // Yksinkertainen evästebanner Icetribelle
 
-// CSS-tyylit (violet theme to match SoundCloud boxes)
-const cookieCSS = `
-.soundcloud-embed {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #8A42A8;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(138, 66, 168, 0.3);
-}
-
-#cookie-banner {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #8A42A8;
-    color: white;
-    padding: 20px;
-    box-shadow: 0 -2px 10px rgba(138, 66, 168, 0.3);
-    z-index: 9999;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-
-.cookie-banner-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 20px;
-}
-
-.cookie-text h3 {
-    margin: 0 0 5px 0;
-    font-size: 18px;
-    color: white;
-}
-
-.cookie-text p {
-    margin: 0;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.cookie-buttons {
-    display: flex;
-    gap: 10px;
-    flex-shrink: 0;
-}
-
-.cookie-btn {
-    padding: 10px 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
-
-.cookie-btn-primary {
-    background: white;
-    color: #8A42A8;
-}
-
-.cookie-btn-primary:hover {
-    background: rgba(255, 255, 255, 0.9);
-    transform: translateY(-1px);
-}
-
-.cookie-btn-secondary {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.cookie-btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-1px);
-}
-
-.cookie-btn-link {
-    background: transparent;
-    color: white;
-    text-decoration: underline;
-}
-
-.cookie-btn-link:hover {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-#cookie-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(138, 66, 168, 0.8);
-    backdrop-filter: blur(5px);
-    z-index: 10000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-
-.cookie-modal-content {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(138, 66, 168, 0.3);
-    max-width: 600px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
-.cookie-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px 30px 15px;
-    border-bottom: 1px solid #eee;
-}
-
-.cookie-modal-header h2 {
-    margin: 0;
-    font-size: 24px;
-    color: #8A42A8;
-}
-
-.cookie-close {
-    background: none;
-    border: none;
-    font-size: 30px;
-    cursor: pointer;
-    color: #8A42A8;
-    line-height: 1;
-    padding: 0;
-    margin: 0;
-}
-
-.cookie-close:hover {
-    color: #6B2F7F;
-}
-
-.cookie-modal-body {
-    padding: 25px 30px;
-}
-
-.cookie-modal-body p {
-    margin-bottom: 25px;
-    color: #333;
-    line-height: 1.5;
-}
-
-.cookie-category {
-    margin-bottom: 20px;
-    padding: 20px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #8A42A8;
-}
-
-.cookie-category-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.cookie-category-header h4 {
-    margin: 0;
-    color: #8A42A8;
-    font-size: 16px;
-}
-
-.cookie-category-description {
-    margin: 0;
-    color: #666;
-    font-size: 14px;
-    line-height: 1.4;
-}
-
-.cookie-toggle {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 24px;
-}
-
-.cookie-toggle input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.toggle-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .3s;
-    border-radius: 24px;
-}
-
-.toggle-slider:before {
-    position: absolute;
-    content: "";
-    height: 18px;
-    width: 18px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    transition: .3s;
-    border-radius: 50%;
-}
-
-input:checked + .toggle-slider {
-    background-color: #8A42A8;
-}
-
-input:checked + .toggle-slider:before {
-    transform: translateX(26px);
-}
-
-input:disabled + .toggle-slider {
-    background-color: #8A42A8;
-    cursor: not-allowed;
-}
-
-.cookie-info-link {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.cookie-info-link a {
-    color: #8A42A8;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.cookie-info-link a:hover {
-    text-decoration: underline;
-}
-
-.cookie-modal-footer {
-    padding: 20px 30px;
-    border-top: 1px solid #eee;
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-}
-
-.cookie-modal-footer .cookie-btn {
-    font-size: 14px;
-}
-
-.cookie-modal-footer .cookie-btn-primary {
-    background: #8A42A8;
-    color: white;
-}
-
-.cookie-modal-footer .cookie-btn-primary:hover {
-    background: #6B2F7F;
-}
-
-.cookie-modal-footer .cookie-btn-secondary {
-    background: #f8f9fa;
-    color: #8A42A8;
-    border: 1px solid #8A42A8;
-}
-
-.cookie-modal-footer .cookie-btn-secondary:hover {
-    background: #8A42A8;
-    color: white;
-}
-
-@media (max-width: 768px) {
-    .cookie-banner-content {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-    
-    .cookie-buttons {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    #cookie-modal {
-        padding: 10px;
-    }
-    
-    .cookie-modal-header,
-    .cookie-modal-body,
-    .cookie-modal-footer {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    
-    .cookie-modal-footer {
-        flex-direction: column;
-    }
-    
-    .cookie-category-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-}
-`;
-
-// Lisää CSS-tyylit sivulle
-if (!document.getElementById('cookie-css')) {
-    const style = document.createElement('style');
-    style.id = 'cookie-css';
-    style.textContent = cookieCSS;
-    document.head.appendChild(style);
-}
+console.log('Loading simple cookie banner...');
 
 // Evästetyypit
 const cookieTypes = {
@@ -356,20 +32,7 @@ function hasUserMadeChoice() {
 // Hae käyttäjän valinnat
 function getCookieConsent() {
   const saved = localStorage.getItem('icetribe_cookie_consent');
-  if (!saved) return null;
-  
-  const parsed = JSON.parse(saved);
-  
-  // Tarkista onko data vanhassa formaatissa (suoraan choices) vai uudessa (consent objekti)
-  if (parsed.choices) {
-    return parsed; // Uusi formaatti: { timestamp, choices }
-  } else {
-    // Vanha formaatti: suoraan choices objekti, muunna uuteen formaattiin
-    return {
-      timestamp: Date.now(),
-      choices: parsed
-    };
-  }
+  return saved ? JSON.parse(saved) : null;
 }
 
 // Tallenna valinnat
@@ -379,7 +42,7 @@ function saveCookieConsent(choices) {
     choices: choices
   };
   localStorage.setItem('icetribe_cookie_consent', JSON.stringify(consent));
-  console.log('Evästevalinat tallennettu:', consent);
+  console.log('Cookie preferences saved:', choices);
   
   // Päivitä Google Analytics consent
   updateGoogleAnalyticsConsent(choices);
@@ -392,26 +55,26 @@ function saveCookieConsent(choices) {
 
 // Lataa Google Analytics dynaamisesti
 function loadGoogleAnalytics() {
-  if (!window.ICETRIBE_GA_ID) {
-    console.log('GA ID ei asetettu, ohitetaan Analytics');
+  if (typeof window.ICETRIBE_GA_ID === 'undefined') {
+    console.log('Google Analytics ID ei ole määritelty');
     return;
   }
   
-  if (window.gtag) {
-    console.log('GA on jo ladattu');
+  if (typeof gtag !== 'undefined') {
+    console.log('Google Analytics on jo ladattu');
     return;
   }
   
-  console.log('Ladataan Google Analytics dynaamisesti...');
+  console.log('Ladataan Google Analytics:', window.ICETRIBE_GA_ID);
   
   // Luo script-elementti GA:lle
   const script = document.createElement('script');
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${window.ICETRIBE_GA_ID}`;
+  document.head.appendChild(script);
   
+  // Alusta gtag kun script on ladattu
   script.onload = function() {
-    console.log('Google Analytics gtag.js ladattu onnistuneesti');
-    
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     window.gtag = gtag; // Tee gtag globaaliksi
@@ -423,25 +86,8 @@ function loadGoogleAnalytics() {
       'send_page_view': true
     });
     
-    console.log('Google Analytics konfiguroitu ja alustettu, ID:', window.ICETRIBE_GA_ID);
-    
-    // Testaa että GA toimii lähettämällä test event
-    setTimeout(() => {
-      if (window.gtag) {
-        gtag('event', 'test_analytics_loaded', {
-          'event_category': 'analytics',
-          'event_label': 'consent_enabled'
-        });
-        console.log('Google Analytics test event lähetetty');
-      }
-    }, 1000);
+    console.log('Google Analytics ladattu ja konfiguroitu');
   };
-  
-  script.onerror = function() {
-    console.error('Google Analytics gtag.js lataus epäonnistui');
-  };
-  
-  document.head.appendChild(script);
 }
 
 // Poista Google Analytics evästeet
@@ -460,14 +106,13 @@ function removeGoogleAnalyticsCookies() {
   
   gaCookies.forEach(cookieName => {
     domains.forEach(domain => {
-          // Poista evästeet eri domain-vaihtoehdoilla
+      // Poista evästeet eri domain-vaihtoehdoilla
       document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${domain};`;
       document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     });
   });
   
   console.log('Google Analytics evästeet poistettu');
-
 }
 
 // Piilota SoundCloud-soittimet kun suostumus peruutetaan
@@ -482,7 +127,6 @@ function hideSoundCloudPlayers() {
   if (containerElement) containerElement.innerHTML = ''; // Tyhjennä soittimet
   
   console.log('SoundCloud-soittimet piilotettu');
-
 }
 
 // Google Analytics consent management (käyttää consent mode updateja)
@@ -494,19 +138,21 @@ function updateGoogleAnalyticsConsent(choices) {
       'ad_storage': choices.analytics ? 'granted' : 'denied' // SoundCloud tarvitsee myös ad_storage
     });
     
+    console.log('Google Analytics consent päivitetty:', {
+      analytics_storage: choices.analytics ? 'granted' : 'denied',
+      ad_storage: choices.analytics ? 'granted' : 'denied'
+    });
+    
     // Jos analytiikka kielletään, poista evästeet ja piilota SoundCloud
     if (!choices.analytics) {
       removeGoogleAnalyticsCookies();
       hideSoundCloudPlayers();
     }
   } else {
-
+    console.log('GA4 gtag ei ole vielä saatavilla, consent päivitetään kun se latautuu');
     // Jos GA ei ole vielä ladattu mutta analytiikka kielletään, piilota SoundCloud silti
     if (!choices.analytics) {
       hideSoundCloudPlayers();
-    } else {
-      // Lataa Analytics kun evästeet hyväksytään
-      loadGoogleAnalytics();
     }
   }
 }
@@ -517,7 +163,9 @@ function initGoogleAnalyticsConsent() {
   if (consent && consent.choices) {
     // GA4 on jo ladattu consent modessa, päivitä sen tilaa
     updateGoogleAnalyticsConsent(consent.choices);
+    console.log('GA4 consent mode päivitetty tallennettujen asetusten mukaan');
   } else {
+    console.log('Ei tallennettuja cookie-asetuksia, GA4 pysyy denied-tilassa');
   }
 }
 
@@ -636,14 +284,11 @@ function showModal() {
   
   // Aseta nykyiset valinnat
   const consent = getCookieConsent();
-  console.log('Modal avataan, ladattu consent:', consent);
-  
   if (consent && consent.choices) {
     Object.keys(consent.choices).forEach(key => {
       const checkbox = document.querySelector(`[data-cookie-type="${key}"]`);
       if (checkbox && !checkbox.disabled) {
         checkbox.checked = consent.choices[key];
-        console.log(`Asetetaan ${key}: ${consent.choices[key]}`);
       }
     });
   }
@@ -658,7 +303,9 @@ function setupModalEventListeners() {
   // Sulje-nappi (ruksi)
   const closeBtn = document.getElementById('cookie-modal-close');
   if (closeBtn) {
+    console.log('Lisätään event listener: Sulje modal');
     closeBtn.onclick = function() {
+      console.log('Sulje modal painettu');
       hideModal();
     };
   }
@@ -666,19 +313,18 @@ function setupModalEventListeners() {
   // Tallenna asetukset
   const saveBtn = document.getElementById('cookie-save-preferences');
   if (saveBtn) {
+    console.log('Lisätään event listener: Tallenna asetukset');
     saveBtn.onclick = function() {
-      console.log('Tallennetaan käyttäjän valinnat...');
+      console.log('Tallenna asetukset painettu');
       // Tallenna valinnat suoraan
       const choices = {};
       Object.keys(cookieTypes).forEach(key => {
         const checkbox = document.querySelector(`[data-cookie-type="${key}"]`);
         choices[key] = checkbox ? checkbox.checked : cookieTypes[key].required;
       });
-      console.log('Valinnat:', choices);
       saveCookieConsent(choices);
-      // Sulje sekä modal että banner
-      hideModal();
-      hideBanner();
+      // Sulje modal suoraan
+      document.getElementById('cookie-modal').style.display = 'none';
       setTimeout(() => {
         setupFooterLink();
       }, 100);
@@ -688,16 +334,17 @@ function setupModalEventListeners() {
   // Hyväksy kaikki
   const acceptAllBtn = document.getElementById('cookie-accept-all-modal');
   if (acceptAllBtn) {
+    console.log('Lisätään event listener: Hyväksy kaikki');
     acceptAllBtn.onclick = function() {
+      console.log('Hyväksy kaikki painettu');
       // Hyväksy kaikki suoraan
       const choices = {};
       Object.keys(cookieTypes).forEach(key => {
         choices[key] = true;
       });
       saveCookieConsent(choices);
-      // Sulje sekä modal että banner
-      hideModal();
-      hideBanner();
+      // Sulje modal suoraan
+      document.getElementById('cookie-modal').style.display = 'none';
       setTimeout(() => {
         setupFooterLink();
       }, 100);
@@ -707,30 +354,33 @@ function setupModalEventListeners() {
   // Hyväksy välttämättömät
   const acceptNecessaryBtn = document.getElementById('cookie-accept-necessary-modal');
   if (acceptNecessaryBtn) {
+    console.log('Lisätään event listener: Hyväksy välttämättömät');
     acceptNecessaryBtn.onclick = function() {
+      console.log('Hyväksy välttämättömät painettu');
       // Hyväksy vain välttämättömät suoraan
       const choices = {};
       Object.keys(cookieTypes).forEach(key => {
         choices[key] = cookieTypes[key].required;
       });
       saveCookieConsent(choices);
-      // Sulje sekä modal että banner
-      hideModal();
-      hideBanner();
+      // Sulje modal suoraan
+      document.getElementById('cookie-modal').style.display = 'none';
       setTimeout(() => {
         setupFooterLink();
       }, 100);
     };
   }
   
-
+  console.log('Modal event listenerit asetettu');
 }
 
 // Piilota modal
 function hideModal() {
+  console.log('Suljetaan modal...');
   const modal = document.getElementById('cookie-modal');
   if (modal) {
     modal.style.display = 'none';
+    console.log('Modal suljettu');
   } else {
     console.error('Modal-elementtiä ei löytynyt');
   }
@@ -793,7 +443,7 @@ function savePreferences() {
 
 // Alustus
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('Evästehallinta alustetaan...');
+  console.log('Initializing cookie banner...');
   
   // Alusta Google Analytics consent mode
   initGoogleAnalyticsConsent();
@@ -815,14 +465,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Tarkista onko käyttäjä jo valinnut
   if (hasUserMadeChoice()) {
-    console.log('Käyttäjä on jo tehnyt evästevlinnat');
-    
-    // Lataa Analytics jos se on hyväksytty
-    const consent = getCookieConsent();
-    if (consent && consent.choices && consent.choices.analytics) {
-      loadGoogleAnalytics();
-    }
-    
+    console.log('User has already made cookie choice');
     // Näytä footer-linkki ja aseta modal
     setupFooterLink();
     createModal(); // Modal tarvitaan footer-linkille (event listenerit asetetaan siellä)
@@ -991,34 +634,15 @@ function checkSoundCloudConsent() {
 // Testifunktiot
 window.resetCookies = function() {
   localStorage.removeItem('icetribe_cookie_consent');
-  console.log('Evästeet resetoitu, lataa sivu uudelleen...');
+  console.log('Cookie preferences cleared');
   location.reload();
 };
 
 window.showCookiePreferences = function() {
   const consent = getCookieConsent();
   if (consent) {
-    console.log('Nykyiset evästevalinat:', consent.choices);
+    console.log('Current cookie preferences:', consent);
   } else {
-    console.log('Evästeitä ei ole asetettu');
-  }
-};
-
-window.testGoogleAnalytics = function() {
-  if (window.gtag) {
-    console.log('Google Analytics on ladattu, lähetetään testiviesti...');
-    gtag('event', 'manual_test', {
-      'event_category': 'test',
-      'event_label': 'manual_trigger',
-      'value': 1
-    });
-    console.log('Testiviesti lähetetty Google Analyticsiin');
-    
-    // Tarkista dataLayer
-    if (window.dataLayer) {
-      console.log('DataLayer sisältö:', window.dataLayer.slice(-5)); // Viimeiset 5 tapahtumaa
-    }
-  } else {
-    console.log('Google Analytics ei ole ladattu. Hyväksy ensin analytiikka-evästeet.');
+    console.log('No cookie preferences set');
   }
 };

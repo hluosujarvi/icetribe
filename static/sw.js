@@ -13,7 +13,7 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Caching header images');
+
         return cache.addAll(HEADER_IMAGES);
       })
       .then(() => self.skipWaiting())
@@ -28,7 +28,7 @@ self.addEventListener('activate', event => {
         return Promise.all(
           cacheNames.map(cacheName => {
             if (cacheName !== CACHE_NAME) {
-              console.log('Deleting old cache:', cacheName);
+
               return caches.delete(cacheName);
             }
           })
@@ -66,7 +66,7 @@ self.addEventListener('fetch', event => {
         })
         .catch(() => {
           // Fallback for offline scenarios
-          console.log('Image not available offline:', request.url);
+
         })
     );
   }

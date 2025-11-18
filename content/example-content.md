@@ -33,7 +33,7 @@ Kuvan jälkeen teksti jatkuu normaalisti. Kuvat optimoidaan automaattisesti WebP
 
 Kuunnelkaa meidän versio klassikosta:
 
-{{< soundcloud "https://soundcloud.com/icetribe-official/icetribe-dancing-queen" >}}
+{{< soundcloud "https://soundcloud.com/icetribe/menevat-1" >}}
 
 SoundCloud-soitin latautuu vasta kun hyväksyt analytiikka-evästeet.
 

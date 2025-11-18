@@ -42,7 +42,7 @@
           1) A global config `params` value is set `show_reading_time = true`
           2) A section front matter value is set `show_reading_time = true`
           3) A page front matter value is set `show_reading_time = true`
-        */}}
+      */}}
       {{ if (or (compare.Eq (.Param "show_reading_time") true) (compare.Eq $section.Params.show_reading_time true) )}}
         {{ $readingTime := .ReadingTime }}
         {{ with .Site.Params.reading_speed }}

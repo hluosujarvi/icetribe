@@ -1,0 +1,26 @@
+{
+  "name": "icetribe-additional-tests",
+  "version": "1.0.0",
+  "description": "Lisätestit Icetribe Hugo-sivustolle: suomen kieli, virhekäsittely",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test:finnish && npm run test:errors",
+    "test:finnish": "node finnish-validation.js",
+    "test:errors": "node error-handling-test.js",
+    "test:all": "npm test"
+  },
+  "dependencies": {
+    "puppeteer": "^21.0.0",
+    "fs-extra": "^11.0.0"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "hugo",
+    "testing",
+    "finnish",
+    "error-handling",
+    "icetribe"
+  ],
+  "author": "Icetribe Dev Team",
+  "license": "MIT"
+}

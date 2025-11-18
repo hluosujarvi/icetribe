@@ -18,8 +18,12 @@
   {{ with .Page.Resources.GetMatch $src }}
     {{ $image = . }}
   {{ else }}
-    {{/* Try to find in assets */}}
-    {{ with resources.Get (printf "images/%s" $src) }}
+    {{/* Try to find in assets - handle both /images/ and direct paths */}}
+    {{ $assetPath := $src }}
+    {{ if hasPrefix $src "/images/" }}
+      {{ $assetPath = strings.TrimPrefix $src "/images/" }}
+    {{ end }}
+    {{ with resources.Get (printf "images/%s" $assetPath) }}
       {{ $image = . }}
     {{ end }}
   {{ end }}
@@ -34,7 +38,11 @@
       <img src="{{ $fallback.RelPermalink }}" alt="{{ $alt }}" loading="lazy">
     </picture>
   {{ else }}
-    {{/* Fallback to static image */}}
-    <img src="/images/{{ $src }}" alt="{{ $alt }}" class="{{ $class }}" loading="lazy">
+    {{/* Fallback to static image - use src as-is if it starts with / */}}
+    {{ if hasPrefix $src "/" }}
+      <img src="{{ $src }}" alt="{{ $alt }}" class="{{ $class }}" loading="lazy">
+    {{ else }}
+      <img src="/images/{{ $src }}" alt="{{ $alt }}" class="{{ $class }}" loading="lazy">
+    {{ end }}
   {{ end }}
 {{ end }}

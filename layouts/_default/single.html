@@ -46,7 +46,7 @@
       {{ if (or (compare.Eq (.Param "show_reading_time") true) (compare.Eq $section.Params.show_reading_time true) )}}
         {{ $readingTime := .ReadingTime }}
         {{ with .Site.Params.reading_speed }}
-          {{ $readingTime = div (float $.WordCount) . }}
+          {{ $readingTime = div (float $.WordCount) $ }}
           {{ $readingTime = math.Ceil $readingTime }}
           {{ $readingTime = int $readingTime }}
         {{ end }}

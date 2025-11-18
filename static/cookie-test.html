@@ -131,7 +131,7 @@
             setCookie('marketing', 'true');
             setCookie('consent_given', 'true');
             hideBanner();
-            console.log('All cookies accepted');
+
         }
         
         function rejectOptional() {
@@ -140,7 +140,7 @@
             setCookie('marketing', 'false');
             setCookie('consent_given', 'true');
             hideBanner();
-            console.log('Only necessary cookies accepted');
+
         }
         
         function openSettings() {
@@ -162,7 +162,7 @@
             localStorage.removeItem('icetribe_consent_given');
             showBanner();
             updateStatus();
-            console.log('Cookies reset');
+
         }
         
         function checkCookies() {

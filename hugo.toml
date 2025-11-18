@@ -87,3 +87,8 @@ label = "SoundCloud"
 color = "#ff5500"
 profile = "https://soundcloud.com/%s"
 icon = "soundcloud"
+
+# Minify-asetukset GA4:lle
+[minify]
+  disableHTML = true
+  disableXML = true

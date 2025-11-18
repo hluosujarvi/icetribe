@@ -1,0 +1,13 @@
+{{/* 
+  Quote shortcode for testimonials
+  Usage: {{< quote author="Name" >}}Quote text{{< /quote >}}
+*/}}
+{{ $author := .Get "author" | default "" }}
+{{ $content := .Inner | markdownify }}
+
+<blockquote class="quote-block">
+  {{ $content }}
+  {{ if $author }}
+    <cite>— {{ $author }}</cite>
+  {{ end }}
+</blockquote>
