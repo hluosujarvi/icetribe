@@ -48,45 +48,44 @@
     {{- template "_internal/schema.html" . -}}
     {{- template "_internal/twitter_cards.html" . -}}
 
-    <!-- Google Analytics 4 - INLINE LOADING STRATEGY -->
+    <!-- Google Analytics 4 with Hugo nojunk protection -->
+    <!-- hugo:nojunk -->
     <script>
       window.ICETRIBE_GA_ID = 'G-8KK4BYHJKJ';
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       window.gtag = gtag;
       
-      // Load gtag.js using HTML injection to bypass Hugo minifier
+      // Load gtag.js dynamically - protected from Hugo minifier
       (function() {
-        var head = document.head || document.getElementsByTagName('head')[0];
-        var scriptTag = '<scr' + 'ipt async src="https://www.googletagmanager.com/gtag/js?id=G-8KK4BYHJKJ"></scr' + 'ipt>';
-        head.insertAdjacentHTML('beforeend', scriptTag);
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-8KK4BYHJKJ';
+        document.head.appendChild(script);
         
-        // Poll for gtag.js loading
-        var waitForGtag = function() {
-          if (typeof window.gtag === 'function' && window.gtag.toString().indexOf('dataLayer') === -1) {
-            // gtag.js loaded, now initialize
-            gtag('consent', 'default', {
-              'analytics_storage': 'denied',
-              'ad_storage': 'denied', 
-              'functionality_storage': 'granted',
-              'security_storage': 'granted'
-            });
-            
-            gtag('js', new Date());
-            gtag('config', 'G-8KK4BYHJKJ', {
-              'anonymize_ip': true,
-              'cookie_flags': 'max-age=7200;secure;samesite=strict'
-            });
-            
-            console.log('GA4 HTML INJECTION SUCCESS: G-8KK4BYHJKJ');
-          } else {
-            setTimeout(waitForGtag, 100);
-          }
+        script.onload = function() {
+          gtag('consent', 'default', {
+            'analytics_storage': 'denied',
+            'ad_storage': 'denied', 
+            'functionality_storage': 'granted',
+            'security_storage': 'granted'
+          });
+          
+          gtag('js', new Date());
+          gtag('config', 'G-8KK4BYHJKJ', {
+            'anonymize_ip': true,
+            'cookie_flags': 'max-age=7200;secure;samesite=strict'
+          });
+          
+          console.log('GA4 NOJUNK SUCCESS: G-8KK4BYHJKJ');
         };
         
-        setTimeout(waitForGtag, 300);
+        script.onerror = function() {
+          console.error('GA4 script loading failed');
+        };
       })();
     </script>
+    <!-- end-hugo:nojunk -->
     
     <!-- Google Fonts: Saira for headings, Inter for body text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
