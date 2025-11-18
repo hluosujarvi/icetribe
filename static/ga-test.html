@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Analytics Testi - Icetribe</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { border: 1px solid #ccc; margin: 10px; padding: 15px; }
+        .status { padding: 5px; margin: 5px 0; border-radius: 3px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        button { padding: 10px; margin: 5px; background: #8A42A8; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        #results { white-space: pre-wrap; font-family: monospace; background: #f8f9fa; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Google Analytics Toimivuustesti</h1>
+    
+    <div class="test-section">
+        <h3>1. GA4 Konfiguraatio</h3>
+        <div id="ga-config-status"></div>
+        <div id="ga-id-display"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>2. Evästeiden Tila</h3>
+        <div id="cookie-status"></div>
+        <button onclick="checkCookies()">Tarkista evästeet</button>
+        <button onclick="clearAllCookies()">Tyhjennä kaikki evästeet</button>
+    </div>
+
+    <div class="test-section">
+        <h3>3. GA4 Lataus ja Toiminta</h3>
+        <div id="ga-load-status"></div>
+        <button onclick="testGA()">Testaa GA4</button>
+        <button onclick="sendTestEvent()">Lähetä testieventti</button>
+    </div>
+
+    <div class="test-section">
+        <h3>4. Cookie Consent Simulaatio</h3>
+        <button onclick="acceptAnalytics()">Hyväksy analytiikka</button>
+        <button onclick="rejectAnalytics()">Hylkää analytiikka</button>
+        <div id="consent-status"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>5. Testitulosten Loki</h3>
+        <button onclick="clearResults()">Tyhjennä loki</button>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        let testLog = [];
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            testLog.push(`[${timestamp}] ${message}`);
+            updateResultsDisplay();
+            console.log(`GA Test: ${message}`);
+        }
+
+        function updateResultsDisplay() {
+            document.getElementById('results').textContent = testLog.join('\n');
+        }
+
+        function clearResults() {
+            testLog = [];
+            updateResultsDisplay();
+        }
+
+        function setStatus(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        function checkGAConfig() {
+            if (window.ICETRIBE_GA_ID) {
+                setStatus('ga-config-status', '✅ GA ID on määritelty', 'success');
+                setStatus('ga-id-display', `GA ID: ${window.ICETRIBE_GA_ID}`, 'info');
+                log(`GA ID löytyi: ${window.ICETRIBE_GA_ID}`);
+                return true;
+            } else {
+                setStatus('ga-config-status', '❌ GA ID puuttuu', 'error');
+                log('GA ID ei ole määritelty');
+                return false;
+            }
+        }
+
+        function checkCookies() {
+            const allCookies = document.cookie;
+            const gaCookies = allCookies.split(';').filter(cookie => 
+                cookie.trim().match(/^_(ga|gid|gat)/));
+            
+            if (gaCookies.length > 0) {
+                setStatus('cookie-status', `✅ GA evästeet löytyi (${gaCookies.length} kpl)`, 'success');
+                log(`GA evästeet: ${gaCookies.join(', ')}`);
+            } else {
+                setStatus('cookie-status', '⚠️ Ei GA evästeitä', 'info');
+                log('Ei GA evästeitä löytynyt');
+            }
+            
+            const consent = localStorage.getItem('icetribe_cookie_consent');
+            if (consent) {
+                const parsed = JSON.parse(consent);
+                log(`Cookie consent: ${JSON.stringify(parsed.choices)}`);
+            } else {
+                log('Ei cookie consent tietoja');
+            }
+        }
+
+        function clearAllCookies() {
+            // Tyhjennä kaikki evästeet
+            document.cookie.split(";").forEach(function(c) { 
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+            });
+            
+            // Tyhjennä localStorage
+            localStorage.clear();
+            
+            log('Kaikki evästeet ja localStorage tyhjennetty');
+            checkCookies();
+            checkConsent();
+        }
+
+        function testGA() {
+            if (typeof gtag !== 'undefined') {
+                setStatus('ga-load-status', '✅ GA4 on ladattu ja toimii', 'success');
+                log('GA4 gtag funktio löytyy');
+                
+                // Testaa GA4 konfiguraatio
+                try {
+                    gtag('config', window.ICETRIBE_GA_ID, {
+                        'custom_map': {'dimension1': 'test'}
+                    });
+                    log('GA4 konfiguraatio testattiin onnistuneesti');
+                } catch (e) {
+                    log(`GA4 konfiguraatio virhe: ${e.message}`);
+                }
+            } else {
+                setStatus('ga-load-status', '❌ GA4 ei ole ladattu', 'error');
+                log('GA4 gtag funktio ei ole ladattu');
+            }
+        }
+
+        function sendTestEvent() {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'test_event', {
+                    'event_category': 'testing',
+                    'event_label': 'manual_test',
+                    'value': 1
+                });
+                log('GA4 testieventti lähetetty');
+                setStatus('ga-load-status', '📊 Testieventti lähetetty', 'success');
+            } else {
+                log('Ei voida lähettää testieventtiä - GA4 ei ladattu');
+                setStatus('ga-load-status', '❌ GA4 ei ladattu - ei voi lähettää eventtiä', 'error');
+            }
+        }
+
+        function acceptAnalytics() {
+            const consent = {
+                timestamp: Date.now(),
+                choices: {
+                    necessary: true,
+                    analytics: true
+                }
+            };
+            localStorage.setItem('icetribe_cookie_consent', JSON.stringify(consent));
+            
+            // Simuloi GA4 lataus kuten oikea järjestelmä
+            if (typeof gtag === 'undefined' && window.ICETRIBE_GA_ID) {
+                const script = document.createElement('script');
+                script.async = true;
+                script.src = `https://www.googletagmanager.com/gtag/js?id=${window.ICETRIBE_GA_ID}`;
+                document.head.appendChild(script);
+                
+                script.onload = function() {
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    window.gtag = gtag;
+                    
+                    gtag('js', new Date());
+                    gtag('config', window.ICETRIBE_GA_ID, {
+                        'anonymize_ip': true,
+                        'cookie_flags': 'max-age=7200;secure;samesite=strict',
+                        'send_page_view': true
+                    });
+                    
+                    log('GA4 ladattu ja konfiguroitu suostumuksen jälkeen');
+                    testGA();
+                };
+            }
+            
+            log('Analytiikka-evästeet hyväksytty');
+            checkConsent();
+            setTimeout(checkCookies, 2000); // Anna aikaa evästeille latautua
+        }
+
+        function rejectAnalytics() {
+            const consent = {
+                timestamp: Date.now(),
+                choices: {
+                    necessary: true,
+                    analytics: false
+                }
+            };
+            localStorage.setItem('icetribe_cookie_consent', JSON.stringify(consent));
+            
+            // Poista GA evästeet
+            const gaCookies = ['_ga', '_ga_G_8KK4BYHJKJ', '_gid', '_gat', '_gat_gtag_G_8KK4BYHJKJ'];
+            gaCookies.forEach(cookieName => {
+                document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+            });
+            
+            log('Analytiikka-evästeet hylätty ja poistettu');
+            checkConsent();
+            checkCookies();
+        }
+
+        function checkConsent() {
+            const consent = localStorage.getItem('icetribe_cookie_consent');
+            if (consent) {
+                const parsed = JSON.parse(consent);
+                if (parsed.choices && parsed.choices.analytics) {
+                    setStatus('consent-status', '✅ Analytiikka hyväksytty', 'success');
+                } else {
+                    setStatus('consent-status', '❌ Analytiikka hylätty', 'error');
+                }
+            } else {
+                setStatus('consent-status', '⚠️ Ei suostumustietoja', 'info');
+            }
+        }
+
+        // Alustus
+        document.addEventListener('DOMContentLoaded', function() {
+            log('GA4 testisivu ladattu');
+            checkGAConfig();
+            checkCookies();
+            checkConsent();
+        });
+
+        // Kuuntele gtag latautumista
+        let gtagCheckInterval = setInterval(function() {
+            if (typeof gtag !== 'undefined') {
+                log('GA4 gtag funktio on nyt saatavilla');
+                clearInterval(gtagCheckInterval);
+                testGA();
+            }
+        }, 1000);
+
+        // Lopeta gtag tarkistus 10 sekunnin jälkeen
+        setTimeout(function() {
+            clearInterval(gtagCheckInterval);
+        }, 10000);
+    </script>
+</body>
+</html>

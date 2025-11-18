@@ -448,6 +448,21 @@ document.addEventListener('DOMContentLoaded', function() {
   // Alusta Google Analytics consent mode
   initGoogleAnalyticsConsent();
   
+  // Tarkista SoundCloud-soittimien tila
+  checkSoundCloudConsent();
+  
+  // Kuuntele localStorage muutoksia
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'icetribe_cookie_consent') {
+      checkSoundCloudConsent();
+    }
+  });
+  
+  // Kuuntele custom eventejä
+  window.addEventListener('cookieConsentChanged', function() {
+    setTimeout(checkSoundCloudConsent, 100);
+  });
+  
   // Tarkista onko käyttäjä jo valinnut
   if (hasUserMadeChoice()) {
     console.log('User has already made cookie choice');
@@ -491,6 +506,101 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Sulje modal klikkaamalla taustaa (asetetaan createModal-funktiossa)
 });
+
+// SoundCloud-soittimien hallinta (osa analytiikka-evästeitä)
+function enableAnalyticsAndSoundCloud() {
+    // Aktivoi analytiikka-evästeet (sisältää SoundCloudin)
+    const choices = {};
+    Object.keys(cookieTypes).forEach(key => {
+        choices[key] = key === 'analytics' || key === 'necessary' ? true : cookieTypes[key].required;
+    });
+    
+    saveCookieConsent(choices);
+    
+    // Piilota suostumusilmoitus
+    const noticeElement = document.getElementById('soundcloud-consent-notice');
+    if (noticeElement) noticeElement.style.display = 'none';
+    
+    // Luo ja näytä soittimet dynaamisesti
+    loadSoundCloudPlayers();
+    const playersElement = document.getElementById('soundcloud-players');
+    if (playersElement) playersElement.style.display = 'block';
+    
+    hideBanner();
+    hideModal();
+    setTimeout(() => {
+        setupFooterLink();
+    }, 100);
+}
+
+// Luo SoundCloud-soittimet dynaamisesti
+function loadSoundCloudPlayers() {
+    const container = document.getElementById('soundcloud-player-container');
+    if (!container || container.innerHTML.trim() !== '') {
+        return; // Soittimet on jo luotu
+    }
+
+    const players = [
+        {
+            trackId: 'soundcloud%253Atracks%253A2213165969',
+            title: 'Menevät',
+            url: 'menevat-1'
+        },
+        {
+            trackId: 'soundcloud%253Atracks%253A2213165972', 
+            title: 'Rauhalliset',
+            url: 'rauhalliset-2'
+        }
+    ];
+
+    players.forEach((player, index) => {
+        // Luo iframe
+        const iframe = document.createElement('iframe');
+        iframe.width = '100%';
+        iframe.height = '300';
+        iframe.scrolling = 'no';
+        iframe.frameBorder = 'no';
+        iframe.allow = 'autoplay';
+        iframe.src = `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${player.trackId}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true`;
+
+        // Luo credit-div
+        const creditDiv = document.createElement('div');
+        creditDiv.style.cssText = 'font-size: 10px; color: #cccccc; line-break: anywhere; word-break: normal; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif; font-weight: 100; margin-top: 5px;';
+        creditDiv.innerHTML = `<a href="https://soundcloud.com/icetribe" title="Icetribe" target="_blank" style="color: #cccccc; text-decoration: none;">Icetribe</a> · <a href="https://soundcloud.com/icetribe/${player.url}" title="${player.title}" target="_blank" style="color: #cccccc; text-decoration: none;">${player.title}</a>`;
+
+        // Lisää elementit containeriin
+        container.appendChild(iframe);
+        container.appendChild(creditDiv);
+        
+        // Lisää väliin <br> paitsi viimeisen jälkeen
+        if (index < players.length - 1) {
+            container.appendChild(document.createElement('br'));
+        }
+    });
+}
+
+// SoundCloud-tilan tarkistus
+function checkSoundCloudConsent() {
+    const cookieConsent = JSON.parse(localStorage.getItem('icetribe_cookie_consent') || '{}');
+    
+    const noticeElement = document.getElementById('soundcloud-consent-notice');
+    const playersElement = document.getElementById('soundcloud-players');
+    const containerElement = document.getElementById('soundcloud-player-container');
+    
+    // Jos analytiikkaevästeet on hyväksytty, näytä soittimet
+    if (cookieConsent.choices && cookieConsent.choices.analytics) {
+        if (noticeElement) noticeElement.style.display = 'none';
+        if (playersElement) {
+            loadSoundCloudPlayers(); // Luo soittimet dynaamisesti
+            playersElement.style.display = 'block';
+        }
+    } else {
+        // Jos analytiikkaevästeet on kielletty, piilota soittimet
+        if (noticeElement) noticeElement.style.display = 'block';
+        if (playersElement) playersElement.style.display = 'none';
+        if (containerElement) containerElement.innerHTML = ''; // Tyhjennä soittimet
+    }
+}
 
 // Testifunktiot
 window.resetCookies = function() {

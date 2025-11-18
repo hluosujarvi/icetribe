@@ -36,6 +36,14 @@ Nämä evästeet keräävät tietoa sivuston käytöstä. Voit kieltäytyä näi
 - **IP-anonymisointi**: Käytössä
 - **Tietosuojaseloste**: [Google Privacy Policy](https://policies.google.com/privacy)
 
+**SoundCloud-soittimet**
+- **Palveluntarjoaja**: SoundCloud Limited
+- **Tarkoitus**: Musiikkisoittimien toiminta ja käyttötilastojen kerääminen
+- **Kesto**: Vaihtelee (istunto / pysyvät)
+- **Evästeet**: sc_anonymous_id, __qca, _fbp, _gcl_au
+- **Tietosuojaseloste**: [SoundCloud Privacy Policy](https://soundcloud.com/pages/privacy)
+- **Huom**: Ladataan vain kun hyväksyt analytiikka-evästeet
+
 #### Google Analytics -evästeiden tiedot:
 
 **_ga**
@@ -53,6 +61,24 @@ Nämä evästeet keräävät tietoa sivuston käytöstä. Voit kieltäytyä näi
 **_gat_gtag_[Property-ID]**
 - Kesto: 1 minuutti
 - Rajoittaa pyyntöjen määrää
+
+#### SoundCloud-evästeiden tiedot:
+
+**sc_anonymous_id**
+- Kesto: 10 vuotta
+- Tunnistaa anonyymit käyttäjät SoundCloud-palvelussa
+
+**__qca**
+- Kesto: 1 vuosi 1 kuukausi
+- Quantcast-mainosverkoston seurantaeväste
+
+**_fbp**
+- Kesto: 3 kuukautta
+- Facebook Pixel -seurantaeväste
+
+**_gcl_au**
+- Kesto: 3 kuukautta
+- Google AdSense -mainosverkosto
 
 ### Markkinointievästeet
 
@@ -73,6 +99,7 @@ Jos poistat evästeet selaimestasi:
 - Evästeasetuksesi nollautuvat
 - Joudut tekemään valinnat uudelleen seuraavalla vierailulla
 - Google Analytics -seuranta keskeytyy
+- SoundCloud-soittimet eivät näy ennen uutta hyväksyntää
 
 ## Yhteystiedot
 
@@ -81,4 +108,4 @@ Jos sinulla on kysyttävää sivuston evästeistä, ota yhteyttä:
 
 ---
 
-*Päivitetty: 17.11.2024*
+*Päivitetty: 18.11.2025*
