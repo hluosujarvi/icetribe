@@ -48,8 +48,16 @@
     {{- template "_internal/schema.html" . -}}
     {{- template "_internal/twitter_cards.html" . -}}
 
-    {{ if hugo.IsProduction }}
-      {{ template "_internal/google_analytics.html" . }}
+    <!-- Google Analytics 4 - GDPR-compliant (loaded via cookie consent) -->
+    {{ with .Site.GoogleAnalytics }}
+      <script>
+        // Määrittele GA ID globaalisti cookie-järjestelmää varten
+        window.ICETRIBE_GA_ID = '{{ . }}';
+        {{ if not hugo.IsProduction }}
+          console.log('Google Analytics ID määritelty:', window.ICETRIBE_GA_ID);
+          console.log('GA ladataan vasta cookie-suostumuksen jälkeen');
+        {{ end }}
+      </script>
     {{ end }}
     <!-- Google Fonts: Saira for headings, Inter for body text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,5 +80,8 @@
       {{ block "main" . }}{{ end }}
     </main>
     {{ block "footer" . }}{{ partials.IncludeCached "site-footer.html" . }}{{ end }}
+    
+    <!-- Cookie Consent System - GDPR compliant -->
+    <script src="/js/icetribe-simple-config.js"></script>
   </body>
 </html>

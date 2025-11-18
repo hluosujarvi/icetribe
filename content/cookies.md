@@ -12,7 +12,7 @@ Tämä sivu selittää, mitä evästeitä Icetribe-sivusto käyttää ja mihin t
 
 Evästeet ovat pieniä tekstitiedostoja, jotka tallentuvat selaimeesi vieraillessasi verkkosivuilla. Ne auttavat sivustoja muistamaan asetuksesi ja tarjoamaan paremman käyttökokemuksen. Käsittelemme evästeitä GDPR-asetuksen mukaisesti.
 
-## Käyttämämme evästeet
+## Sivustolla käytetyt evästeet
 
 ### Välttämättömät evästeet
 
@@ -57,13 +57,13 @@ Nämä evästeet keräävät tietoa sivuston käytöstä. Voit kieltäytyä näi
 ### Markkinointievästeet
 
 **Ei tällä hetkellä käytössä**
-- Olemme varanneet tämän kategorian mahdollista tulevaa mainontaa varten
-- Jos käytämme markkinointievästeitä tulevaisuudessa, pyydämme erikseen lupaa
+- Kategorian mahdollista tulevaa mainontaa varten
+- Jos sivusto käyttäisi markkinointievästeitä tulevaisuudessa, siihen pyydetään erikseen lupa.
 
 ## Evästeiden hallinta {#cookie-settings}
 
 Voit hallita evästeasetuksiasi:
-1. **Sivuston kautta**: Käytä [evästeasetuksia](/cookies#cookie-settings) sivun alalaidassa
+1. **Sivuston kautta**: Käytä [evästeasetuksia](/cookies#cookie-settings) sivun alalaidassa (footer)
 2. **Selaimen kautta**: Kaikki modernit selaimet antavat poistaa evästeet
 3. **Analytiikan esto**: [Google Analytics Opt-out](https://tools.google.com/dlpage/gaoptout)
 
@@ -76,9 +76,8 @@ Jos poistat evästeet selaimestasi:
 
 ## Yhteystiedot
 
-Jos sinulla on kysyttävää evästeistämme, ota yhteyttä:
+Jos sinulla on kysyttävää sivuston evästeistä, ota yhteyttä:
 - **Sähköposti**: [info@icetribe.fi](mailto:info@icetribe.fi)
-- **Postiosoite**: Katso [yhteystiedot](/yhteystiedot/)
 
 ---
 

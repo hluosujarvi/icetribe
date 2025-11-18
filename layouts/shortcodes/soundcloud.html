@@ -1,15 +1,22 @@
-{{/* SoundCloud embed shortcode */}}
-{{ $trackId := .Get 0 }}
-{{ $height := .Get "height" | default "166" }}
-{{ $color := .Get "color" | default "ff5500" }}
+{{/* SoundCloud consent-aware embed shortcode */}}
+<script src="/js/soundcloud-consent.js" defer></script>
 
-<div class="soundcloud-embed" style="margin: 1.5em 0;">
-  <iframe 
-    width="100%" 
-    height="{{ $height }}" 
-    scrolling="no" 
-    frameborder="no" 
-    allow="autoplay"
-    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/{{ $trackId }}&color=%23{{ $color }}&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
-  </iframe>
+<div id="soundcloud-consent-notice" style="border: 2px solid #8A42A8; border-radius: 8px; padding: 20px; margin: 20px 0; background-color: #f9f9f9; text-align: center;">
+    <h4 style="color: #8A42A8; margin-top: 0;">🎵 SoundCloud-soittimet</h4>
+    <p>SoundCloud-soittimet kuuluvat analytiikka-evästeisiin. Hyväksy analytiikka-evästeet nähdäksesi soittimet ja kuullaksesi esimerkkejä musiikistamme.</p>
+    <button onclick="enableAnalyticsAndSoundCloud()" style="background-color: #8A42A8; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px;">
+        Hyväksy analytiikka-evästeet ja näytä soittimet
+    </button>
+    <p style="font-size: 12px; color: #666; margin-bottom: 0;">
+        Voit myös muuttaa evästeasetuksia sivun alareunasta.
+    </p>
+</div>
+
+<div id="soundcloud-players" style="display: none;">
+    <p>Täältä löydät esimerkkejä Icetriben musiikista:</p>
+    
+    <!-- Soittimet luodaan dynaamisesti JavaScriptillä vasta suostumuksen jälkeen -->
+    <div id="soundcloud-player-container">
+        <!-- Iframet lisätään tänne vasta kun suostumus on annettu -->
+    </div>
 </div>

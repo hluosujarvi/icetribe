@@ -13,12 +13,15 @@ const cookieTypes = {
     name: 'Analytiikkaevästeet', 
     description: 'Google Analytics kerää tietoa sivuston käytöstä parantaaksemme sisältöä.',
     required: false
-  },
-  marketing: {
+  }
+  // MARKKINOINTIEVÄSTEET - Kommentoitu pois koska ei vielä käytössä Icetribella
+  /*
+  ,marketing: {
     name: 'Markkinointievästeet',
     description: 'Ei tällä hetkellä käytössä. Varaus tulevaisuuden mainontaa varten.',
     required: false
   }
+  */
 };
 
 // Tarkista onko evästeet jo asetettu
@@ -43,6 +46,11 @@ function saveCookieConsent(choices) {
   
   // Päivitä Google Analytics consent
   updateGoogleAnalyticsConsent(choices);
+  
+  // Lähetä custom event että muut komponentit voivat reagoida
+  window.dispatchEvent(new CustomEvent('cookieConsentChanged', { 
+    detail: { choices: choices } 
+  }));
 }
 
 // Lataa Google Analytics dynaamisesti
@@ -82,6 +90,45 @@ function loadGoogleAnalytics() {
   };
 }
 
+// Poista Google Analytics evästeet
+function removeGoogleAnalyticsCookies() {
+  const gaCookies = [
+    '_ga', '_ga_' + (window.ICETRIBE_GA_ID || '').replace('G-', ''), '_gid', '_gat', '_gat_gtag_' + (window.ICETRIBE_GA_ID || ''),
+    '_gcl_au', '_gcl_aw', '_gcl_dc', '_gcl_gb', '_gcl_gf', '_gcl_ha'
+  ];
+  
+  const domains = [
+    window.location.hostname,
+    '.' + window.location.hostname,
+    '.icetribe.fi',
+    'icetribe.fi'
+  ];
+  
+  gaCookies.forEach(cookieName => {
+    domains.forEach(domain => {
+      // Poista evästeet eri domain-vaihtoehdoilla
+      document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${domain};`;
+      document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    });
+  });
+  
+  console.log('Google Analytics evästeet poistettu');
+}
+
+// Piilota SoundCloud-soittimet kun suostumus peruutetaan
+function hideSoundCloudPlayers() {
+  // Piilota soittimet ja näytä suostumusilmoitus
+  const noticeElement = document.getElementById('soundcloud-consent-notice');
+  const playersElement = document.getElementById('soundcloud-players');
+  const containerElement = document.getElementById('soundcloud-player-container');
+  
+  if (noticeElement) noticeElement.style.display = 'block';
+  if (playersElement) playersElement.style.display = 'none';
+  if (containerElement) containerElement.innerHTML = ''; // Tyhjennä soittimet
+  
+  console.log('SoundCloud-soittimet piilotettu');
+}
+
 // Google Analytics consent management
 function updateGoogleAnalyticsConsent(choices) {
   if (choices.analytics && typeof gtag === 'undefined') {
@@ -90,13 +137,24 @@ function updateGoogleAnalyticsConsent(choices) {
   } else if (typeof gtag !== 'undefined') {
     // Jos GA on ladattu, päivitä consent
     gtag('consent', 'update', {
-      'analytics_storage': choices.analytics ? 'granted' : 'denied',
-      'ad_storage': choices.marketing ? 'granted' : 'denied'
+      'analytics_storage': choices.analytics ? 'granted' : 'denied'
+      // Markkinointievästeet kommentoitu pois - ei vielä käytössä
+      // ,'ad_storage': choices.marketing ? 'granted' : 'denied'
     });
     console.log('Google Analytics consent päivitetty:', {
-      analytics: choices.analytics ? 'granted' : 'denied',
-      marketing: choices.marketing ? 'granted' : 'denied'
+      analytics: choices.analytics ? 'granted' : 'denied'
+      // Markkinointievästeet kommentoitu pois
+      // ,marketing: choices.marketing ? 'granted' : 'denied'
     });
+    
+    // Jos analytiikka kielletään, poista evästeet ja piilota SoundCloud
+    if (!choices.analytics) {
+      removeGoogleAnalyticsCookies();
+      hideSoundCloudPlayers();
+    }
+  } else if (!choices.analytics) {
+    // Jos GA ei ole ladattu mutta analytiikka kielletään, piilota SoundCloud silti
+    hideSoundCloudPlayers();
   }
 }
 
@@ -345,6 +403,11 @@ function rejectAll() {
   Object.keys(cookieTypes).forEach(key => {
     choices[key] = cookieTypes[key].required;
   });
+  
+  // Poista evästeet heti ennen tallennusta
+  removeGoogleAnalyticsCookies();
+  hideSoundCloudPlayers();
+  
   saveCookieConsent(choices);
   hideBanner();
   hideModal();
@@ -356,6 +419,11 @@ function acceptNecessaryOnly() {
   Object.keys(cookieTypes).forEach(key => {
     choices[key] = cookieTypes[key].required;
   });
+  
+  // Poista evästeet heti ennen tallennusta
+  removeGoogleAnalyticsCookies();
+  hideSoundCloudPlayers();
+  
   saveCookieConsent(choices);
   hideBanner();
   hideModal();
