@@ -89,6 +89,9 @@
       nav, .menu { font-family: 'Saira', sans-serif; }
     </style>
 	{{ block "head" . }}{{ partials.Include "head-additions.html" . }}{{ end }}
+	
+	<!-- EMERGENCY FIX: Pakota GA4 script latautumaan -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8KK4BYHJKJ"></script>
   </head>
 
   {{- $environment := hugo.Environment | compare.Default "production" -}}
