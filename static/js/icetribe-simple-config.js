@@ -517,11 +517,10 @@ function enableAnalyticsAndSoundCloud() {
     
     saveCookieConsent(choices);
     
-    // Piilota suostumusilmoitus
-    const noticeElement = document.getElementById('soundcloud-consent-notice');
-    if (noticeElement) noticeElement.style.display = 'none';
+    // Piilota kaikki suostumusilmoitukset ja näytä soittimet
+    showAllSoundCloudPlayers();
     
-    // Luo ja näytä soittimet dynaamisesti
+    // Vanhat elementit (soitossa-sivulle)
     loadSoundCloudPlayers();
     const playersElement = document.getElementById('soundcloud-players');
     if (playersElement) playersElement.style.display = 'block';
@@ -531,6 +530,21 @@ function enableAnalyticsAndSoundCloud() {
     setTimeout(() => {
         setupFooterLink();
     }, 100);
+}
+
+// Näytä kaikki SoundCloud-soittimet sivulla (uusi shortcode)
+function showAllSoundCloudPlayers() {
+    // Piilota consent-ilmoitukset
+    const notices = document.querySelectorAll('.soundcloud-consent-notice');
+    notices.forEach(notice => notice.style.display = 'none');
+    
+    // Näytä soittimet
+    const players = document.querySelectorAll('.soundcloud-player');
+    players.forEach(player => player.style.display = 'block');
+    
+    // Vanha ID-pohjainen (taaksepäin yhteensopivuus)
+    const oldNotice = document.getElementById('soundcloud-consent-notice');
+    if (oldNotice) oldNotice.style.display = 'none';
 }
 
 // Luo SoundCloud-soittimet dynaamisesti
@@ -583,22 +597,37 @@ function loadSoundCloudPlayers() {
 function checkSoundCloudConsent() {
     const cookieConsent = JSON.parse(localStorage.getItem('icetribe_cookie_consent') || '{}');
     
+    // Vanhat elementit (soitossa-sivu)
     const noticeElement = document.getElementById('soundcloud-consent-notice');
     const playersElement = document.getElementById('soundcloud-players');
     const containerElement = document.getElementById('soundcloud-player-container');
     
+    // Uudet shortcode-elementit (postaukset)
+    const newNotices = document.querySelectorAll('.soundcloud-consent-notice');
+    const newPlayers = document.querySelectorAll('.soundcloud-player');
+    
     // Jos analytiikkaevästeet on hyväksytty, näytä soittimet
     if (cookieConsent.choices && cookieConsent.choices.analytics) {
+        // Vanhat elementit
         if (noticeElement) noticeElement.style.display = 'none';
         if (playersElement) {
             loadSoundCloudPlayers(); // Luo soittimet dynaamisesti
             playersElement.style.display = 'block';
         }
+        
+        // Uudet shortcode-elementit
+        newNotices.forEach(notice => notice.style.display = 'none');
+        newPlayers.forEach(player => player.style.display = 'block');
+        
     } else {
         // Jos analytiikkaevästeet on kielletty, piilota soittimet
         if (noticeElement) noticeElement.style.display = 'block';
         if (playersElement) playersElement.style.display = 'none';
         if (containerElement) containerElement.innerHTML = ''; // Tyhjennä soittimet
+        
+        // Uudet shortcode-elementit  
+        newNotices.forEach(notice => notice.style.display = 'block');
+        newPlayers.forEach(player => player.style.display = 'none');
     }
 }
 

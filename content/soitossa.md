@@ -48,7 +48,9 @@ Alla näet esimerkkejä biiseistä, joita soitamme - omalla tyylillämme...
 
 ## 🎧 Kuuntele meitä SoundCloudissa
 
-{{< soundcloud >}}
+{{< soundcloud "https://soundcloud.com/icetribe/menevat-1" >}}
+
+{{< soundcloud "https://soundcloud.com/icetribe/rauhalliset-2" >}}
 
 ---
 

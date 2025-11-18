@@ -2,7 +2,7 @@
 title = 'Sivusto on livenä!'
 date = '2025-11-15'
 draft = false
-tags = ['keikka', 'uutiset']
+tags = ['sivusto', 'uutiset']
 featured_image = 'julkaisu.jpg'
 +++
 
@@ -18,16 +18,30 @@ Jotta homma ei jäisi ajatukseksi, niin Henry päätti kääntää DNS:n osoitta
 
 Samalla laitoimme myös parit potpurit jakoon 🙂
 
-<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2213165969&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+{{< soundcloud "https://soundcloud.com/icetribe/menevat-1" >}}
 
-<div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;margin-top: 5px;">
-<a href="https://soundcloud.com/icetribe" title="Icetribe" target="_blank" style="color: #cccccc; text-decoration: none;">Icetribe</a> · <a href="https://soundcloud.com/icetribe/menevat-1" title="Menevät" target="_blank" style="color: #cccccc; text-decoration: none;">Menevät</a>
-</div>
+{{< soundcloud "https://soundcloud.com/icetribe/rauhalliset-2" >}}
 
-<br>
+## Sivuston ominaisuudet
 
-<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2213165972&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+### Toteutetut toiminnallisuudet
+- ✅ **Responsiivinen design** - toimii kaikilla laitteilla
+- ✅ **WebP kuva-optimointi** - nopeampi latausaika
+- ✅ **GDPR-yhteensopiva cookie-järjestelmä**  
+- ✅ **Google Analytics** consent mode:lla
+- ✅ **SoundCloud upotukset** evästehallinnalla
 
-<div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;margin-top: 5px;">
-<a href="https://soundcloud.com/icetribe" title="Icetribe" target="_blank" style="color: #cccccc; text-decoration: none;">Icetribe</a> · <a href="https://soundcloud.com/icetribe/rauhalliset-2" title="Rauhalliset" target="_blank" style="color: #cccccc; text-decoration: none;">Rauhalliset</a>
-</div>
+### Tekniset tiedot
+
+| Ominaisuus | Ratkaisu | Status |
+|------------|----------|--------|
+| Static Site Generator | Hugo v0.151.0+ | ✅ Toimii |
+| Teema | Ananke (mukautettu) | ✅ Toimii |  
+| Hosting | GitHub Pages | ✅ Livenä |
+| Domain | icetribe.fi | ✅ Ohjattu |
+
+
+**Linkkejä:**
+- [GitHub repository](https://github.com/hluosujarvi/icetribe) - Avoimen lähdekoodin toteutus
+- [Hugo dokumentaatio](https://gohugo.io/documentation/) - Static site generator  
+- [Ananke teema](https://themes.gohugo.io/themes/gohugo-theme-ananke/) - Käytetty pohja
