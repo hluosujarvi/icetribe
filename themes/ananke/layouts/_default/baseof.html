@@ -48,41 +48,38 @@
     {{- template "_internal/schema.html" . -}}
     {{- template "_internal/twitter_cards.html" . -}}
 
-    {{ $production := hugo.IsProduction }}
-    {{ if $production }}
-    <!-- Google Analytics 4 - Production Environment -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KK4BYHJKJ"></script>
+    <!-- Google Analytics 4 - INLINE LOADING STRATEGY -->
     <script>
       window.ICETRIBE_GA_ID = 'G-8KK4BYHJKJ';
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       window.gtag = gtag;
       
-      gtag('consent', 'default', {
-        'analytics_storage': 'denied',
-        'ad_storage': 'denied',
-        'functionality_storage': 'granted',
-        'security_storage': 'granted'
-      });
-      
-      gtag('js', new Date());
-      gtag('config', 'G-8KK4BYHJKJ', {
-        'anonymize_ip': true,
-        'cookie_flags': 'max-age=7200;secure;samesite=strict'
-      });
-      
-      console.log('GA4 loaded in production mode: G-8KK4BYHJKJ');
+      // Load gtag.js dynamically
+      (function() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-8KK4BYHJKJ';
+        document.head.appendChild(script);
+        
+        script.onload = function() {
+          gtag('consent', 'default', {
+            'analytics_storage': 'denied',
+            'ad_storage': 'denied',
+            'functionality_storage': 'granted',
+            'security_storage': 'granted'
+          });
+          
+          gtag('js', new Date());
+          gtag('config', 'G-8KK4BYHJKJ', {
+            'anonymize_ip': true,
+            'cookie_flags': 'max-age=7200;secure;samesite=strict'
+          });
+          
+          console.log('GA4 DYNAMICALLY LOADED: G-8KK4BYHJKJ');
+        };
+      })();
     </script>
-    {{ else }}
-    <!-- Google Analytics 4 - Development Environment (Debug Mode) -->
-    <script>
-      window.ICETRIBE_GA_ID = 'G-8KK4BYHJKJ';
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      window.gtag = gtag;
-      console.log('GA4 disabled in development mode');
-    </script>
-    {{ end }}
     
     <!-- Google Fonts: Saira for headings, Inter for body text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
