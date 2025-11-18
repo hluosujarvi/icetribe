@@ -129,22 +129,18 @@ function hideSoundCloudPlayers() {
   console.log('SoundCloud-soittimet piilotettu');
 }
 
-// Google Analytics consent management
+// Google Analytics consent management (käyttää consent mode updateja)
 function updateGoogleAnalyticsConsent(choices) {
-  if (choices.analytics && typeof gtag === 'undefined') {
-    // Jos analytics hyväksytty mutta GA ei ole ladattu, lataa se
-    loadGoogleAnalytics();
-  } else if (typeof gtag !== 'undefined') {
-    // Jos GA on ladattu, päivitä consent
+  if (typeof gtag !== 'undefined') {
+    // GA4 on ladattu, päivitä consent mode
     gtag('consent', 'update', {
-      'analytics_storage': choices.analytics ? 'granted' : 'denied'
-      // Markkinointievästeet kommentoitu pois - ei vielä käytössä
-      // ,'ad_storage': choices.marketing ? 'granted' : 'denied'
+      'analytics_storage': choices.analytics ? 'granted' : 'denied',
+      'ad_storage': choices.analytics ? 'granted' : 'denied' // SoundCloud tarvitsee myös ad_storage
     });
+    
     console.log('Google Analytics consent päivitetty:', {
-      analytics: choices.analytics ? 'granted' : 'denied'
-      // Markkinointievästeet kommentoitu pois
-      // ,marketing: choices.marketing ? 'granted' : 'denied'
+      analytics_storage: choices.analytics ? 'granted' : 'denied',
+      ad_storage: choices.analytics ? 'granted' : 'denied'
     });
     
     // Jos analytiikka kielletään, poista evästeet ja piilota SoundCloud
@@ -152,20 +148,24 @@ function updateGoogleAnalyticsConsent(choices) {
       removeGoogleAnalyticsCookies();
       hideSoundCloudPlayers();
     }
-  } else if (!choices.analytics) {
-    // Jos GA ei ole ladattu mutta analytiikka kielletään, piilota SoundCloud silti
-    hideSoundCloudPlayers();
+  } else {
+    console.log('GA4 gtag ei ole vielä saatavilla, consent päivitetään kun se latautuu');
+    // Jos GA ei ole vielä ladattu mutta analytiikka kielletään, piilota SoundCloud silti
+    if (!choices.analytics) {
+      hideSoundCloudPlayers();
+    }
   }
 }
 
-// Alusta Google Analytics jos käyttäjä on jo antanut suostumuksen
+// Alusta Google Analytics consent mode käyttäjän valintojen mukaan
 function initGoogleAnalyticsConsent() {
   const consent = getCookieConsent();
-  if (consent && consent.choices && consent.choices.analytics) {
-    console.log('Käyttäjä on jo hyväksynyt analytiikan, ladataan GA');
-    loadGoogleAnalytics();
+  if (consent && consent.choices) {
+    // GA4 on jo ladattu consent modessa, päivitä sen tilaa
+    updateGoogleAnalyticsConsent(consent.choices);
+    console.log('GA4 consent mode päivitetty tallennettujen asetusten mukaan');
   } else {
-    console.log('Analytics ei hyväksytty, GA:ta ei ladata');
+    console.log('Ei tallennettuja cookie-asetuksia, GA4 pysyy denied-tilassa');
   }
 }
 

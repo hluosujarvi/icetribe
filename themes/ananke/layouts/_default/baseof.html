@@ -48,14 +48,37 @@
     {{- template "_internal/schema.html" . -}}
     {{- template "_internal/twitter_cards.html" . -}}
 
-    <!-- Google Analytics 4 - GDPR-compliant (loaded via cookie consent) -->
+    <!-- Google Analytics 4 - GDPR-compliant with consent mode -->
     {{ with .Site.GoogleAnalytics }}
+      <!-- GA4 Global Site Tag - ladataan heti mutta consent denied tilassa -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
       <script>
         // Määrittele GA ID globaalisti cookie-järjestelmää varten
         window.ICETRIBE_GA_ID = '{{ . }}';
+        
+        // Alusta Google Analytics consent modessa
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag; // Tee gtag globaaliksi
+        
+        // Aseta oletuksena consent denied
+        gtag('consent', 'default', {
+          'analytics_storage': 'denied',
+          'ad_storage': 'denied',
+          'functionality_storage': 'granted', // Välttämättömät toiminnot
+          'security_storage': 'granted' // Turvallisuus
+        });
+        
+        // Alusta GA4 
+        gtag('js', new Date());
+        gtag('config', '{{ . }}', {
+          'anonymize_ip': true,
+          'cookie_flags': 'max-age=7200;secure;samesite=strict'
+        });
+        
         {{ if not hugo.IsProduction }}
-          console.log('Google Analytics ID määritelty:', window.ICETRIBE_GA_ID);
-          console.log('GA ladataan vasta cookie-suostumuksen jälkeen');
+          console.log('Google Analytics ladattu consent mode tilassa:', '{{ . }}');
+          console.log('Analytics storage: denied (päivittyy cookie-suostumuksen mukaan)');
         {{ end }}
       </script>
     {{ end }}
