@@ -48,36 +48,63 @@
     {{- template "_internal/schema.html" . -}}
     {{- template "_internal/twitter_cards.html" . -}}
 
-    <!-- Google Analytics 4 - GDPR-compliant with consent mode -->
-    <!-- Pakotetaan GA script latautumaan kaikissa ympäristöissä -->
+    {{ $production := hugo.IsProduction }}
+    {{ if $production }}
+    <!-- Google Analytics 4 - Production Environment -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KK4BYHJKJ"></script>
     <script>
-      // Määrittele GA ID globaalisti cookie-järjestelmää varten
       window.ICETRIBE_GA_ID = 'G-8KK4BYHJKJ';
-      
-      // Alusta Google Analytics consent modessa
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      window.gtag = gtag; // Tee gtag globaaliksi
+      window.gtag = gtag;
       
-      // Aseta oletuksena consent denied
       gtag('consent', 'default', {
         'analytics_storage': 'denied',
         'ad_storage': 'denied',
-        'functionality_storage': 'granted', // Välttämättömät toiminnot
-        'security_storage': 'granted' // Turvallisuus
+        'functionality_storage': 'granted',
+        'security_storage': 'granted'
       });
       
-      // Alusta GA4 
       gtag('js', new Date());
       gtag('config', 'G-8KK4BYHJKJ', {
         'anonymize_ip': true,
         'cookie_flags': 'max-age=7200;secure;samesite=strict'
       });
       
-      console.log('Google Analytics ladattu consent mode tilassa: G-8KK4BYHJKJ');
-      console.log('Analytics storage: denied (päivittyy cookie-suostumuksen mukaan)');
+      console.log('GA4 loaded in production mode: G-8KK4BYHJKJ');
     </script>
+    {{ else }}
+    <!-- Google Analytics 4 - Development Environment (Debug Mode) -->
+    <script>
+      window.ICETRIBE_GA_ID = 'G-8KK4BYHJKJ';
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      console.log('GA4 disabled in development mode');
+    </script>
+    {{ end }}
+    
+    <!-- Google Fonts: Saira for headings, Inter for body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <style>
+      /* Font hierarchy: Saira for headings, Inter for body */
+      body { font-family: 'Inter', sans-serif; }
+      h1, h2, h3, h4, h5, h6, .header-title { font-family: 'Saira', sans-serif; }
+      nav, .menu { font-family: 'Saira', sans-serif; }
+    </style>
+	{{ block "head" . }}{{ partials.Include "head-additions.html" . }}{{ end }}    <!-- Google Fonts: Saira for headings, Inter for body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <style>
+      /* Font hierarchy: Saira for headings, Inter for body */
+      body { font-family: 'Inter', sans-serif; }
+      h1, h2, h3, h4, h5, h6, .header-title { font-family: 'Saira', sans-serif; }
+      nav, .menu { font-family: 'Saira', sans-serif; }
+    </style>
+	{{ block "head" . }}{{ partials.Include "head-additions.html" . }}{{ end }}
     <!-- Google Fonts: Saira for headings, Inter for body text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
