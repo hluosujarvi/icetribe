@@ -55,29 +55,36 @@
       function gtag(){dataLayer.push(arguments);}
       window.gtag = gtag;
       
-      // Load gtag.js dynamically
+      // Load gtag.js using HTML injection to bypass Hugo minifier
       (function() {
-        var script = document.createElement('script');
-        script.async = true;
-        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-8KK4BYHJKJ';
-        document.head.appendChild(script);
+        var head = document.head || document.getElementsByTagName('head')[0];
+        var scriptTag = '<scr' + 'ipt async src="https://www.googletagmanager.com/gtag/js?id=G-8KK4BYHJKJ"></scr' + 'ipt>';
+        head.insertAdjacentHTML('beforeend', scriptTag);
         
-        script.onload = function() {
-          gtag('consent', 'default', {
-            'analytics_storage': 'denied',
-            'ad_storage': 'denied',
-            'functionality_storage': 'granted',
-            'security_storage': 'granted'
-          });
-          
-          gtag('js', new Date());
-          gtag('config', 'G-8KK4BYHJKJ', {
-            'anonymize_ip': true,
-            'cookie_flags': 'max-age=7200;secure;samesite=strict'
-          });
-          
-          console.log('GA4 DYNAMICALLY LOADED: G-8KK4BYHJKJ');
+        // Poll for gtag.js loading
+        var waitForGtag = function() {
+          if (typeof window.gtag === 'function' && window.gtag.toString().indexOf('dataLayer') === -1) {
+            // gtag.js loaded, now initialize
+            gtag('consent', 'default', {
+              'analytics_storage': 'denied',
+              'ad_storage': 'denied', 
+              'functionality_storage': 'granted',
+              'security_storage': 'granted'
+            });
+            
+            gtag('js', new Date());
+            gtag('config', 'G-8KK4BYHJKJ', {
+              'anonymize_ip': true,
+              'cookie_flags': 'max-age=7200;secure;samesite=strict'
+            });
+            
+            console.log('GA4 HTML INJECTION SUCCESS: G-8KK4BYHJKJ');
+          } else {
+            setTimeout(waitForGtag, 100);
+          }
         };
+        
+        setTimeout(waitForGtag, 300);
       })();
     </script>
     
