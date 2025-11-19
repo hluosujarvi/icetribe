@@ -213,7 +213,7 @@ test_build_output() {
         fi
         
         # Check for Finnish language attribute
-        run_test "HTML lang attribute is Finnish" "grep -q 'lang=fi' public/index.html"
+        run_test "HTML lang attribute is Finnish" "grep -q 'lang=\"fi\"' public/index.html"
     else
         log_warning "Public directory not found, skipping build output tests"
     fi
@@ -226,7 +226,7 @@ test_performance_seo() {
     if [ -d public ]; then
         # Meta tags
         run_test "Homepage has title tag" "grep -q '<title>' public/index.html"
-        run_test "Homepage has meta description" "grep -q 'name=description' public/index.html"
+        run_test "Homepage has meta description" "grep -q 'name=\"description\"' public/index.html"
         
         # Social media meta tags
         run_test "Social media meta tags present" "grep -q 'property=\"og:' public/index.html || grep -q 'name=\"twitter:' public/index.html"

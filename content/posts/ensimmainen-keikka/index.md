@@ -30,7 +30,7 @@ Teidän versionne oli parempi kuin alkuperäinen 🔥
 {{< /quote >}}
 
 {{< quote class="highlight" >}}
-Mikä ihmeen biisi oli se Odota en... never heard 🤣 *Nuoremman polven edustaja* 😉
+Mikä ihmeen biisi oli se Odota en... never heard 🤣 (nuoremman polven edustaja 😉)
 {{< /quote >}}
 
 
