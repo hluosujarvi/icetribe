@@ -1,6 +1,7 @@
 +++
 title = 'Google Analytics Debug'
 draft = false
+featured_image = '/images/cover_posts.jpg'
 +++
 
 # Google Analytics Debug-sivu

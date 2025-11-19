@@ -60,7 +60,7 @@ googleAnalytics = 'G-8KK4BYHJKJ'
 
 [params]
   read_more_copy = "Lue lisää"
-  custom_css = ["css/quote-block.css", "css/homepage-layout.css", "css/image-optimization.css", "css/simple-consent.css"]
+  custom_css = ["css/colors.css", "css/quote-block.css", "css/homepage-layout.css", "css/image-optimization.css", "css/simple-consent.css"]
 
 # Ananke teeman sosiaalinen media
 [params.ananke]

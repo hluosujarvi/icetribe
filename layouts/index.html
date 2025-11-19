@@ -1,9 +1,9 @@
 {{ define "header" }}
   {{ $featured_image := partials.Include "func/GetFeaturedImage.html" . }}
   {{ if $featured_image }}
-    {{/* Trimming the slash and adding absURL make sure the image works no matter where our site lives */}}
+    {{ $featured_image_rel := replaceRE "^https?://[^/]+" "" $featured_image }}
     {{ $featured_image_class := site.Params.featured_image_class | compare.Default "cover bg-center" }}
-    <header class="{{ $featured_image_class }}" style="background-image: url('{{ $featured_image }}'); min-height: 50vh;">
+    <header class="{{ $featured_image_class }}" style="background-image: url('{{ $featured_image_rel }}'); min-height: 50vh;">
       {{ $cover_dimming_class := site.Params.cover_dimming_class | compare.Default "bg-black-60" }}
       <div class="{{ $cover_dimming_class }}" style="min-height: 50vh;">
         {{ partials.Include "site-navigation.html" .}}
@@ -45,14 +45,40 @@
   <div class="flex-l mw8 center ph3 ph4-ns pv4 items-start">
     
     {{/* Pääsisältö vasemmalla - desktop 55%, mobile 100% */}}
-    <article class="w-100 w-55-l {{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "pl4-l" "pr4-l" }} mb4">
+    <article class="homepage-content w-100 w-55-l {{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "pl4-l" "pr4-l" }} mb4">
       <div class="f4 lh-copy nested-links {{ $.Param "text_color" | compare.Default "mid-gray" }}">
         {{ .Content }}
       </div>
+
+      {{ $band := site.Params.band }}
+      <section class="homepage-cta bg-white shadow-4 br3 pa4 mt4" aria-labelledby="booking-cta">
+        <h2 id="booking-cta" class="f3 fw6 mb3 dark-gray">
+          {{ with $band.cta_title }}{{ . }}{{ else }}Tilaa Icetribe tapahtumaasi{{ end }}
+        </h2>
+        <p class="f5 lh-copy mb3">
+          {{ with $band.cta_intro }}{{ . }}{{ else }}Autamme sinua rakentamaan unohtumattoman tapahtuman seitsemän vuosikymmenen hittikimaralla.{{ end }}
+        </p>
+
+        {{ with $band.highlights }}
+          <ul class="list pl0 mb3" aria-label="Miksi valita Icetribe">
+            {{ range . }}
+              <li class="homepage-cta-point mb2">{{ . }}</li>
+            {{ end }}
+          </ul>
+        {{ end }}
+
+        <div class="flex flex-column flex-row-ns items-start">
+          <a href="/yhteystiedot/" class="homepage-cta-button f6 link dim br2 ph3 pv2 dib white bg-dark-gray hover-bg-black">
+            {{ with $band.cta_button_text }}{{ . }}{{ else }}Ota yhteyttä{{ end }}
+          </a>
+        </div>
+      </section>
+
+      {{ partial "home/testimonials.html" . }}
     </article>
 
     {{/* Sivupalkki oikealla - desktop 40%, mobile 100% */}}
-    <aside class="w-100 w-40-l {{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "pr3-l" "pl3-l" }}">
+    <aside class="homepage-sidebar w-100 w-40-l {{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "pr3-l" "pl3-l" }}">
       {{/* Hae kolme uusinta postausta */}}
       {{ $posts := collections.Where .Site.RegularPages "Section" "posts" }}
       {{ if $posts }}

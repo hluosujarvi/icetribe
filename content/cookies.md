@@ -2,6 +2,7 @@
 title = 'Evästeet'
 date = '2024-11-17'
 draft = false
+featured_image = '/images/cover_posts.jpg'
 +++
 
 # Evästeet

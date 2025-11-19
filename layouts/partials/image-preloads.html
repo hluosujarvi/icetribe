@@ -1,0 +1,27 @@
+{{/*
+  Preload critical header images to prevent visible background transitions.
+  - Preload the current page's featured image with high priority.
+  - Prefetch other primary navigation cover images at low priority so they are cached.
+*/}}
+
+{{ $featured := partials.Include "func/GetFeaturedImage.html" . }}
+{{ $featuredRel := "" }}
+{{ if $featured }}
+  {{ $featuredRel = replaceRE "^https?://[^/]+" "" ($featured | urls.AbsURL) }}
+  <link rel="preload" as="image" href="{{ $featuredRel }}" fetchpriority="high">
+{{ end }}
+
+{{/* Keep track of images we've already emitted to avoid duplicates. */}}
+{{ $emitted := dict }}
+{{ if $featuredRel }}
+  {{ $emitted = dict $featuredRel true }}
+{{ end }}
+
+{{ $coverImages := slice "/images/cover_index.jpg" "/images/cover_about.jpg" "/images/cover_soitossa.jpg" "/images/cover_posts.jpg" "/images/cover_yhteystiedot.jpg" }}
+{{ range $coverImages }}
+  {{ $rel := replaceRE "^https?://[^/]+" "" (. | urls.AbsURL) }}
+  {{ if not (isset $emitted $rel) }}
+    <link rel="preload" as="image" href="{{ $rel }}" fetchpriority="low">
+    {{ $emitted = merge $emitted (dict $rel true) }}
+  {{ end }}
+{{ end }}

@@ -1,0 +1,19 @@
+{{ with site.Data.testimonials }}
+  {{ $testimonials := . }}
+  {{ if gt (len $testimonials) 0 }}
+  <section class="homepage-testimonials bg-near-white br3 pa4 mt4" aria-labelledby="testimonials-heading">
+    <h2 id="testimonials-heading" class="f4 fw6 mb3 dark-gray">Mitä asiakkaamme sanovat</h2>
+    <div class="homepage-testimonials-grid">
+      {{ range $index, $item := $testimonials }}
+        <figure class="testimonial-card bg-white shadow-2 br3 pa3" itemprop="review" itemscope itemtype="https://schema.org/Review">
+          <blockquote class="f5 lh-copy mb3" itemprop="reviewBody">{{ $item.quote }}</blockquote>
+          <figcaption class="f6 gray">
+            <span class="db fw6" itemprop="author">{{ $item.author }}</span>
+            {{ with $item.role }}<span class="db" itemprop="publisher">{{ . }}</span>{{ end }}
+          </figcaption>
+        </figure>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+{{ end }}

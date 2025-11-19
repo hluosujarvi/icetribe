@@ -152,7 +152,8 @@ class TestRunner {
     }
 
     const nodeModulesPath = path.join(this.projectRoot, 'node_modules');
-    if (!await fs.pathExists(nodeModulesPath)) {
+    const needsInstall = !await fs.pathExists(nodeModulesPath) || await this.dependenciesChanged(packageJsonPath, nodeModulesPath);
+    if (needsInstall) {
       this.log('info', 'Installing dependencies...');
       
       await new Promise((resolve, reject) => {
@@ -172,6 +173,32 @@ class TestRunner {
     }
 
     this.log('pass', 'Dependencies ready');
+  }
+
+  async dependenciesChanged(packageJsonPath, nodeModulesPath) {
+    try {
+      const pkg = await fs.readJson(packageJsonPath);
+      const declaredDeps = Object.assign({}, pkg.dependencies || {}, pkg.devDependencies || {});
+      const missingDeps = [];
+
+      for (const depName of Object.keys(declaredDeps)) {
+        const segments = depName.split('/');
+        const depPath = path.join(nodeModulesPath, ...segments);
+        if (!await fs.pathExists(depPath)) {
+          missingDeps.push(depName);
+        }
+      }
+
+      if (missingDeps.length > 0) {
+        this.log('warning', `Missing dependencies detected: ${missingDeps.join(', ')}`);
+        return true;
+      }
+
+      return false;
+    } catch (error) {
+      this.log('warning', `Dependency check failed (${error.message}). Reinstalling to be safe.`);
+      return true;
+    }
   }
 
   async generateReport() {

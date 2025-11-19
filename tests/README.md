@@ -15,7 +15,14 @@ Tämä hakemisto sisältää kattavan testausframeworkin Icetribe Hugo -sivustol
   - Sosiaalisen median linkit
   - Quote-blockit ja kuvat
 
-### 🔗 Linkkitestit  
+### �️ Metadata- ja kuvavalidointi
+- **`markdown-asset-validation.js`** - Valvoo Markdown-sisältöjen etuliitetietoja ja mediaa
+  - Pakolliset front matter -kentät (title, draft, featured_image)
+  - Postauksille pakolliset `date`- ja `tags`-kentät
+  - Featured image -polkujen olemassaolo (static-, assets- ja Page Bundle -hakemistot)
+  - Shortcode- ja Markdown-kuvien tiedostoviitteiden tarkistus
+
+### �🔗 Linkkitestit  
 - **`link-checker.js`** - Validoi kaikki linkit
   - Sisäiset linkit ja ankkurit
   - Navigaation johdonmukaisuus
@@ -74,6 +81,7 @@ npm run test:watch
 Testit luovat JSON-raportit `tests/`-hakemistoon:
 - `test-report.json` - Yleiset testitulokset
 - `content-report.json` - Sisältövalidoinnin tulokset  
+- `markdown-assets-report.json` - Front matterin ja kuvien validoinnin tulokset
 - `link-report.json` - Linkkitarkistuksen tulokset
 - `performance-report.json` - Suorituskykymetriikat
 - `accessibility-report.json` - Saavutettavuusauditointi

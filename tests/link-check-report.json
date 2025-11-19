@@ -1,0 +1,58 @@
+{
+  "timestamp": "2025-11-19T12:15:17.883Z",
+  "summary": {
+    "passed": 38,
+    "warnings": 4,
+    "errors": 0,
+    "success": true
+  },
+  "details": {
+    "passed": [
+      "Internal link valid: /",
+      "Internal link valid: /about/",
+      "Internal link valid: /soitossa/",
+      "Internal link valid: /posts/",
+      "Internal link valid: /yhteystiedot/",
+      "Internal link valid: /cookies#cookie-settings",
+      "Anchor found: /cookies#cookie-settings",
+      "Internal link valid: /posts/sivuston-julkaisu/",
+      "Internal link valid: /posts/ensimmainen-keikka/",
+      "Internal link valid: /tags/keikka/",
+      "Internal link valid: /tags/uutiset/",
+      "Internal link valid: /tags/kessa/",
+      "Internal link valid: /tags/testi/",
+      "Internal link valid: /tags/shortcode/",
+      "Internal link valid: /tags/sivusto/",
+      "Internal link valid: /posts/shortcode-testi/",
+      "Image found: /images/cover_about_hu_39692ac15d07978d.jpg",
+      "Image found: /posts/ensimmainen-keikka/Kessa_hu_97fcc9d0bbc0110e.jpg",
+      "Image found: /posts/shortcode-testi/cover_about_hu_39692ac15d07978d.jpg",
+      "Image found: /posts/sivuston-julkaisu/julkaisu_hu_8c0b958ba333264a.jpg",
+      "Image found: /posts/sivuston-julkaisu/julkaisu_hu_8c0b958ba333264a.jpg",
+      "Image found: /posts/sivuston-julkaisu/julkaisu_hu_8c0b958ba333264a.jpg",
+      "Image found: /posts/ensimmainen-keikka/Kessa_hu_97fcc9d0bbc0110e.jpg",
+      "Image found: /posts/ensimmainen-keikka/Kessa_hu_97fcc9d0bbc0110e.jpg",
+      "Image found: /posts/ensimmainen-keikka/Kessa_hu_97fcc9d0bbc0110e.jpg",
+      "Image found: /posts/ensimmainen-keikka/Kessa_hu_97fcc9d0bbc0110e.jpg",
+      "Image found: /posts/ensimmainen-keikka/Kessa_hu_97fcc9d0bbc0110e.jpg",
+      "Image found: /posts/shortcode-testi/cover_about_hu_39692ac15d07978d.jpg",
+      "Image found: /posts/sivuston-julkaisu/julkaisu_hu_8c0b958ba333264a.jpg",
+      "Image found: /posts/shortcode-testi/cover_about_hu_39692ac15d07978d.jpg",
+      "Image found: /posts/sivuston-julkaisu/julkaisu_hu_8c0b958ba333264a.jpg",
+      "Image found: /posts/ensimmainen-keikka/Kessa_hu_97fcc9d0bbc0110e.jpg",
+      "Social link found: https://www.facebook.com/Icetribe",
+      "Social link found: https://www.instagram.com/icetribe_official/",
+      "Social link found: https://soundcloud.com/icetribe",
+      "Social link found: https://www.facebook.com/Icetribe",
+      "Social link found: https://www.instagram.com/icetribe_official/",
+      "Social link found: https://soundcloud.com/icetribe"
+    ],
+    "warnings": [
+      "Navigation length differs in public/analytics-test.html",
+      "Navigation length differs in public/cookie-test.html",
+      "Navigation length differs in public/ga-test.html",
+      "Navigation length differs in public/posts/page/1/index.html"
+    ],
+    "errors": []
+  }
+}

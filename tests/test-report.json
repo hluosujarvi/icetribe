@@ -1,0 +1,64 @@
+{
+  "timestamp": "2025-11-19T10:28:53.216Z",
+  "summary": {
+    "total": 7,
+    "passed": 4,
+    "failed": 3,
+    "successRate": "57.1"
+  },
+  "results": [
+    {
+      "name": "accessibility-test",
+      "file": "/Users/hluosuja/gitProjects/icetribe/tests/accessibility-test.js",
+      "success": false,
+      "exitCode": 1,
+      "timestamp": "2025-11-19T10:22:22.159Z"
+    },
+    {
+      "name": "content-validation",
+      "file": "/Users/hluosuja/gitProjects/icetribe/tests/content-validation.js",
+      "success": false,
+      "exitCode": 1,
+      "timestamp": "2025-11-19T10:22:22.630Z"
+    },
+    {
+      "name": "error-handling-test",
+      "file": "/Users/hluosuja/gitProjects/icetribe/tests/error-handling-test.js",
+      "success": true,
+      "exitCode": 0,
+      "timestamp": "2025-11-19T10:22:42.923Z"
+    },
+    {
+      "name": "finnish-validation",
+      "file": "/Users/hluosuja/gitProjects/icetribe/tests/finnish-validation.js",
+      "success": true,
+      "exitCode": 0,
+      "timestamp": "2025-11-19T10:22:43.060Z"
+    },
+    {
+      "name": "link-checker",
+      "file": "/Users/hluosuja/gitProjects/icetribe/tests/link-checker.js",
+      "success": true,
+      "exitCode": 0,
+      "timestamp": "2025-11-19T10:22:43.636Z"
+    },
+    {
+      "name": "markdown-asset-validation",
+      "file": "/Users/hluosuja/gitProjects/icetribe/tests/markdown-asset-validation.js",
+      "success": true,
+      "exitCode": 0,
+      "timestamp": "2025-11-19T10:22:43.876Z"
+    },
+    {
+      "name": "performance-test",
+      "file": "/Users/hluosuja/gitProjects/icetribe/tests/performance-test.js",
+      "success": false,
+      "exitCode": 1,
+      "timestamp": "2025-11-19T10:28:53.215Z"
+    }
+  ],
+  "hugo": {
+    "version": "hugo v0.152.2+extended+withdeploy darwin/amd64 BuildDate=2025-10-24T15:31:49Z VendorInfo=brew",
+    "serverUsed": true
+  }
+}

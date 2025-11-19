@@ -1,0 +1,12 @@
+:root {
+  --color-accent: #8A42A8;
+  --color-accent-dark: #6B3487;
+  --color-accent-light: #E7D6EF;
+  --color-bg-page: #F7F7F7;
+  --color-bg-card: #FFFFFF;
+  --color-text-primary: #222222;
+  --color-text-secondary: #555555;
+  --color-border-subtle: #E0E0E0;
+  --color-overlay: rgba(34, 34, 34, 0.6);
+  --color-shadow: 0 12px 28px rgba(24, 16, 38, 0.18);
+}

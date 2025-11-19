@@ -1,14 +1,16 @@
 +++
 draft = false
 title = 'Mikä Icetribe?'
-featured_image = '/images/cover_about.jpg'
-description = 'Icetribe-bändin jäsenet: Tiina (laulu), Henry (rummut), Tomi (basso), Kalle (koskettimet), Jarmo (kitara). Pop & rock covers 7 vuosikymmeneltä.'
+featured_image = 'cover_about.jpg'
+description = 'Tamperelaisen Icetribe-bändin jäsenet: Tiina Jääheimo (laulu), Henry Luosujärvi (rummut), Tomi Talpio (basso), Kalle Mäkelä (koskettimet), Jarmo Koivusaari (kitara).'
 omit_header_description = true
 +++
 
 # Keitä me olemme?
 
-Icetribe on Tamperelainen pop & rock -bilebändi, joka tuo seitsemän vuosikymmenen parhaita biisejä nykyaikaan.
+Icetribe, Tamperelainen Pop & Rock coverbändi, perustettiin aikanaan ns. "firma-bändiksi" ilahduttamaan yrityksen työkavereita pikkujouluissa (2008), josta bändin tarina lähti. Vuosien saatossa kokoonpano on elänyt ja taidot kasvaneet - ja soiton hauskuus säilynyt! Nykyään enää Tiina on töissä firmassa, jossa bändi sai alkunsa.
+
+Soittimet ovat sähköisiä - myös rummut, jolloin volumetason saa pidettyä kohtalaisena pienemmissäkin tiloissa. Keikka voidaan hoitaa myös "akustisen kuuloisesti", eli ilman särökitaroita ja Cajon-rummulla rytmitettynä.
 
 ## Kokoonpano
 
@@ -26,5 +28,3 @@ Kiipparivirtuoosi, joka tuo improvisoitua sointia kappaleisiin sooloja unohtamat
 
 **Jarmo Koivusaari** - Kitara  
 Riffiguru, joka hallitsee sekä power chordit että sieluun soljuvat soolot
-
-

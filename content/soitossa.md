@@ -1,9 +1,13 @@
 +++
 title = 'Mitä voi odottaa?'
 draft = false
-featured_image = '/images/cover_soitossa.jpg'
+featured_image = 'cover_soitossa.jpg'
+description = 'Icetriben soittolistalla seitsemän eri vuosikymmenen musiikkia, omaan tyyliin sovitetuksi'
+omit_header_description = true
 +++
 # Esimerkiksi näitä voit kuulla
+
+Emme valikoi biisejä soittolistoillemme (vain) sen mukaan, millaiselta ne ovat kuulostaneet alkujaan, vaan miltä ne voivat kuulostaa, kun me soitamme ne! Vaikka cover-bändinä valikoimaamme kuuluukin paljon tuttuja ja suosittuja kappaleita, olemme valinneet mukaan myös biisejä, joita haluamme yleisön kuulevan, koska ne vain ovat niin hyviä!
 
 Alla näet esimerkkejä biiseistä, joita soitamme - omalla tyylillämme...
 

@@ -17,9 +17,9 @@ const config = {
     '/yhteystiedot/'
   ],
   requiredContent: {
-    '/': ['Icetribe', 'Pop & Rock', 'bilebändi'],
-    '/about/': ['Tampere', 'yhtyeestä', 'jäsenet'],
-    '/soitossa/': ['Soitossa', 'vuosikymmenen'],
+    '/': ['Icetribe', 'Tuomme klassikot tuoreella otteella nykypäivään!', 'bilebändi'],
+    '/about/': ['Tampere', 'Icetribe on Tamperelainen pop ', 'jäsenet'],
+    '/soitossa/': ['Soitossa', 'Alla näet esimerkkejä biiseistä, joita soitamme'],
     '/posts/': ['Kuulumiset', 'Icetribe'],
     '/yhteystiedot/': ['yhteystiedot', 'keikkavaraukset']
   },

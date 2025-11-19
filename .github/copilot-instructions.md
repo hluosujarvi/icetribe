@@ -1,29 +1,73 @@
 # GitHub Copilot Instructions for Icetribe Hugo Website
 
+## 🚨 CRITICAL WORKFLOW RULES
+
+### 📚 ALWAYS Read Documentation First
+**BEFORE any task, ALWAYS read both:**
+1. **`README.md`** - Project overview and basic setup
+2. **`TECHNICAL_README.md`** - Detailed technical documentation, architecture, and development guidelines
+
+These files contain the most current and accurate information about the project structure, features, and implementation details.
+
+### 🔍 Analysis vs Implementation Mode
+- **When asked to "tutkia" (investigate), "analysoida" (analyze), "tarkistaa" (check), or "selvittää" (find out)**: 
+  - **DO NOT make any changes**
+  - Only read, search, and report findings
+  - Provide comprehensive analysis and recommendations
+  - Ask for explicit permission before implementing any changes
+
+- **When asked to implement, create, fix, or modify**:
+  - Proceed with changes after analysis
+  - Always remind about documentation updates after changes
+
+### 🚫 Git Policy - NO UNAUTHORIZED PUSHES
+- **NEVER push, commit, or merge to git without explicit permission**
+- **NEVER run**: `git push`, `git commit`, `git merge`, `git pull --rebase`, etc.
+- **OK to run**: `git status`, `git log`, `git diff`, `git branch` (read-only operations)
+- **When changes are made**: Always remind user to review changes and handle git operations manually
+
+### 🌿 Branch Strategy for Major Changes
+- **When user requests significant changes and we have a working branch**:
+  - **ALWAYS suggest creating a new branch first**
+  - Format: "Ehdotan uuden brangin luomista: `git checkout -b feature/[description]`"
+  - Explain why branching is beneficial for the specific change
+  - Wait for user confirmation before proceeding
+
+### 📝 Documentation Reminder
+**After ANY changes to code, structure, or features:**
+Always remind user to update documentation:
+```
+⚠️ MUISTUTUS: Muutosten jälkeen päivitä dokumentaatio:
+- README.md (jos muutokset vaikuttavat yleiseen käyttöön)
+- TECHNICAL_README.md (jos muutokset vaikuttavat tekniseen toteutukseen)
+- Commit-viestit ja changelog tarpeen mukaan
+```
+
 ## Project Overview
 This is **Icetribe**, a Finnish pop & rock cover band website built with Hugo static site generator. The site showcases the band's information, repertoire spanning 7 decades (1960s-2020s), news/blog posts, and contact details.
 
 ## Key Project Details
 - **Language**: Finnish (fi-fi)
-- **Framework**: Hugo v0.151.0+ Extended
-- **Theme**: Ananke (direct copy, not submodule)
+- **Framework**: Hugo v0.152.0+ Extended (with image processing)
+- **Theme**: Ananke (direct copy, not submodule) 
 - **Deployment**: GitHub Pages via GitHub Actions
-- **Image Optimization**: Automatic WebP conversion with 85% quality
-- **Social Media**: Facebook, Instagram, SoundCloud integration
+- **Image Optimization**: Hero images via Hugo resources + WebP conversion (85% quality)
+- **Social Media**: Facebook, Instagram, SoundCloud integration with GDPR compliance
 
 ## Architecture & File Structure
 
 ### Core Configuration
 - **`hugo.toml`**: Main site configuration with Finnish language settings
 - **Navigation menu**: 5 main sections (Etusivu, Tietoa, Soitossa, Uutiset, Yhteystiedot)
-- **WebP optimization**: Enabled for all images with quality=85, max width varies by usage
+- **Hero Image Optimization**: Hugo resources processing with WebP conversion (1600px, 85% quality)
+- **Cookie Management**: GDPR-compliant system with Google Analytics 4 consent integration
 
 ### Content Structure
 ```
 content/
 ├── _index.md           # Homepage (Finnish: "Icetribe Pops. Icetribe Rocks!")
-├── about.md            # Band info (Finnish: "Tietoa yhtyeestä")
-├── repertuaari.md      # Song repertoire (Finnish: "Soitossa")
+├── about.md            # Band info (Finnish: "Tietoa yhtyeestä") 
+├── soitossa.md         # Song repertoire (Finnish: "Soitossa")
 ├── yhteystiedot.md     # Contact info (Finnish: "Yhteystiedot")
 └── posts/              # Blog posts/news (Finnish: "Uutiset")
     └── [post-name]/    # Page Bundle structure
@@ -31,15 +75,18 @@ content/
         └── *.jpg       # Post images
 ```
 
-### Image Management
-**Two approaches:**
-1. **Site-level images**: `static/images/` → Referenced as `/images/filename.jpg`
-2. **Post images**: Page Bundle `content/posts/[post-name]/` → Referenced as `filename.jpg`
+### Image Management Strategy
+**IMPORTANT: Always check TECHNICAL_README.md for current image optimization workflow**
 
-### Custom Features
-- **WebP Shortcode**: `layouts/shortcodes/img.html` for optimized responsive images
-- **Featured Images**: WebP optimization via `layouts/partials/func/GetFeaturedImage.html`
-- **Social Media**: Custom SoundCloud integration (missing from Ananke theme)
+1. **Hero Images**: Via Hugo resources processing (`assets/images/` → optimized WebP)
+2. **Content Images**: `layouts/shortcodes/img.html` for responsive WebP conversion
+3. **Static Images**: `static/images/` for non-processed assets
+
+### Advanced Features
+- **Hero Image Processing**: `layouts/partials/func/GetFeaturedImage.html` with Hugo resources
+- **Cookie Consent System**: GDPR-compliant with Google Analytics 4 integration
+- **SoundCloud Integration**: Consent-aware embedding with privacy controls
+- **Comprehensive Testing**: Automated test suite for functionality validation
 
 ## Content Guidelines
 
@@ -95,27 +142,36 @@ tags = ['keikka', 'uutiset']  # Finnish tags
 ### Navigation Structure
 - **Etusivu** (/) - Homepage
 - **Tietoa** (/about/) - Band information  
-- **Soitossa** (/repertuaari/) - Repertoire
+- **Soitossa** (/soitossa/) - Repertoire *(Note: URL changed from /repertuaari/)*
 - **Uutiset** (/posts/) - News/blog
 - **Yhteystiedot** (/yhteystiedot/) - Contact
 
 ## Development Workflow
 
+### Pre-Work Requirements
+**MANDATORY: Before starting any work:**
+1. Read `README.md` for project overview
+2. Read `TECHNICAL_README.md` for technical details and current implementation status
+3. Use semantic search to understand existing codebase
+4. For major changes: propose new branch creation
+
 ### Local Development
 ```bash
-hugo server  # Starts dev server at localhost:1313
+hugo server --disableFastRender  # Full rebuilds for development
+hugo server                      # Fast rebuilds for content editing
 ```
 
-### Content Creation
+### Content Creation Workflow
 1. **New Page**: Create `.md` file in `content/`
 2. **New Post**: Create Page Bundle in `content/posts/[post-name]/`
-3. **Add Images**: Place in appropriate directory (static/images or page bundle)
-4. **Use Shortcode**: `{{< img src="image.jpg" alt="Description" >}}`
+3. **Hero Images**: Place in `assets/images/` for Hugo processing
+4. **Content Images**: Use `{{< img src="image.jpg" alt="Description" >}}` shortcode
+5. **Test locally**: Verify all functionality before changes
 
-### Deployment
-- **Automatic**: Push to `main` branch triggers GitHub Actions
-- **Hugo Extended**: Required for WebP processing
-- **Build Time**: ~37ms locally, ~2-5 minutes on GitHub Pages
+### Deployment & Testing
+- **Automated Tests**: Run `./automated-test.sh` before committing
+- **Hugo Extended**: Required for image processing
+- **Build Verification**: Use `hugo --gc --minify` for production testing
 - **Environment**: Europe/Helsinki timezone
 
 ## Code Patterns
@@ -180,15 +236,44 @@ hugo --gc --minify              # Production build
 hugo version                    # Check Hugo Extended
 ```
 
-## Contributing Guidelines
+## Troubleshooting
 
-When working on this project:
-1. **Respect the Finnish language** - maintain proper Finnish grammar and terminology
-2. **Follow Page Bundle pattern** for new posts with images
-3. **Test WebP optimization** - verify images are properly converted
-4. **Maintain band branding** - energetic, professional, multi-generational appeal
-5. **Update README.md** when adding new features or changing structure
-6. **Use semantic commit messages** in Finnish or English
-7. **Test locally** before pushing to ensure proper Hugo Extended functionality
+### Common Issues
+1. **Images not showing**: Check file paths and verify TECHNICAL_README.md for current workflow
+2. **Build failures**: Ensure Hugo Extended v0.152.0+ is installed
+3. **Hero images not optimized**: Verify images are in `assets/images/` and referenced correctly
+4. **Tests failing**: Run automated test suite and check for content validation issues
 
-This website represents a professional Finnish band with 7 decades of musical coverage - maintain that quality and breadth in all contributions.
+### Development Commands
+```bash
+hugo server --disableFastRender  # Full rebuilds
+hugo --gc --minify              # Production build
+hugo version                    # Check Hugo Extended
+./automated-test.sh             # Run comprehensive tests
+```
+
+## Quality Standards & Contributing Guidelines
+
+### Mandatory Workflow
+1. **ALWAYS read documentation first** - README.md and TECHNICAL_README.md
+2. **Analysis requests only analyze** - no implementation without permission
+3. **No unauthorized git operations** - user handles all commits/pushes
+4. **Branch for major changes** - suggest new branches for significant work
+5. **Document changes** - remind to update docs after modifications
+
+### Content & Code Standards
+- **Finnish language quality** - maintain proper grammar and band terminology
+- **Image optimization** - use current Hugo resources workflow (see TECHNICAL_README.md)
+- **Testing requirements** - run automated tests before changes
+- **Band branding** - energetic, professional, multi-generational appeal (1960s-2020s)
+- **GDPR compliance** - maintain cookie consent and privacy features
+
+### Technical Excellence
+- **Hugo Extended compatibility** - verify image processing works
+- **Performance optimization** - WebP conversion, lazy loading, fast builds
+- **Accessibility standards** - proper alt text, semantic HTML, mobile responsive
+- **Browser compatibility** - test WebP fallbacks and cross-browser functionality
+
+This website represents a professional Finnish band with comprehensive musical coverage - maintain that quality and technical excellence in all contributions.
+
+Remember: **Documentation first, analysis before changes, git safety, branch strategy, update reminders**

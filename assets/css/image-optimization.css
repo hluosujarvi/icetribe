@@ -34,15 +34,6 @@ img[loading="eager"] {
   content-visibility: visible;
 }
 
-/* WebP support detection and fallback */
-.webp .cover {
-  background-image: var(--header-webp, var(--header-jpg));
-}
-
-.no-webp .cover {
-  background-image: var(--header-jpg);
-}
-
 /* Responsive header image sizes for different viewports */
 @media (max-width: 768px) {
   .cover {

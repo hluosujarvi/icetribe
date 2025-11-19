@@ -1,457 +1,138 @@
-# 🎸 Icetribe - Hugo Website
+# Icetribe – sisällöntuottajan opas
 
-Icetriben kotisivu, joka on rakennettu Hugo-generaattorilla ja Ananke-teemalla. Sivusto sisältää automaattisen WebP-kuvaoptimoinnin ja on käytössä GitHub Pages -palvelussa.
+Tervetuloa Icetriben Hugo-sivuston sisältötiimiin! Tämä ohje keskittyy siihen, miten luot ja päivität sivuja, uutisia ja etusivun sisältöjä. Tekninen toteutus ja kehittäjäohjeet löytyvät erillisestä [Technical README:stä](./TECHNICAL_README.md).
 
-## 🌐 Sivusto
+## Pikalinkit
+- **Live-sivusto:** https://icetribe.fi
+- **Repository:** https://github.com/hluosujarvi/icetribe
+- **Tekniset ohjeet:** [TECHNICAL_README.md](./TECHNICAL_README.md)
 
-- **Live-sivusto**: https://icetribe.fi
-- **Repository**: https://github.com/hluosujarvi/icetribe
-
-## � Sivuston sisältö
-
-- **Etusivu** - Tervetuloa Icetribeen
-- **Bändi** - Bändin jäsenet ja historia  
-- **Biisit** - Kappaleet 7 vuosikymmeneltä (1960-2020)
-- **Kuulumiset** - Keikkaraportit ja ajankohtaista
-- **Yhteystiedot** - Keikkavaraukset ja yhteystiedot
-
-## 📱 Sosiaalinen media
-
-Icetribe löytyy myös sosiaalisesta mediasta:
-- **Facebook**: https://www.facebook.com/Icetribe
-- **Instagram**: @icetribe_official
-- **SoundCloud**: https://soundcloud.com/icetribe
-
-## 🚀 Pika-aloitus
-
-### Kehitysympäristö
+## Näin esikatselet muutokset
 ```bash
-# Kloonaa repository
-git clone https://github.com/hluosujarvi/icetribe.git
-cd icetribe
-
-# Käynnistä kehitysserveri (Hugo Extended vaaditaan!)
-hugo server
-
-# Sivusto näkyy osoitteessa: http://localhost:1313/
+hugo server --disableFastRender
 ```
+- Komento käynnistää esikatselun osoitteeseen <http://localhost:1313/>
+- Paina `Ctrl+C`, kun olet valmis
 
-### Tuotantoversio
-Sivusto päivittyy automaattisesti GitHub Pages:iin kun teet muutoksia `main`-branchiin. GitHub Actions käyttää Hugo Extended 0.151.0 versiota.
+## Uuden sivun luominen
+1. Luo uusi Markdown-tiedosto `content/`-hakemistoon (esim. `content/arvostelut.md`).
+2. Lisää alkuun front matter -lohko:
+   ```markdown
+   +++
+   title = 'Arvostelut'
+   draft = true          # Pidä true kunnes sivu on valmis
+   featured_image = '/images/cover_arvostelut.jpg'
+   description = 'Lyhyt kuvaus sivun sisällöstä (max ~160 merkkiä)'
+   +++
+   ```
+3. Kirjoita varsinainen sisältö front matterin jälkeen Markdownilla.
+4. Kun sivu on valmis julkaistavaksi, vaihda `draft = false`.
 
-## 📝 Sisällön muokkaus
+### Cover-kuvan lisääminen sivulle
+1. Tallenna kannen kuva `static/images/` -hakemistoon (esim. `cover_arvostelut.jpg`).
+2. Suositus: vaakasuuntainen kuva, vähintään 1600px leveä.
+3. Viittaa kuvaan `featured_image = '/images/cover_arvostelut.jpg'`.
 
-### Sivujen muokkaus
-- **Etusivu**: `content/_index.md`
-- **Tietoa yhtyeestä**: `content/about.md`
-- **Repertuaari**: `content/soitossa.md`
-- **Yhteystiedot**: `content/yhteystiedot.md`
-
-### Hugo Front Matter -esimerkki
-```markdown
-+++
-title = 'Sivun otsikko'
-draft = false
-featured_image = '/images/cover_sivu.jpg'  # Cover-kuva (suositeltu)
-# Huom: date-kenttä poistettu staattisista sivuista
-+++
-
-# Sivun sisältö Markdownilla
-```
-
-### Custom Layout -ominaisuudet
-- **Etusivu**: Korkeampi header (80vh) dramaattisempaa ilmettä varten
-- **Kaikki sivut**: Ei duplikaatti H1-otsikkoja (käytetään vain sisällön H1)
-- **Posts-sivu**: Parannettu layout kuvineen ja tageilla
-- **Yhtenäiset cover-kuvat**: Kaikilla sivuilla oma cover_[sivu].jpg
-
-## 📸 Kuvien lisääminen
-
-### 1. Cover-kuva järjestelmä (sivutason featured images)
-```
-static/images/
-├── Front.jpg             # Alkuperäinen kuva
-├── cover_index.jpg       # Etusivun cover-kuva
-├── cover_about.jpg       # About-sivun cover-kuva  
-├── cover_posts.jpg       # Posts-sivun cover-kuva
-├── cover_repertuaari.jpg # Repertuaari-sivun cover-kuva
-├── cover_yhteystiedot.jpg # Yhteystiedot-sivun cover-kuva
-└── ...                   # Muut kuvat
-```
-
-**Käyttö sivuilla:**
-```markdown
-+++
-title = 'Sivun nimi'
-featured_image = '/images/cover_sivu.jpg'  # Cover-kuva järjestelmä
-+++
-```
-
-**Etusivun erikoisuudet:**
-- Korkea header (80vh = 80% näytön korkeudesta)
-- Jos haluat muuttaa korkeutta, muokkaa `layouts/index.html`:
-  ```gohtml
-  min-height: 80vh;  <!-- Muuta tämä arvo molemmista kohdista -->
+### Sisältöelementit sivuille
+- Otsikoi sisällöt Markdown-otsikoilla (`#`, `##`, `###`...).
+- Lisää kuvia Hugo-shortcodella:
+  ```markdown
+  {{< img src="kuva.jpg" alt="Kuvaus" >}}
   ```
+- ➤ Pelkkä tiedostonimi toimii, kun kuva on saman sivun *page bundle* -kansiossa (`content/.../index.md` + kuvat) tai `assets/images/` -hakemistossa. Jos kuva on `static/images/`-hakemistossa, käytä koko polkua `src="/images/kuva.jpg"`.
+- Korosta lainauksiin `quote`-shortcodea:
+  ```markdown
+  {{< quote >}}
+  Yleisön palaute tähän.
+  {{< /quote >}}
+  ```
+- SoundCloud-upotukset:
+  ```markdown
+  {{< soundcloud "https://soundcloud.com/icetribe/menevat-1" >}}
+  ```
+- Katso lisää esimerkkejä tiedostosta `content/example-content.md`.
 
-### 2. Postauksen kuvat (Page Bundle -rakenne)
-```
-content/posts/
-└── uusi-postaus/
-    ├── index.md       # Postauksen sisältö
-    ├── herokuva.jpg   # Postauksen herokuva
-    └── sisaltokuva.jpg # Sisältökuva
-```
+## Uuden julkaisun (uutisen) luominen
+Uutiset käyttävät Hugo page bundle -rakennetta (oma hakemisto sisällölle ja kuville).
 
-**Käyttö postauksessa:**
-```markdown
-+++
-title = 'Uusi postaus'
-featured_image = 'herokuva.jpg'    # Ei /images/ polkua!
-+++
+1. Luo hakemisto ja index-tiedosto:
+   ```bash
+   mkdir -p content/posts/uusi-uutinen
+   touch content/posts/uusi-uutinen/index.md
+   ```
+2. Lisää front matter -lohko:
+   ```markdown
+   +++
+   title = 'Postauksen otsikko'
+   date = '2025-11-19'   # Muoto YYYY-MM-DD
+   draft = true          # Vaihda false, kun julkaiset
+   featured_image = 'kuva.jpg'   # Kuva samassa hakemistossa
+   tags = ['keikka', 'uutiset']   # 1–3 avainsanaa
+   description = 'Lyhyt kuvaus uutisesta (meta-kuvaus)'
+   +++
+   ```
+3. Kirjoita sisältö front matterin perään Markdownilla.
+4. Tuo uutisen kuvat samaan hakemistoon (`content/posts/uusi-uutinen/`).
+5. Käytä kuville shortcodea `{{< img src="kuva.jpg" alt="Kuvaus" >}}`.
+6. ➤ Shortcode löytää kuvan pelkällä tiedostonimellä, koska postaus on page bundle. Jos käytät sivun yhteisiä kuvia `assets/images/` -kansiosta, pelkkä tiedostonimi riittää myös. `static/images/` -kansiosta haettaessa lisää aina `/images/`-alku.
+7. Poista `draft` tai aseta `false`, kun haluat julkaisun näkyviin.
 
-Postauksen sisältö...
+### Muistilista uutiselle
+- **Otsikko:** Kerro uutisen ydin heti.
+- **Päivämäärä:** Käytä tapahtuman tai julkaisun päivää.
+- **Tagit:** Valitse 1–3 tagia (esim. `keikka`, `uutiset`, `media`).
+- **Kuvat:** Pidä kuvat vaakasuuntaisina; aseta yksi `featured_image`ksi.
+- **Ingressi:** Ensimmäinen kappale toimii tiivistelmänä uutislistauksessa.
 
-{{< img "sisaltokuva.jpg" "Kuvan kuvaus" >}}
-```
-
-### WebP-optimointi
-Kaikki kuvat muunnetaan automaattisesti WebP-muotoon laadulla 85%. Alkuperäiset kuvat säilyvät fallback-vaihtoehtona.
-
-## 📰 Uuden postauksen luominen
-
-### 1. Luo hakemisto ja tiedostot
-```bash
-# Luo postauksen hakemisto
-mkdir -p content/posts/postauksen-nimi
-
-# Luo index.md tiedosto
-touch content/posts/postauksen-nimi/index.md
-```
-
-### 2. Lisää sisältö
-```markdown
-+++
-title = 'Postauksen otsikko'
-date = '2025-10-16'
-draft = false
-featured_image = 'herokuva.jpg'  # Jos haluat herokuvan
-+++
-
-# Postauksen otsikko
-
-Postauksen sisältö Markdownilla...
-
-## Alataso-otsikko
-
-Lisää tekstiä ja kuvia:
-
-{{< img "kuva1.jpg" "Kuvan kuvaus" >}}
-```
-
-### 3. Lisää kuvat
-```bash
-# Kopioi kuvat postauksen hakemistoon
-cp ~/Downloads/kuva.jpg content/posts/postauksen-nimi/
-```
-
-### 4. Tallenna ja julkaise
-```bash
-# Lisää muutokset Gitiin
-git add .
-git commit -m "Lisää uusi postaus: Postauksen nimi"
-git push origin main
-```
-
-Sivusto päivittyy automaattisesti GitHub Pages:iin noin 2-5 minuutissa.
-
-## ⚙️ Tekninen toteutus
-
-### Hugo-versio ja teema
-- **Hugo Extended 0.151.0** (vaaditaan WebP-käsittelyyn)
-- **Ananke-teema** (suora kopio, ei submodule)
-- **WebP-optimointi** automaattisesti kaikille kuville
-- **Responsiiviset kuvat** {{< img >}} shortcodella
-- **Custom layoutit** kaikille sivuille (ei duplikaatti H1-otsikkoja)
-- **Featured image -järjestelmä** yhtenäisillä cover-kuvilla
-- **Google Fonts -integraatio** Saira (otsikot) + Inter (leipäteksti) -hierarkialla
-
-### 📊 Google Analytics 4 & GDPR-yhteensopivuus
-- **Google Analytics 4** (ID: G-8KK4BYHJKJ) täydellä GDPR-yhteensopivuudella
-- **External loader -lähestymistapa** Hugo-minimoijan ongelmien kiertämiseksi
-- **Cookie-suostumusjärjestelmä** violetti teema (#8A42A8) yhtenäisellä ulkoasulla
-- **Consent Mode v2** automaattinen aktivointi suostumuksen mukaan
-- **SoundCloud-integraatio** suostumustietoinen lataus violetilla teemalla
-
-#### GA4-toteutuksen teknisiä yksityiskohtia
-```javascript
-// Dynamic loader: loadGoogleAnalytics() function in icetribe-simple-config.js
-// Bypass Hugo minifier completely
-// Full consent mode integration
-// Automatic activation based on user consent
-```
-
-#### Cookie-suostumusjärjestelmä
-- **Violetti värimaailma** (#8A42A8) yhtenäinen SoundCloud-laatikoiden kanssa
-- **LocalStorage-pohjainen** suostumushallinta
-- **Modal ja banner -käyttöliittymät** saumattomalla sulkemistoiminnolla
-- **Automaattinen SoundCloud-lataus** suostumuksen mukaan
-
-### 🧪 Automaattinen testausjärjestelmä
-- **Kattava testisarja** 56 testitapausta automated-test.sh v1.1:ssä
-- **92.9% onnistumisaste** (52/56 testiä läpäisee)
-- **Evästetoiminnallisuuden testit** staattiset validoinnit toimivat täydellisesti
-- **Hugo-serverin hallinta** parannettu elinkaaren hallinta
-- **Draft-sisällön testaus** automaattinen luonti ja siivous
-
-#### Testikategoriat
-1. **Perustestit** - Tiedostorakenne ja konfiguraatio (8 testiä)
-2. **Sisältötestit** - Sivujen ja postausten validointi (16 testiä)
-3. **Kuvatestit** - WebP-optimointi ja shortcode (8 testiä)
-4. **Layout-testit** - Mukautetut layoutit ja fontit (8 testiä)
-5. **GA4-testit** - Analytics ja suostumusjärjestelmä (8 testiä)
-6. **Evästetestit** - Cookie-toiminnallisuus (8 testiä)
-
-```bash
-# Suorita päätestisarja
-./automated-test.sh
-
-# Testitulosten yhteenveto
-echo "✅ Läpäistyjen testien määrä: 66/66 (100%)"
-echo "🎯 Kaikki core-toiminnallisuudet validoitu"
-```
-
-### Lisätestit (Turvallisuus & Laatu)
-6. **Päätestitaulukko** - GA4, evästeet, SoundCloud, shortcodet, layout
-7. **Suomen kielen validointi** - Oikeinkirjoitus, päivämääräformaatit
-8. **Virhekäsittely** - 404-sivu, offline-käyttäytyminen, vikasietoisuus
-
-```bash
-# Suomen kielen validointi
-cd tests && node finnish-validation.js
-
-# Virhekäsittelyn testaus (vaatii Hugo serverin)
-cd tests && node error-handling-test.js
-
-# Kaikki lisätestit kerralla
-cd tests && npm test
-```
-
-### Tiedostorakenne
-```
-icetribe/
-├── hugo.toml                    # Pääkonfiguraatio
-├── content/                     # Sivujen sisältö
-│   ├── _index.md               # Etusivu (korkea header 80vh)
-│   ├── about.md                # Tietoa yhtyeestä
-│   ├── repertuaari.md          # Soitossa-sivu
-│   ├── yhteystiedot.md         # Yhteystiedot
-│   └── posts/                  # Blogiposts
-│       ├── _index.md           # Posts-sivun sisältö
-│       └── postaus/            # Page Bundle -rakenne
-├── static/                     # Staattiset tiedostot
-│   ├── images/                 # Sivutason kuvat
-│   │   ├── cover_index.jpg     # Etusivun cover-kuva
-│   │   ├── cover_about.jpg     # About-sivun cover-kuva
-│   │   ├── cover_posts.jpg     # Posts-sivun cover-kuva
-│   │   └── favicon.ico         # Sivuston favicon
-│   └── js/                     # JavaScript-tiedostot
-│       └── icetribe-simple-config.js  # Cookie consent & dynamic GA4 loader
-│       └── icetribe-simple-config.js  # Cookie-suostumusjärjestelmä
-├── layouts/                    # Mukautetut layoutit
-│   ├── index.html              # Etusivu (korkea header)
-│   ├── about/single.html       # About-sivun layout
-│   ├── posts/
-│   │   ├── list.html           # Posts-listaus (parannettu)
-│   │   └── single.html         # Yksittäinen postaus
-│   ├── repertuaari/single.html
-│   ├── yhteystiedot/single.html
-│   └── shortcodes/
-│       └── img.html            # WebP-optimoitu kuva-shortcode
-├── themes/ananke/              # Teema (suora kopio)
-│   └── layouts/_default/
-│       └── baseof.html         # Mukautettu: GA4 & hamburger menu
-├── automated-test.sh           # Automaattinen testisarja (v1.1)
-└── .github/workflows/          # GitHub Actions CI/CD
-```
-
-### Deployment
-- **GitHub Actions** automaattinen deployment
-- **GitHub Pages** hosting Hugo Extended -tuella
-- **WebP-optimointi** käytössä tuotannossa
-- **Automaattinen HTTPS** ja CDN GitHub Pages:in kautta
-
-### Typografia ja fontit
-- **Google Fonts -integraatio** `themes/ananke/layouts/_default/baseof.html`
-- **Font-hierarkia**:
-  - **Saira** (Google Fonts) - Kaikki otsikot (h1-h6)
-  - **Inter** (Google Fonts) - Leipäteksti, navigaatio ja muu sisältö
-- **Preconnect-optimointi** nopeampaa latautumista varten
-- **Fallback-fontit** järjestelmäfontteihin turvautumista varten
-
-## ⚙️ Konfiguraatio
-
-### hugo.toml - tärkeimmät asetukset
+## Etusivun CTA:n päivittäminen
+Etusivun lopussa oleva CTA-osion sisältö haetaan `hugo.toml`-tiedostosta lohkosta `[params.band]`. Lisää tai muokkaa seuraavaa:
 ```toml
-# WebP-optimointi
-[imaging]
-  quality = 85
-  
-[imaging.webp]
-  quality = 85
-  lossless = false
-
-# Google Analytics 4
-[params.googleAnalytics]
-  id = 'G-8KK4BYHJKJ'
-
-# Sosiaalinen media
-[params.ananke.social.follow]
-  networks = ["facebook", "instagram", "soundcloud"]
-
-[params.ananke.social.soundcloud]
-  profilelink = "https://soundcloud.com/icetribe"
-  
-# Favicon
-[params]
-  favicon = '/favicon.ico'
+[params.band]
+cta_title = 'Tilaa Icetribe tapahtumaasi'
+cta_intro = 'Rakennamme kanssasi illan, joka jää mieleen.'
+highlights = [
+  'Seitsemän vuosikymmenen hittikattaus',
+  'Oma äänentoisto ja bilevalot',
+  'Yhteistyö ja toiveiden kuuntelu'
+]
+cta_button_text = 'Ota yhteyttä'
 ```
+- `highlights` näkyy listana CTA-boksissa – valitse 2–4 iskevää pointtia.
+- Jos lohkoa ei ole, etusivu käyttää layoutin oletustekstiä.
 
-### Shortcodet ja JavaScript-komponentit
-- `{{< img "kuva.jpg" "Kuvaus" >}}` - WebP-optimoitu responsiivinen kuva
-- Luo automaattisesti `<picture>`-elementit WebP + JPEG fallback
-- **Hamburger-menu** responsiivinen navigaatio mobiililaitteille
-- **Cookie-banner** GDPR-yhteensopiva suostumusjärjestelmä violetilla teemalla
-- **SoundCloud-integraatio** suostumustietoinen lataus
+## Sivuston nimi ja perustiedot
+- **Sivuston nimi:** `hugo.toml` → `title = 'Icetribe'`
+- **Etusivun slogani & kuvaus:** `content/_index.md` → front matterin `title` ja `description`.
+- **Sosiaalisen median linkit:** `hugo.toml` → `[params.ananke.social.*]`
+  ```toml
+  [params.ananke.social.facebook]
+  profilelink = 'https://www.facebook.com/Icetribe'
+  ```
+- **Yhteystiedot-sivu:** päivitettävissä suoraan tiedostossa `content/yhteystiedot.md`.
 
-## 🔧 Kehitystyökalut
+## Metadata-checklist ennen julkaisua
+### Sivut
+- `title` – näkyy hero-alueella ja selaimen otsikossa.
+- `description` – lyhyt meta-kuvaus hakukoneille.
+- `featured_image` – cover-kuvan polku `static/images/` -hakemistoon.
+- `draft` – vaihda `false`, kun sivu on valmis.
 
-### Automaattinen testaus
-```bash
-# Suorita kaikki päätestit (66 testiä)
-./automated-test.sh
+### Uutiset
+- Kaikki yllä mainitut +
+- `date` – julkaisu- tai tapahtumapäivä.
+- `tags` – maksimissaan kolme hakusanaa.
+- `featured_image` – tiedostonimi ilman `/images/`-polkua (kuva samassa hakemistossa).
 
-# Pelkät staattiset testit (nopea)
-./automated-test.sh --static-only
-
-# Suomen kielen validointi
-cd tests && node finnish-validation.js
-
-# Virhekäsittelyn testaus (vaatii Hugo serverin)
-cd tests && node error-handling-test.js
-
-# Kaikki testit kerralla
-./automated-test.sh && cd tests && npm test
-```
-
-### Hugo-serverin hallinta
-```bash
-# Käynnistä kehitysserveri
-hugo server
-
-# Tapa kaikki Hugo-prosessit (troubleshooting)
-pkill -f hugo
-
-# Tarkista Hugo-versio
-hugo version  # Vaaditaan: extended
-```
-
-### Cookie-toiminnallisuuden testaus
-Automaattinen testisarja sisältää kattavat evästetoiminnallisuuden testit:
-- Banner-näkyvyys ja sulkeminen
-- Modal-toiminnallisuus ja navigointi  
-- localStorage-tietojen hallinta
-- SoundCloud-integraation toimivuus
-- Consent Mode v2 -aktivointi
-
-## 🐛 Yleisiä ongelmia ja ratkaisuja
-
-### Hugo Extended puuttuu
-```bash
-# macOS (Homebrew)
-brew install hugo
-
-# Tarkista versio
-hugo version  # Pitää näyttää "extended"
-```
-
-### Kuvat eivät näy
-- Tarkista polut: `/images/` sivutason kuville, ei polkua Page Bundle -kuville
-- Varmista että kuvat ovat oikeassa hakemistossa
-
-### GA4 ei lataudu tuotannossa
-- **Ratkaisu implementoitu**: External loader -lähestymistapa
-- Tiedosto: `/static/js/icetribe-simple-config.js` (sisältää GA4 dynaamisen latauksen)
-- Bypssaa Hugo-minimoijan ongelmat kokonaan
-
-### Cookie-banner ei sulkeudu
-- **Ratkaisu implementoitu**: Proper event handler cleanup
-- Violetti teema (#8A42A8) yhtenäinen koko sivustolla
-- Modal ja banner toimivat saumattomasti
-
-### Hugo-server ei käynnisty testeissä
-```bash
-# Varmista puhtaat prosessit
-pkill -f hugo
-ps aux | grep hugo | grep -v grep
-
-# Tarkista portit
-lsof -i :1313 -i :1314 -i :1315 -i :1316
-```
-
-### Sivusto ei päivity
-- Tarkista GitHub Actions: https://github.com/hluosujarvi/icetribe/actions
-- Odota 2-5 minuuttia deployment:in valmistumista
-- External JS-tiedostot päivittyvät automaattisesti
-
-## 📊 Projektitilastot
-
-### Testikattavuus
-- **Testejä yhteensä**: 56 automaattista testiä
-- **Onnistumisaste**: 92.9% (52/56 testiä läpäisee)
-- **Kategoriat**: 6 testikategoriaa kaikilla osa-alueilla
-- **Automaattinen suoritus**: Täydellinen draft-sisällön hallinta
-
-### Tekninen kattavuus
-- ✅ **GDPR-yhteensopivuus** täydellä Cookie Consent v2 -tuella
-- ✅ **Google Analytics 4** external loader -lähestymistavalla
-- ✅ **WebP-optimointi** automaattinen kaikille kuville (85% laatu)
-- ✅ **Responsiivinen suunnittelu** hamburger-menu mobiililaitteille
-- ✅ **SoundCloud-integraatio** suostumustietoinen violetilla teemalla
-- ✅ **Automaattinen testaus** 92.9% onnistumisasteella
-
-### Suorituskyky
-- **Hugo build**: ~37ms paikallisesti
-- **GitHub Pages deployment**: 2-5 minuuttia
-- **WebP-kuvien lataus**: Automaattinen optimointi
-- **JavaScript-bundle**: External loader -lähestymistapa
-
-## 📞 Tuki ja dokumentaatio
-
-### Kehittäjätuki
-1. **README.md** - Kattava projektin dokumentaatio
-2. **automated-test.sh** - Automaattinen ongelmien tunnistus
-3. **GitHub Issues** - https://github.com/hluosujarvi/icetribe/issues
-4. **Copilot Instructions** - `.github/copilot-instructions.md`
-
-### Hyödylliset komennot
-```bash
-# Nopea terveystarkastus
-./automated-test.sh --static-only
-
-# Kaikki testit + server-testit  
-./automated-test.sh
-
-# Hugo-ongelmien troubleshooting
-hugo version && pkill -f hugo && hugo server
-```
-
-### Checkpoint-haarat
-- **main** - Tuotantovalmis versio
-- **checkpoint-before-readme-update** - Viimeinen checkpoint ennen dokumentaatiota
+## Julkaiseminen
+1. Varmista, että julkaistavien sivujen `draft` on `false`.
+2. Testaa paikallisesti komennolla `hugo server`.
+3. Tallenna muutokset Gitillä:
+   ```bash
+   git add .
+   git commit -m "Päivitä sisältö"
+   git push origin main
+   ```
+4. GitHub Pages julkaisee sivuston automaattisesti 2–5 minuutissa.
 
 ---
-
-**Icetribe** 🎸 Pop & Rock -bilebändi | 🎵 Seitsemän vuosikymmenen hitit nykyaikaan
-
-*Sivusto rakennettu Hugo Extended 0.151.0:lla • GDPR-yhteensopiva • 92.9% testikattavuus*
+Tekniset yksityiskohdat, värit ja testaus löytyvät tiedostosta [TECHNICAL_README.md](./TECHNICAL_README.md). Tarvitsetko apua? Pingaa kehitystiimiä GitHubin issueissa tai kysy suoraan. Yhdessä pidämme Icetriben tarinan elävänä! 🎸

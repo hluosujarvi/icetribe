@@ -1,14 +1,16 @@
 +++
 title = 'Miten saat meidät tilaisuuteesi?'
 draft = false
-featured_image = '/images/cover_yhteystiedot.jpg'
+featured_image = 'cover_yhteystiedot.jpg'
+description = 'Icetriben yhteystiedot löytyvät tältä sivulta'
+omit_header_description = true
 +++
 
 # Ota yhteyttä - tilaa meidät!
 
-Haluatko onnistuneet bileet? Ota yhteyttä niin autamme sinua onnistumaan!
+Haluatko onnistuneet bileet? Ota yhteyttä niin autamme sinua saamaan juhliisi tunnelmaa!
 
-## 📞 Keikkavaraukset
+## Keikkavaraukset
 
 **Sähköpostitse:**  
 📧 info@icetribe.fi

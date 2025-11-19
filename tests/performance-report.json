@@ -1,0 +1,24 @@
+{
+  "timestamp": "2025-11-19T11:21:35.615Z",
+  "summary": {
+    "pagesТested": 0,
+    "errors": 6,
+    "avgLoadTime": 0
+  },
+  "results": [],
+  "errors": [
+    "Failed to test Homepage: net::ERR_CONNECTION_REFUSED at http://localhost:1313/",
+    "Failed to test About: net::ERR_CONNECTION_REFUSED at http://localhost:1313/about/",
+    "Failed to test Biisit: net::ERR_CONNECTION_REFUSED at http://localhost:1313/soitossa/",
+    "Failed to test Kuulumiset: net::ERR_CONNECTION_REFUSED at http://localhost:1313/posts/",
+    "Failed to test Yhteystiedot: net::ERR_CONNECTION_REFUSED at http://localhost:1313/yhteystiedot/",
+    "Performance test failed: net::ERR_CONNECTION_REFUSED at http://localhost:1313/"
+  ],
+  "thresholds": {
+    "firstContentfulPaint": 2000,
+    "largestContentfulPaint": 4000,
+    "cumulativeLayoutShift": 0.1,
+    "firstInputDelay": 100,
+    "totalBlockingTime": 300
+  }
+}

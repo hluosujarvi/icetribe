@@ -1,0 +1,68 @@
+{{- $band := site.Params.band -}}
+{{- if $band }}
+  {{- $members := slice -}}
+  {{- with $band.members }}
+    {{- range . }}
+      {{- $member := dict "@type" "Person" "name" .name -}}
+      {{- with .role }}
+        {{- $member = merge $member (dict "jobTitle" .) -}}
+      {{- end -}}
+      {{- $members = $members | append $member -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- $contactPoints := slice -}}
+  {{- with $band.email }}
+    {{- $contact := dict
+      "@type" "ContactPoint"
+      "contactType" (default "Keikkavaraukset" $band.contact_type)
+      "email" .
+      "areaServed" (default "FI" $band.area_served_code)
+    -}}
+    {{- $contactPoints = $contactPoints | append $contact -}}
+  {{- end -}}
+
+  {{- $sameAs := slice -}}
+  {{- with $band.same_as }}
+    {{- $sameAs = . -}}
+  {{- end -}}
+
+  {{- $image := "" -}}
+  {{- with $band.image }}
+    {{- $image = . | absURL -}}
+  {{- end -}}
+
+  {{- $data := dict
+    "@context" "https://schema.org"
+    "@type" "MusicGroup"
+    "@id" (printf "%s#musicgroup" (site.BaseURL | strings.TrimSuffix "/"))
+    "name" $band.name
+    "description" $band.description
+    "url" (site.BaseURL | strings.TrimSuffix "/")
+    "areaServed" (default "Suomi" $band.area_served)
+    "genre" (default (slice "Pop" "Rock") $band.genres)
+    "foundingLocation" $band.location
+    "member" $members
+  -}}
+
+  {{- if $image }}
+    {{- $data = merge $data (dict "image" $image) -}}
+  {{- end -}}
+
+  {{- if gt (len $sameAs) 0 }}
+    {{- $data = merge $data (dict "sameAs" $sameAs) -}}
+  {{- end -}}
+
+  {{- if gt (len $contactPoints) 0 }}
+    {{- $data = merge $data (dict "contactPoint" $contactPoints) -}}
+  {{- end -}}
+
+  {{- with $band.email }}
+    {{- $data = merge $data (dict "email" .) -}}
+  {{- end -}}
+
+  {{- $json := $data | jsonify (dict "indent" "  ") -}}
+  <script type="application/ld+json">
+  {{- $json | safeHTML }}
+  </script>
+{{- end }}

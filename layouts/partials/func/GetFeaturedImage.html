@@ -1,0 +1,35 @@
+{{/*
+	GetFeaturedImage
+
+	Enhanced version with Hugo image processing for hero images.
+	Processes images from assets/ for optimization, falls back to static files.
+*/}}
+
+{{ $linkToCover := "" }}
+{{ $matches := "feature,cover" }}
+
+{{ with .Params.featured_image }}
+  {{ $assetPath := . }}
+  {{ if hasPrefix . "/images/" }}
+    {{ $assetPath = strings.TrimPrefix "/images/" . }}
+  {{ end }}
+  
+  {{ $image := resources.Get (printf "images/%s" $assetPath) }}
+  {{ if $image }}
+    {{ $optimized := $image.Resize "1600x webp q85" }}
+    {{ $linkToCover = $optimized.RelPermalink }}
+  {{ else }}
+    {{ $linkToCover = strings.Trim . "/" | urls.AbsURL }}
+    {{ with $.Resources.GetMatch . }}
+      {{ $linkToCover = .RelPermalink }}
+    {{ end }}
+  {{ end }}
+{{ else }}
+  {{ with .Resources.ByType "image" }}
+    {{ with .GetMatch (fmt.Printf "**{%s}*" $matches) }}
+      {{ $linkToCover = .RelPermalink }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ return $linkToCover }}

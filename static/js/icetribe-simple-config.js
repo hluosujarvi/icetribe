@@ -544,21 +544,17 @@ function createBanner() {
 // Aseta footer-linkin toiminnallisuus
 function setupFooterLink() {
   const footerLink = document.getElementById('footer-cookie-settings');
-  if (footerLink) {
-    footerLink.style.display = 'inline-block';
-    footerLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      showModal();
-    });
+  if (!footerLink) {
+    return;
   }
-}
 
-// Piilota footer-linkki
-function hideFooterLink() {
-  const footerLink = document.getElementById('footer-cookie-settings');
-  if (footerLink) {
-    footerLink.style.display = 'none';
-  }
+  footerLink.style.display = 'inline-block';
+  footerLink.setAttribute('role', 'button');
+  footerLink.setAttribute('aria-haspopup', 'dialog');
+  footerLink.onclick = function(e) {
+    e.preventDefault();
+    showModal();
+  };
 }
 
 // Luo modal HTML
@@ -830,12 +826,10 @@ document.addEventListener('DOMContentLoaded', function() {
     return;
   }
   
-  // Piilota footer-linkki jos ei ole vielä tehty valintaa
-  hideFooterLink();
-  
   // Luo banner ja modal ensimmäiselle vierailulle
   createBanner();
   createModal();
+  setupFooterLink();
   
   // Näytä banner
   showBanner();
