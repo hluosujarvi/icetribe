@@ -1,9 +1,5 @@
 /* Violetti hover-väri (#8A42A8) kaikille linkeille ja napeille */
-
-:root {
-  --color-accent: #8A42A8;
-  --color-accent-light: #a463f2;
-}
+/* Värit määritelty colors.css:ssä: --color-accent ja --color-accent-light */
 
 /* 1. Footer copyright-linkki */
 .footer-copyright:hover {
