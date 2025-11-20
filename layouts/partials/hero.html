@@ -16,20 +16,18 @@
   {{/* Featured image hero */}}
   {{ $featured_image_class := $ctx.Params.featured_image_class | compare.Default "cover bg-center" }}
   {{ $cover_dimming_class := $ctx.Params.cover_dimming_class | compare.Default "bg-black-60" }}
+  {{/* Tarkista onko description näkyvissä - vaikuttaa tasaukseen */}}
+  {{ $hasVisibleDescription := and (not $ctx.Params.omit_header_description) $ctx.Params.description }}
   <header class="{{ $featured_image_class }}" style="background-image: url('{{ $featured_image }}'); min-height: {{ $height }};">
-    <div class="{{ $cover_dimming_class }}" style="min-height: {{ $height }};">
-      <div class="tc ph3 ph4-ns" style="padding-top: {{ $paddingY }}; padding-bottom: {{ $paddingY }};">
-        {{ if not $ctx.Params.omit_header_text }}
-          <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
-            {{ $ctx.Title | compare.Default $ctx.Site.Title }}
-          </h1>
-          {{ if not $ctx.Params.omit_header_description }}
-            {{ with $ctx.Params.description }}
-              <h2 class="fw1 f5 f3-l white-80 measure-wide-l center mt3">
-                {{ . }}
-              </h2>
-            {{ end }}
-          {{ end }}
+    <div class="{{ $cover_dimming_class }}" style="min-height: {{ $height }}; display: flex; align-items: center; justify-content: center;">
+      <div class="tc ph3 ph4-ns" {{ if not $hasVisibleDescription }}style="transform: translateY(-4vh);"{{ end }}>
+        <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
+          {{ $ctx.Title | compare.Default $ctx.Site.Title }}
+        </h1>
+        {{ if $hasVisibleDescription }}
+          <h2 class="fw1 f5 f3-l white-80 measure-wide-l center mt3">
+            {{ $ctx.Params.description }}
+          </h2>
         {{ end }}
       </div>
     </div>
