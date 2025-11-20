@@ -69,6 +69,9 @@
   {{- $environment := hugo.Environment | compare.Default "production" -}}
   <body class="ma0 {{ $.Param "body_classes"  | compare.Default "bg-near-white"}} {{ $environment }}">
 
+    <!-- Floating Navigation -->
+    {{ partials.Include "site-navigation.html" . }}
+    
     {{ block "header" . }}{{ partials.Include "site-header.html" .}}{{ end }}
     <main class="pb7" role="main">
       {{ block "main" . }}{{ end }}
