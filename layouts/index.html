@@ -1,41 +1,6 @@
 {{ define "header" }}
-  {{ $featured_image := partials.Include "func/GetFeaturedImage.html" . }}
-  {{ if $featured_image }}
-    {{ $featured_image_rel := replaceRE "^https?://[^/]+" "" $featured_image }}
-    {{ $featured_image_class := site.Params.featured_image_class | compare.Default "cover bg-center" }}
-    <header class="{{ $featured_image_class }}" style="background-image: url('{{ $featured_image_rel }}'); min-height: 60vh;">
-      {{ $cover_dimming_class := site.Params.cover_dimming_class | compare.Default "bg-black-60" }}
-      <div class="{{ $cover_dimming_class }}" style="min-height: 60vh;">
-        {{/* Increased header height for homepage: much larger padding for dramatic effect */}}
-        <div class="tc ph3 ph4-ns" style="padding-top: 6rem; padding-bottom: 6rem;">
-          <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
-            {{ .Title | compare.Default .Site.Title }}
-          </h1>
-          {{ with .Params.description }}
-            <h2 class="fw1 f5 f3-l white-80 measure-wide-l center mt3">
-              {{ . }}
-            </h2>
-          {{ end }}
-        </div>
-      </div>
-    </header>
-  {{ else }}
-    <header>
-      <div class="pb3-m pb6-l {{ .Site.Params.background_color_class | compare.Default "bg-black" }}">
-        {{/* Increased header height for homepage: custom padding for dramatic effect */}}
-        <div class="tc ph3 ph4-ns" style="padding-top: 4rem; padding-bottom: 4rem;">
-          <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
-            {{ .Title | compare.Default .Site.Title }}
-          </h1>
-          {{ with .Params.description }}
-            <h2 class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
-              {{ . }}
-            </h2>
-          {{ end }}
-        </div>
-      </div>
-    </header>
-  {{ end }}
+  {{/* Etusivu: suurempi hero (60vh, 6rem padding) */}}
+  {{ partials.Include "hero.html" (dict "height" "60vh" "paddingY" "6rem" "context" .) }}
 {{ end }}
 
 {{ define "main" }}

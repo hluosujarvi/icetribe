@@ -1,37 +1,6 @@
 {{ define "header" }}
-  {{ $featured_image := partials.Include "func/GetFeaturedImage.html" . }}
-  {{ if $featured_image }}
-    {{/* Trimming the slash and adding absURL make sure the image works no matter where our site lives */}}
-    {{ $featured_image_class := .Params.featured_image_class | compare.Default "cover bg-center" }}
-    <header class="{{ $featured_image_class }}" style="background-image: url('{{ $featured_image }}'); min-height: 45vh;">
-      {{ $cover_dimming_class := .Params.cover_dimming_class | compare.Default "bg-black-60" }}
-      <div class="{{ $cover_dimming_class }}" style="min-height: 45vh; display: flex; align-items: center; justify-content: center;">
-        <div class="tc ph3 ph4-ns" style="padding-top: 3rem; padding-bottom: 3rem;">
-          <div class="f2 f1-l fw2 white-90 mb0 lh-title">{{ .Title | compare.Default .Site.Title }}</div>
-          {{ with .Params.description }}
-            <div class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
-              {{ . }}
-            </div>
-          {{ end }}
-        </div>
-      </div>
-    </header>
-  {{ else }}
-    <header>
-      <div class="pb3-m pb6-l {{ .Site.Params.background_color_class | compare.Default "bg-black" }}">
-        <div class="tc ph3 ph4-ns" style="padding-top: 3rem; padding-bottom: 3rem;">
-          <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
-            {{ .Title | compare.Default .Site.Title }}
-          </h1>
-          {{ with .Params.description }}
-            <h2 class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
-              {{ . }}
-            </h2>
-          {{ end }}
-        </div>
-      </div>
-    </header>
-  {{ end }}
+  {{/* Posts-listaus: standardi hero (45vh, 3rem padding) */}}
+  {{ partials.Include "hero.html" (dict "height" "45vh" "paddingY" "3rem" "context" .) }}
 {{ end }}
 
 {{ define "main" }}
