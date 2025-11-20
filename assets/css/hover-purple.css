@@ -49,6 +49,16 @@
   color: var(--color-accent) !important;
 }
 
+/* Post-korttien otsikot: sama harmaa kuin leipätekstin otsikot */
+.link.near-black {
+  color: #555 !important; /* Sama kuin leipätekstin otsikot (85,85,85) */
+}
+
+.link.near-black:hover,
+.link.near-black:focus {
+  color: var(--color-accent) !important;
+}
+
 /* 5. Tagit (postausten linkkeinä toimivat tagit) */
 .ba.b--moon-gray.hover-bg-moon-gray:hover,
 .ba.b--moon-gray.hover-bg-moon-gray:focus {

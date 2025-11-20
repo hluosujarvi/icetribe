@@ -61,13 +61,18 @@
               <div class="pa3">
                 {{/* Otsikko */}}
                 <h2 class="f5 fw6 lh-title mb2 mt0">
-                  <a href="{{ .RelPermalink }}" class="link black hover-dark-gray">
+                  <a href="{{ .RelPermalink }}" class="link near-black hover-dark-gray">
                     {{ .Title }}
                   </a>
                 </h2>
                 
+                {{/* Description */}}
+                {{ with .Description }}
+                  <p class="f6 lh-copy mid-gray mb3">{{ . }}</p>
+                {{ end }}
+                
                 {{/* Päivämäärä ja tagit */}}
-                <div class="f6 gray mb2 flex items-center justify-between">
+                <div class="f6 mid-gray mb2 flex items-center justify-between">
                   <time>{{ .Date.Format "2.1.2006" }}</time>
                   {{ if .Params.tags }}
                     <div>

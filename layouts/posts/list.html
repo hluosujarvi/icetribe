@@ -41,16 +41,21 @@
             {{/* Otsikko */}}
             <div>
               <h2 class="f4 f3-l fw6 lh-title mb3 mt0">
-                <a href="{{ .RelPermalink }}" class="link black hover-dark-gray">
+                <a href="{{ .RelPermalink }}" class="link near-black hover-dark-gray">
                   {{ .Title }}
                 </a>
               </h2>
+              
+              {{/* Description */}}
+              {{ with .Description }}
+                <p class="f6 lh-copy mid-gray mb3">{{ . }}</p>
+              {{ end }}
             </div>
             
             {{/* Alaosa: päivämäärä, tagit ja nappi */}}
             <div>
               {{/* Päivämäärä ja tagit */}}
-              <div class="f6 gray mb3 flex items-center justify-between">
+              <div class="f6 mid-gray mb3 flex items-center justify-between">
                 <time>{{ .Date.Format "2.1.2006" }}</time>
                 {{ if .Params.tags }}
                   <div>

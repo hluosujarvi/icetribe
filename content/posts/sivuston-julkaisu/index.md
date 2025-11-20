@@ -3,6 +3,8 @@ title = 'Sivusto on livenä!'
 date = '2025-11-15'
 draft = false
 tags = ['sivusto', 'uutiset']
+description = 'Sivuston julkaisu tapahtui vihdoin!'
+omit_header_description = true
 featured_image = 'julkaisu.jpg'
 +++
 
