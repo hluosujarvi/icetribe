@@ -7,7 +7,7 @@
       {{ $cover_dimming_class := site.Params.cover_dimming_class | compare.Default "bg-black-60" }}
       <div class="{{ $cover_dimming_class }}" style="min-height: 60vh;">
         {{/* Increased header height for homepage: much larger padding for dramatic effect */}}
-        <div class="tc-l ph3 ph4-ns" style="padding-top: 6rem; padding-bottom: 6rem;">
+        <div class="tc ph3 ph4-ns" style="padding-top: 6rem; padding-bottom: 6rem;">
           <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
             {{ .Title | compare.Default .Site.Title }}
           </h1>
@@ -23,7 +23,7 @@
     <header>
       <div class="pb3-m pb6-l {{ .Site.Params.background_color_class | compare.Default "bg-black" }}">
         {{/* Increased header height for homepage: custom padding for dramatic effect */}}
-        <div class="tc-l ph3 ph4-ns" style="padding-top: 4rem; padding-bottom: 4rem;">
+        <div class="tc ph3 ph4-ns" style="padding-top: 4rem; padding-bottom: 4rem;">
           <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
             {{ .Title | compare.Default .Site.Title }}
           </h1>

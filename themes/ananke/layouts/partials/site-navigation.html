@@ -137,8 +137,8 @@
   align-items: center;
 }
 
-/* Mobiili-responsiivisuus */
-@media (max-width: 768px) {
+/* Mobiili ja tablet -responsiivisuus */
+@media (max-width: 1024px) {
   .hamburger-btn {
     display: flex;
   }
@@ -198,17 +198,6 @@
   }
 }
 
-/* Tablet-koko */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .nav-list {
-    gap: 1rem;
-  }
-  
-  .nav-link {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
-  }
-}
 </style>
 
 <script>
@@ -266,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Sulje valikko kun ikkunan koko muuttuu suuremmaksi
   window.addEventListener('resize', function() {
-    if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+    if (window.innerWidth > 1024 && navMenu.classList.contains('active')) {
       closeMenu();
     }
   });
