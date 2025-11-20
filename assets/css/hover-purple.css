@@ -25,12 +25,14 @@
 .bg-dark-gray.hover-bg-black:hover,
 .bg-dark-gray.hover-bg-black:focus {
   background-color: var(--color-accent) !important;
+  color: white !important;
 }
 
 /* Homepage CTA-nappi */
 .homepage-cta-button:hover,
 .homepage-cta-button:focus {
   background-color: var(--color-accent) !important;
+  color: white !important;
 }
 
 /* "Kaikki kuulumiset" nappi (valkoinen tausta) */
@@ -53,6 +55,14 @@
   background-color: var(--color-accent) !important;
   border-color: var(--color-accent) !important;
   color: white !important;
+}
+
+/* Violetit tag-napit: hover-efekti */
+a.br-pill[style*="background-color: #8A42A8"]:hover,
+a.br-pill[style*="background-color: #8A42A8"]:focus {
+  transform: scale(1.05);
+  background-color: var(--color-accent-light) !important;
+  box-shadow: 0 4px 8px rgba(138, 66, 168, 0.3);
 }
 
 /* 6. Tekstilinkit sisällössä */
