@@ -25,17 +25,19 @@ Tää oli kyllä kova! 🎉
 Innolla odotin minkä biisin bändi vetää seuraavaksi 🎵
 {{< /quote >}}
 
-{{< quote >}}
+{{< quote class="highlight" >}}
 Teidän versionne oli parempi kuin alkuperäinen 🔥
 {{< /quote >}}
 
-{{< quote class="highlight" >}}
+{{< quote >}}
 Mikä ihmeen biisi oli se Odota en... never heard 🤣 (nuoremman polven edustaja 😉)
 {{< /quote >}}
 
 
 ---
 
-**🎵 Lisää Kessan Baarin tapahtumia:** [Kessan ohjelmakalenteri](https://www.kessanbaari.fi/ohjelma/)
+**🎵 Lisää Kessan Baarin tapahtumia:**
+
+[Kessan ohjelmakalenteri](https://www.kessanbaari.fi/ohjelma/)
 
 *Kiitos yleisölle - nykyisille ja tuleville faneillemme 🎸🎤*

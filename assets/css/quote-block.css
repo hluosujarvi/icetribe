@@ -1,7 +1,7 @@
 /* Custom Quote Block Styles for Icetribe */
 
 .quote-block {
-  margin: 2rem 0;
+  margin: 2rem auto; /* Keskitys auto-marginaaleilla */
   padding: 1.5rem 2rem;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border-left: 4px solid #8A42A8; /* Violetti reunaviiva */
@@ -9,6 +9,7 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   position: relative;
+  max-width: 90%; /* Rajoitetaan leveyttä, jotta keskitys näkyy */
 }
 
 .quote-block::before {
@@ -88,8 +89,19 @@
 }
 
 .quote-block.highlight {
-  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-  border-left-color: #f39c12;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /* Sama gradient kuin normaali */
+  border-left-color: #8A42A8; /* Violetti reunaviiva */
+  border-left-width: 6px; /* Paksumpi reunaviiva */
+  padding: 2rem 2.5rem; /* Suuremmat marginaalit */
+  font-size: 1.15rem; /* Hieman suurempi fontti */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Vahvempi varjo */
+  max-width: 95%; /* Leveämpi kuin normaalit quotet */
+  margin: 2rem auto; /* Keskitetty */
+}
+
+.quote-block.highlight::before {
+  font-size: 5rem; /* Suurempi lainausmerkki */
+  top: -15px;
 }
 
 .quote-block.dark {

@@ -56,9 +56,85 @@
 }
 
 /* 6. Tekstilinkit sisällössä */
+/* Poista alleviivaus ja käytä samaa fonttia kuin leipätekstissä */
+.nested-links a {
+  text-decoration: none;
+  font-family: inherit;
+  color: inherit; /* Sama väri kuin ympäröivä teksti */
+  letter-spacing: 0.02em; /* 2. Letter-spacing */
+  border-bottom: 2px solid transparent; /* 4. Border-bottom hover valmius */
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.nested-links a::after {
+  content: " →"; /* 3. Ikonimerkki */
+  font-size: 0.9em;
+  opacity: 0.6;
+}
+
+/* Tag-napit: poista nuoli kokonaan */
+.nested-links a.br-pill,
+.nested-links a.br-pill.ba {
+  letter-spacing: normal !important;
+  border-bottom: none !important;
+}
+
+.nested-links a.br-pill::after,
+.nested-links a.br-pill.ba::after {
+  content: none !important; /* Ei nuolta tag-napeissa */
+  display: none !important;
+}
+
+/* Korjaa tag-nappien leikkautuminen - anna tilaa grow-efektille */
+.br-pill.ba.ph3.pv2 {
+  overflow: visible !important;
+  display: inline-block !important;
+  margin: 0.25rem !important; /* Tilaa joka suuntaan */
+}
+
+/* Korjaa tag-listan overflow - anna tilaa grow-transformaatiolle */
+.nested-links ul.pa0 {
+  overflow: visible !important;
+  padding: 0.5rem 0 1.5rem 0 !important; /* Override pa0, enemmän tilaa alaosaan */
+  margin-left: 0 !important;
+  line-height: 3.5rem !important; /* Enemmän korkeutta borderille */
+}
+
+.nested-links ul {
+  overflow: visible !important;
+  padding: 0.5rem 0 1rem 0 !important; /* Enemmän tilaa alaosaan borderille */
+  margin-left: 0 !important;
+  line-height: 3rem !important; /* Enemmän korkeutta riville */
+}
+
+.nested-links li.di,
+.nested-links li.list {
+  overflow: visible !important;
+  display: inline-block !important;
+  margin: 0.5rem 0.25rem !important; /* Enemmän marginaalia ylös/alas */
+  vertical-align: top !important;
+  line-height: normal !important;
+}
+
+/* Varmista että nested-links-container ei leikkaa */
+.nested-links {
+  overflow: visible !important;
+}
+
+/* Varmista että myös nested-copy-line-height ei leikkaa */
+.nested-copy-line-height {
+  overflow: visible !important;
+}
+
 .nested-links a:hover,
 .nested-links a:focus {
-  color: var(--color-accent) !important;
+  color: var(--color-accent); /* Hover: violetti */
+  border-bottom-color: var(--color-accent); /* 4. Border-bottom hover */
+}
+
+.nested-links a:hover::after,
+.nested-links a:focus::after {
+  opacity: 1; /* Ikoni täysin näkyviin hoverissa */
 }
 
 /* 7. Terms-sivun linkit (tagien listaus) */
