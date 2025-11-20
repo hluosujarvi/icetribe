@@ -4,7 +4,7 @@
   margin: 2rem 0;
   padding: 1.5rem 2rem;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #ff5500; /* Orange accent matching SoundCloud */
+  border-left: 4px solid #8A42A8; /* Violetti reunaviiva */
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -17,7 +17,7 @@
   top: -10px;
   left: 15px;
   font-size: 4rem;
-  color: #ff5500;
+  color: #8A42A8; /* Violetti lainausmerkki */
   opacity: 0.3;
   font-family: 'Saira', serif;
   line-height: 1;
@@ -57,7 +57,7 @@
 }
 
 .quote-name {
-  color: #ff5500;
+  color: #8A42A8; /* Violetti nimi */
   font-weight: 700;
 }
 
@@ -94,7 +94,7 @@
 
 .quote-block.dark {
   background: linear-gradient(135deg, #343a40 0%, #495057 100%);
-  border-left-color: #ff5500;
+  border-left-color: #a463f2; /* Vaaleanvioletti dark-moodissa */
   color: #f8f9fa;
 }
 

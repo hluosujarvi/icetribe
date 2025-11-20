@@ -1,2 +1,14 @@
 {{ partial "structured-data.html" . }}
 {{ partial "image-preloads.html" . }}
+
+{{/* Quote block -tyylit */}}
+{{ $quoteBlock := resources.Get "css/quote-block.css" }}
+{{ if $quoteBlock }}
+  <link rel="stylesheet" href="{{ $quoteBlock.RelPermalink }}">
+{{ end }}
+
+{{/* Violetti hover-väri kaikille linkeille ja napeille */}}
+{{ $hoverPurple := resources.Get "css/hover-purple.css" }}
+{{ if $hoverPurple }}
+  <link rel="stylesheet" href="{{ $hoverPurple.RelPermalink }}">
+{{ end }}
