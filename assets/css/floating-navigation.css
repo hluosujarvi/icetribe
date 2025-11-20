@@ -1,0 +1,180 @@
+/* Floating Navigation Styles - Icetribe */
+
+/* Override default navigation positioning to make it floating */
+.icetribe-nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100vw !important;
+  height: auto !important;
+  z-index: 99999 !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  pointer-events: auto !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Enhanced container for floating state */
+.icetribe-nav .nav-container {
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+/* Ensure navigation content remains visible */
+.icetribe-nav .nav-logo,
+.icetribe-nav .nav-link {
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced hover states for floating menu */
+.icetribe-nav .nav-logo:hover {
+  color: var(--color-accent, #8A42A8) !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.icetribe-nav .nav-link:hover {
+  color: var(--color-accent, #8A42A8) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Hamburger button enhancements for floating menu */
+.icetribe-nav .hamburger-line {
+  background-color: white !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile menu overlay enhancements */
+@media (max-width: 768px) {
+  .icetribe-nav .nav-menu {
+    background: rgba(0, 0, 0, 0.97) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .icetribe-nav .nav-menu.active {
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Social icons in floating nav */
+.icetribe-nav .nav-social .ananke-socials a {
+  color: rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.2s ease;
+}
+
+.icetribe-nav .nav-social .ananke-socials a:hover {
+  color: var(--color-accent, #8A42A8) !important;
+  transform: translateY(-1px);
+}
+
+/* Ensure navigation doesn't interfere with content below */
+body {
+  /* No padding needed - navigation floats over content */
+}
+
+/* Hero content adjustments - navigation floats over hero */
+.hero-content-wrapper {
+  position: relative;
+  z-index: 1;
+  /* Navigation floats over hero - no adjustments needed */
+}
+
+/* Smooth scroll behavior when navigation links are clicked */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced accessibility for floating menu */
+.icetribe-nav:focus-within {
+  outline: 2px solid var(--color-accent, #8A42A8);
+  outline-offset: -2px;
+}
+
+/* Performance optimization for backdrop filter */
+.icetribe-nav {
+  will-change: transform, background-color;
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+/* Force navigation to stay fixed regardless of other CSS */
+nav.icetribe-nav,
+.icetribe-nav,
+nav[role="navigation"] {
+  position: fixed !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: none !important;
+  top: 0 !important;
+  z-index: 99999 !important;
+  width: 100vw !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Override any theme styles that might hide navigation */
+nav {
+  position: fixed !important;
+  top: 0 !important;
+  z-index: 99999 !important;
+}
+
+/* Ensure navigation stays on top of everything */
+header {
+  position: relative;
+  z-index: 1;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Fallback for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(15px)) {
+  .icetribe-nav {
+    background: rgba(0, 0, 0, 0.98) !important;
+  }
+  
+  @media (max-width: 768px) {
+    .icetribe-nav .nav-menu {
+      background: rgba(0, 0, 0, 0.98) !important;
+    }
+  }
+}
+
+/* Dark theme enhancements */
+@media (prefers-color-scheme: dark) {
+  .icetribe-nav {
+    border-bottom-color: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .icetribe-nav,
+  .icetribe-nav .nav-container,
+  .icetribe-nav .nav-link,
+  .icetribe-nav .nav-logo {
+    transition: none !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
