@@ -171,8 +171,45 @@ a.link:focus {
   color: var(--color-accent);
 }
 
-/* 10. Navigaation linkit (jos ei ole erikseen määritelty) */
+/* 10. Tachyons-värien ylikirjoitukset - yhtenäinen värimaailma */
+/* Hero ja navigaatio käyttävät samoja värejä kuin some-ikonit (RGB 186) */
+
+/* Perusväri ensin */
+.white-90,
+.white-80,
+.light-silver {
+  color: rgb(186, 186, 186) !important;
+}
+
+/* 11. Navigaation ja footerin värit */
+.nav-link,
+.nav-logo {
+  color: rgb(186, 186, 186) !important;
+}
+
+.footer-cookie-link,
+.footer-copyright {
+  color: rgb(186, 186, 186) !important;
+}
+
+.footer-cookie-link .cookie-icon svg {
+  fill: rgb(186, 186, 186) !important;
+}
+
+/* SITTEN hover-värit - näiden pitää olla perusvärien jälkeen! */
 .nav-link:hover,
-.nav-link:focus {
+.nav-link:focus,
+.nav-logo:hover,
+.nav-logo:focus {
   color: var(--color-accent) !important;
+}
+
+.footer-cookie-link:hover,
+.footer-cookie-link:focus {
+  color: var(--color-accent) !important;
+}
+
+.footer-cookie-link:hover .cookie-icon svg,
+.footer-cookie-link:focus .cookie-icon svg {
+  fill: var(--color-accent) !important;
 }

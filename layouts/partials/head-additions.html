@@ -2,13 +2,13 @@
 {{ partial "image-preloads.html" . }}
 
 {{/* Quote block -tyylit */}}
-{{ $quoteBlock := resources.Get "css/quote-block.css" }}
+{{ $quoteBlock := resources.Get "css/quote-block.css" | fingerprint }}
 {{ if $quoteBlock }}
   <link rel="stylesheet" href="{{ $quoteBlock.RelPermalink }}">
 {{ end }}
 
 {{/* Violetti hover-väri kaikille linkeille ja napeille */}}
-{{ $hoverPurple := resources.Get "css/hover-purple.css" }}
+{{ $hoverPurple := resources.Get "css/hover-purple.css" | fingerprint }}
 {{ if $hoverPurple }}
   <link rel="stylesheet" href="{{ $hoverPurple.RelPermalink }}">
 {{ end }}

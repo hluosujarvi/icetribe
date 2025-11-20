@@ -1,0 +1,19 @@
+:root {
+  /* Purple - Brand colors */
+  --color-accent: #8A42A8;           /* Main purple */
+  --color-accent-dark: #6B3487;      /* Dark purple */
+  --color-accent-light: #a463f2;     /* Light purple - hover effects */
+  
+  /* Backgrounds */
+  --color-bg-page: #F7F7F7;          /* Light grey - page background */
+  --color-bg-card: #FFFFFF;          /* White - card backgrounds */
+  
+  /* Text colors */
+  --color-text-primary: #222222;     /* Almost black - primary text */
+  --color-text-secondary: #555555;   /* Dark grey - secondary text, headings */
+  
+  /* Borders and effects */
+  --color-border-subtle: #E0E0E0;    /* Light grey - borders */
+  --color-overlay: rgba(34, 34, 34, 0.6);  /* Dark overlay */
+  --color-shadow: 0 12px 28px rgba(24, 16, 38, 0.18);  /* Shadow effect */
+}
