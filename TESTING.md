@@ -72,6 +72,15 @@ make quick-test
 make test
 ```
 
+### Consent- ja GA4-erikoistestit
+```bash
+# GA4 / cookie consent integraation täysi testi
+./automated-test.sh
+
+# Minifioidun buildin GA-validointi (sisältyy test-suiteen, mutta ajettavissa erikseen)
+node tests/ga-build-validation.js
+```
+
 ### Kehitystyönkulku
 ```bash
 # Testaa ja käynnistä dev-server

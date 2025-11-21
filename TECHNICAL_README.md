@@ -26,7 +26,7 @@ Tämä dokumentti toimii kehittäjien ja Copilotin teknisenä ohjenuorana. Se ku
 
 ### Staattiset resurssit
 - **Kuvat**: `assets/images/` sisältää optimoitavat hero-kuvat (cover_*.jpg). `static/images/` toimii fallbackina. Postien kuvat pysyvät omissa page bundle -kansioissaan.
-- **JavaScript**: `static/js/icetribe-simple-config.js` hallitsee evästekysyä, GA4:n dynaamista latausta ja SoundCloud-suostumuksia.
+- **JavaScript**: `static/js/icetribe-simple-config.js` hallitsee evästekysyä, GA4:n dynaamista latausta ja SoundCloud-suostumuksia. Skripti normalisoi myös mahdolliset legacy-localStorage-arvot (esim. merkkijonot "accepted"/"rejected") booleaneiksi ennen consent-logiikan ajamista, jotta palaavat kävijät saavat oikeat asetukset heti sovellettua.
 
 ---
 
@@ -109,6 +109,26 @@ Tämä dokumentti toimii kehittäjien ja Copilotin teknisenä ohjenuorana. Se ku
 - **Hero-kuvien lisääminen**: Sijoita kuva `assets/images/`-hakemistoon, viittaa front matterissa pelkällä tiedostonimellä (`featured_image = 'cover_new.jpg'`), ja lisää `layouts/partials/image-preloads.html`-tiedoston `slice`-listaan.
 - Käytä kuville ja SoundCloud-upotuksille aina annettuja shortcoden toteutuksia – näin WebP-optimointi ja consent-logiikka pysyvät voimassa.
 - Suorita vähintään `npm test` tai `quick-test.sh` ennen commitointia. Cookie- ja GA4-muutoksiin liittyen aja `automated-test.sh` varmistaaksesi consent-käytöksen.
+- GA4-taustalataus: `themes/ananke/layouts/_default/baseof.html` sisältää kevyen preloader-skriptin, joka tarkistaa localStoragesta (legacy-muodot huomioiden) onko analytiikka jo hyväksytty ja liittää `gtag.js`-loaderin heti sivun renderöityessä ennen varsinaista consent-skriptin alustusta.
 - Jos teet muutoksia evästebanneriin tai GA4-integraatioon, tarkista `static/js/icetribe-simple-config.js` sekä siihen liittyvät testit (`automated-test.sh`, `tests/error-handling-test.js`).
+
+### Testauskomennot (terminaalista)
+
+```bash
+# Nopea sanity check
+./quick-test.sh
+
+# Consent/GA4/SoundCloud-integraation erikoistestaus
+./automated-test.sh
+
+# Pipeline-tason regressio (sisältää GA build -validaation)
+./test-suite.sh
+
+# Node-pohjainen testipaketti (luo JSON-raportit tests/-hakemistoon)
+npm test
+
+# Yksittäiset Puppeteer-/GA-tarkistukset
+node tests/ga-build-validation.js
+```
 
 Pidä tämä dokumentti referenssinä, kun rakennat uusia ominaisuuksia tai käytät Copilotia muutosten ehdottamiseen. Dokumenttiin kirjatut rajaukset auttavat varmistamaan, että automaatiotyökalut kohdistavat muutokset oikeisiin tiedostoihin ja säilyttävät sivuston rakenteen yhtenäisenä.

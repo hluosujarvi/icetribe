@@ -52,6 +52,43 @@
     <script>
       window.ICETRIBE_GA_ID = 'G-8KK4BYHJKJ';
     </script>
+    <script>
+      (function preloadAnalytics(){
+        try {
+          const stored = localStorage.getItem('icetribe_cookie_consent');
+          if (!stored) {
+            return;
+          }
+          const parsed = JSON.parse(stored);
+          const choices = parsed && parsed.choices ? parsed.choices : parsed;
+          const analyticsAccepted = choices && (choices.analytics === true || choices.analytics === 'true' || choices.analytics === 1 || choices.analytics === '1' || choices.analytics === 'accepted' || choices.analytics === 'granted' || choices.analytics === 'hyväksytty');
+          if (!analyticsAccepted) {
+            return;
+          }
+          if (window.gtag || document.querySelector('script[data-icetribe-ga-loader="true"]')) {
+            return;
+          }
+          const gaScript = document.createElement('script');
+          gaScript.async = true;
+          gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.ICETRIBE_GA_ID;
+          gaScript.dataset.icetribeGaLoader = 'true';
+          gaScript.onload = function () {
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', window.ICETRIBE_GA_ID, {
+              anonymize_ip: true,
+              cookie_flags: 'max-age=7200;secure;samesite=strict',
+              send_page_view: true
+            });
+          };
+          document.head.appendChild(gaScript);
+        } catch (error) {
+          console.warn('GA preload skipped', error);
+        }
+      })();
+    </script>
     
     <!-- Google Fonts: Saira for headings, Inter for body text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

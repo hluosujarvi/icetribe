@@ -348,6 +348,71 @@ const cookieTypes = {
   */
 };
 
+// Varmista että myös vanhat tallennusmuodot toimivat uudella consent-lomakkeella
+function toBoolean(value, fallback) {
+  if (typeof value === 'boolean') {
+    return value;
+  }
+  if (typeof value === 'string') {
+    const lowered = value.trim().toLowerCase();
+    if (['true', 'hyväksytty', 'accepted', 'all', 'granted'].includes(lowered)) {
+      return true;
+    }
+    if (['false', 'hylätty', 'rejected', 'necessary', 'denied', 'required-only', 'minimal'].includes(lowered)) {
+      return false;
+    }
+  }
+  if (typeof value === 'number') {
+    return value > 0;
+  }
+  return fallback;
+}
+
+function parseLegacyConsentString(value) {
+  const lowered = value.trim().toLowerCase();
+  if (!lowered) {
+    return null;
+  }
+
+  if (['accepted', 'all', 'true', 'hyväksytty', 'granted'].includes(lowered)) {
+    return { necessary: true, analytics: true };
+  }
+
+  if (['rejected', 'false', 'denied', 'necessary', 'required-only', 'minimal', 'hylätty'].includes(lowered)) {
+    return { necessary: true, analytics: false };
+  }
+
+  return null;
+}
+
+function normalizeConsentObject(raw) {
+  if (!raw || typeof raw !== 'object') {
+    return null;
+  }
+
+  if (raw.choices && typeof raw.choices === 'object') {
+    return {
+      timestamp: raw.timestamp || Date.now(),
+      choices: {
+        necessary: toBoolean(raw.choices.necessary, true),
+        analytics: toBoolean(raw.choices.analytics, false)
+      }
+    };
+  }
+
+  if ('necessary' in raw || 'analytics' in raw) {
+    return {
+      timestamp: raw.timestamp || Date.now(),
+      choices: {
+        necessary: toBoolean(raw.necessary, true),
+        analytics: toBoolean(raw.analytics, false)
+      }
+    };
+  }
+
+  return null;
+}
+
 // Tarkista onko evästeet jo asetettu
 function hasUserMadeChoice() {
   return localStorage.getItem('icetribe_cookie_consent') !== null;
@@ -357,19 +422,39 @@ function hasUserMadeChoice() {
 function getCookieConsent() {
   const saved = localStorage.getItem('icetribe_cookie_consent');
   if (!saved) return null;
-  
-  const parsed = JSON.parse(saved);
-  
-  // Tarkista onko data vanhassa formaatissa (suoraan choices) vai uudessa (consent objekti)
-  if (parsed.choices) {
-    return parsed; // Uusi formaatti: { timestamp, choices }
-  } else {
-    // Vanha formaatti: suoraan choices objekti, muunna uuteen formaattiin
-    return {
-      timestamp: Date.now(),
-      choices: parsed
-    };
+
+  let parsed;
+
+  try {
+    parsed = JSON.parse(saved);
+  } catch (error) {
+    const legacyChoices = parseLegacyConsentString(saved);
+    if (legacyChoices) {
+      const normalizedLegacy = {
+        timestamp: Date.now(),
+        choices: legacyChoices
+      };
+      localStorage.setItem('icetribe_cookie_consent', JSON.stringify(normalizedLegacy));
+      console.log('Päivitettiin legacy-evästeasetukset uuteen formaattiin');
+      return normalizedLegacy;
+    }
+
+    console.warn('Tuntematon evästeformaatin arvo, poistetaan consent ja aloitetaan alusta:', saved, error);
+    localStorage.removeItem('icetribe_cookie_consent');
+    return null;
   }
+
+  const normalized = normalizeConsentObject(parsed);
+  if (normalized) {
+    if (!parsed.choices || parsed.timestamp !== normalized.timestamp) {
+      localStorage.setItem('icetribe_cookie_consent', JSON.stringify(normalized));
+    }
+    return normalized;
+  }
+
+  console.warn('Evästeasetusten formaatti ei ollut odotettu, nollataan tallennus');
+  localStorage.removeItem('icetribe_cookie_consent');
+  return null;
 }
 
 // Tallenna valinnat

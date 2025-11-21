@@ -32,3 +32,11 @@ node_modules/
 
 # Hugo cache directories
 .hugo_build.lock
+
+# Test run artifacts
+test-output*.txt
+test-output*.log
+tests/*-report.json
+tests/test-report.json
+tests/pipeline-test-output.txt
+tests/tests/*.json

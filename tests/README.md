@@ -44,6 +44,12 @@ Tämä hakemisto sisältää kattavan testausframeworkin Icetribe Hugo -sivustol
   - Lomakkeiden labelit
   - Näppäimistönavigaatio
 
+### 📈 GA Build -validointi
+- **`ga-build-validation.js`** - Varmistaa, että minifioitu Hugo-build lataa GA4:n consentin jälkeen
+  - Tarkistaa, että `public/index.html` sisältää GA preload -skriptin
+  - Käynnistää kevyen staattisen palvelimen `public/`-hakemistolle
+  - Hyväksyy analytiikkaevästeet Puppeterilla ja varmistaa `gtag.js`-loaderin latautumisen
+
 ## Käyttöönotto
 
 ### 1. Asenna riippuvuudet

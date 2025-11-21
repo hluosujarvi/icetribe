@@ -238,6 +238,18 @@ test_performance_seo() {
     fi
 }
 
+# Testikategoria: GA Build Validation
+test_ga_build_validation() {
+    log_info "=== GA Build Validation ==="
+
+    if [ -d public ]; then
+        run_test "GA preload script present in minified build" "grep -q 'data-icetribe-ga-loader' public/index.html"
+        run_test "GA loads after consent on minified build" "node tests/ga-build-validation.js > /dev/null 2>&1"
+    else
+        log_warning "Public directory not found, skipping GA build validation"
+    fi
+}
+
 # Pääfunktio
 main() {
     echo -e "${BLUE}======================================"
@@ -278,6 +290,8 @@ main() {
     test_build_output
     echo ""
     test_performance_seo
+    echo ""
+    test_ga_build_validation
     echo ""
     
     # Tulokset

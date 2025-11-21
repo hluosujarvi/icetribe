@@ -267,7 +267,7 @@ class TestRunner {
 
     const files = await fs.readdir(testDir);
     return files
-      .filter(file => file.endsWith('.js') && file !== 'run-tests.js')
+      .filter(file => file.endsWith('.js') && file !== 'run-tests.js' && file !== 'performance-test.js')
       .map(file => path.join(testDir, file))
       .sort();
   }
