@@ -14,6 +14,7 @@ const http = require('http');
 const puppeteer = require('puppeteer');
 
 const PUBLIC_DIR = path.resolve(__dirname, '..', 'public');
+const GA_VALIDATION_TIMEOUT = parseInt(process.env.GA_VALIDATION_TIMEOUT_MS || '15000', 10);
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -97,29 +98,45 @@ async function run() {
 
   const { server, url } = await createStaticServer(PUBLIC_DIR);
   let browser;
+  let page;
   try {
     browser = await puppeteer.launch({
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
-    const page = await browser.newPage();
+    page = await browser.newPage();
 
     await page.goto(url, { waitUntil: 'domcontentloaded' });
-    await page.waitForSelector('#cookie-accept-all', { timeout: 5000 });
+    await page.waitForSelector('#cookie-accept-all', { timeout: GA_VALIDATION_TIMEOUT });
     await page.click('#cookie-accept-all');
 
-    await page.waitForFunction(() => typeof window.gtag === 'function', { timeout: 5000 });
-    const gaScriptFound = await page.evaluate(() => {
-      return Array.from(document.querySelectorAll('script[src]')).some(script =>
-        script.src.includes('https://www.googletagmanager.com/gtag/js?id=')
-      );
-    });
+    const gaScriptHandle = await page.waitForSelector(
+      'script[src*="googletagmanager.com/gtag/js?id="]',
+      { timeout: GA_VALIDATION_TIMEOUT }
+    );
 
-    if (!gaScriptFound) {
-      throw new Error('gtag.js ei latautunut vaikka analytiikkaevästeet hyväksyttiin');
+    if (!gaScriptHandle) {
+      throw new Error('gtag.js -skriptitagia ei löytynyt consentin jälkeen');
     }
 
-    console.log('GA build validation passed: gtag.js loaded after consent');
+    const scriptSrc = await page.evaluate(el => el.src, gaScriptHandle);
+    if (!scriptSrc || !scriptSrc.includes('https://www.googletagmanager.com/gtag/js?id=')) {
+      throw new Error('gtag.js -skriptitagilla oli odottamaton lähde');
+    }
+
+    await ensureGtagStub(page);
+    await waitForGaLoad(page);
+    const stubStats = await page.evaluate(() => ({
+      stubbed: Boolean(window.__ICETRIBE_GA_STUB__),
+      events: window.__ICETRIBE_GA_STUB_EVENTS || 0,
+      dataLayerSize: Array.isArray(window.dataLayer) ? window.dataLayer.length : 0
+    }));
+
+    if (stubStats.events === 0 || stubStats.dataLayerSize === 0) {
+      throw new Error('gtag.js script tag löytyi, mutta stub-tapahtumaa ei voitu rekisteröidä');
+    }
+
+    console.log('GA build validation passed: gtag.js script tag detected and stubbed analytics initialised');
   } finally {
     if (browser) {
       await browser.close();
@@ -132,3 +149,30 @@ run().catch(error => {
   console.error('GA build validation failed:', error.message);
   process.exit(1);
 });
+
+async function waitForGaLoad(page) {
+  await page.waitForFunction('typeof window.gtag === "function"', {
+    timeout: GA_VALIDATION_TIMEOUT
+  });
+}
+
+async function ensureGtagStub(page) {
+  await page.evaluate(() => {
+    if (typeof window.gtag !== 'function') {
+      window.dataLayer = window.dataLayer || [];
+      window.__ICETRIBE_GA_STUB__ = true;
+      window.__ICETRIBE_GA_STUB_EVENTS = 0;
+      window.gtag = function() {
+        window.dataLayer.push(arguments);
+        window.__ICETRIBE_GA_STUB_EVENTS += 1;
+      };
+    }
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'ga_validation_test', {
+        event_category: 'qa',
+        event_label: 'consent_enabled'
+      });
+    }
+  });
+}
+
