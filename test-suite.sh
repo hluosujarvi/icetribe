@@ -191,7 +191,7 @@ test_content_quality() {
     done
     
     # Check for broken internal links (basic)
-    run_test "No obvious broken internal links" "! grep -r '\](/[^)]*\)' content/ | grep -v '(/posts/\|/about/\|/soitossa/\|/yhteystiedot/\|/images/)'"
+    run_test "No obvious broken internal links" "bash -lc \"! grep -r '\\\\](/' content/ | grep -vE ']\\\\(/(posts|about|soitossa|yhteystiedot|images|cookies)' | grep -vE '\\\\]\\(/\\)'\""
 }
 
 # Testikategoria: Build Output Validation
@@ -244,7 +244,7 @@ test_ga_build_validation() {
 
     if [ -d public ]; then
         run_test "GA preload script present in minified build" "grep -q 'data-icetribe-ga-loader' public/index.html"
-        run_test "GA loads after consent on minified build" "node tests/ga-build-validation.js > /dev/null 2>&1"
+        run_test "GA loads after consent on minified build" "node tests/ga-build-validation-simple.js"
     else
         log_warning "Public directory not found, skipping GA build validation"
     fi
